@@ -12,7 +12,7 @@ const EventSlider = ({ events, handleClick, openModal }) => {
       slidesToShow: 1,
       slidesToScroll: 1,
       swipe: false,
-      nextArrow: <NextArrow />,
+      nextArrow: <NextArrow isEvent />,
       prevArrow: <PrevArrow />,
       responsive: [
          {

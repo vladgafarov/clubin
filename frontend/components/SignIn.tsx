@@ -24,7 +24,7 @@ const SIGNIN_MUTATION = gql`
    }
 `
 
-const SignIn = ({ openModal }) => {
+const SignIn = ({ setType }) => {
    const { inputs, handleChange, resetForm } = useForm({
       email: '',
       password: '',
@@ -85,7 +85,7 @@ const SignIn = ({ openModal }) => {
          <div className="bottom">
             <span>OR</span>
             <br />
-            <span className="link" onClick={() => openModal('signIn')}>
+            <span className="link" onClick={() => setType('signUp')}>
                Sign Up
             </span>
          </div>

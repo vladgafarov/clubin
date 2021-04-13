@@ -4,11 +4,11 @@ import tw from 'twin.macro'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { RiMapPinLine } from 'react-icons/ri'
 import { format } from 'date-fns'
-import Modal from '../Modal'
-import { useModal } from '../../lib/useModal'
 
 const EventInfoStyles = styled.div`
    position: relative;
+   transition: 0.4s ease-in-out;
+
    ${tw`col-span-3 mr-12 rounded-xl`}
    img {
       object-fit: cover;

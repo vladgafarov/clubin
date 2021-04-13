@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import ArrowUp from '../components/ArrowUp'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import StickyHeader from '../components/StickyHeader'
 import { useMobile } from '../lib/mobileState'
 

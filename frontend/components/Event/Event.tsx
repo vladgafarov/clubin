@@ -132,11 +132,13 @@ const Event = () => {
                />
             )}
          </Events>
-         <Modal
-            event={current ? current : data?.allEvents[0]}
-            closeModal={closeModal}
-            isOpen={isOpen}
-         />
+         {!loading && (
+            <Modal
+               event={current ? current : data?.allEvents[0]}
+               closeModal={closeModal}
+               isOpen={isOpen}
+            />
+         )}
       </EventStyles>
    )
 }

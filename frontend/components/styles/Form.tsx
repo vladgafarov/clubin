@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 const Form = styled.form`
+   transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
    position: relative;
    border-image-source: radial-gradient(
       circle farthest-corner at 12.3% 19.3%,

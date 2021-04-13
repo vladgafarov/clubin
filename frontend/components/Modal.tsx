@@ -1,13 +1,7 @@
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import tw from 'twin.macro'
-import wait from 'waait'
-import { useModal } from '../lib/modalState'
-import RequestReset from './RequestReset'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
-import Button from './styles/Button'
 
 const ModalStyles = styled.div`
    z-index: 1000;
@@ -23,7 +17,7 @@ const ModalStyles = styled.div`
 
 const ModalContent = styled.div`
    ${props => !props.customStyles && tw`bg-white p-5 text-black`}
-   ${tw`relative w-1/3`}
+   ${tw`relative w-11/12 sm:w-4/5 lg:w-2/3 xl:w-1/3`}
 `
 
 const CloseButton = styled.span`
@@ -63,7 +57,7 @@ const Modal: React.FC<IModal> = ({
 
    return (
       <ModalStyles onClick={handleClick} isOpen={isOpen}>
-         <ModalContent>
+         <ModalContent customStyles={customStyles}>
             {children}
             <CloseButton onClick={closeModal}>&times;</CloseButton>
          </ModalContent>

@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import CloseButton from './styles/CloseButton'
 import { useMenu } from '../lib/menuState'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Links from './Links'
-import { useModal } from '../lib/modalState'
+import { useModal } from '../lib/useModal'
 import Modal from './Modal'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -45,30 +46,47 @@ const NavStyles = styled.nav`
    }
 `
 
-type ModalType = 'signIn' | 'signUp'
+const AnimationStyles = styled.span`
+   .modal {
+      display: none;
+   }
+   .modal-enter {
+      opacity: 0;
+   }
+   .modal-enter-active {
+      opacity: 1;
+   }
+   .modal-exit {
+      opacity: 0;
+   }
+   .modal-exit-active {
+      display: none;
+   }
+`
 
 const Nav = () => {
    const { closeMenu, isOpen } = useMenu()
-   const [signInModal, setSignInModal] = useState<boolean>()
-   const [signUpModal, setSignUpModal] = useState<boolean>()
-   const [modalType, setModalType] = useState<ModalType>()
+   let Component = SignIn
+   const { isOpen: isModalOpen, openModal, closeModal } = useModal()
+   const [type, setType] = useState('signIn')
 
-   const openModal = (type: ModalType) => {
-      switch (type) {
-         case 'signIn':
-            setSignInModal(true)
-            setModalType(type)
-         case 'signUp':
-            setSignUpModal(true)
-            setModalType(type)
-      }
+   if (type == 'singIn') {
+      Component = SignIn
+   } else if (type == 'signUp') {
+      Component = SignUp
    }
 
-   const closeModal = () => {
-      setSignInModal(false)
-      setSignUpModal(false)
+   const handleSignInClick = () => {
+      setType('signIn')
+      openModal()
    }
 
+   const handleSignUpClick = () => {
+      setType('signUp')
+      openModal()
+   }
+
+   /* Menu */
    const handleOutsideClick = e => {
       if (e.target.localName !== 'nav' && isOpen) {
          closeMenu()
@@ -90,25 +108,36 @@ const Nav = () => {
       }
    }, [isOpen])
 
+   /* /Menu */
+
    return (
       <>
          <NavStyles isOpen={isOpen}>
             <Links spy={false} />
             <span className="buttons">
-               <Button isGradient onClick={() => openModal('signIn')}>
+               <Button isGradient onClick={handleSignInClick}>
                   Sign In
                </Button>
-               <Button onClick={() => openModal('signUp')}>Sign Up</Button>
+               <Button onClick={handleSignUpClick}>Sign Up</Button>
             </span>
             <CloseButton className="close" onClick={closeMenu}>
                &times;
             </CloseButton>
          </NavStyles>
-         <Modal isModalOpen={signInModal} closeModal={closeModal}>
-            <SignIn />
-         </Modal>
-         <Modal isModalOpen={signUpModal} closeModal={closeModal}>
-            <SignUp />
+         <Modal isOpen={isModalOpen} closeModal={closeModal} customStyles>
+            <AnimationStyles>
+               <TransitionGroup>
+                  <CSSTransition
+                     unmountOnExit
+                     classNames="modal"
+                     className="modal"
+                     key={type}
+                     timeout={{ enter: 400, exit: 400 }}
+                  >
+                     <Component setType={setType} />
+                  </CSSTransition>
+               </TransitionGroup>
+            </AnimationStyles>
          </Modal>
       </>
    )

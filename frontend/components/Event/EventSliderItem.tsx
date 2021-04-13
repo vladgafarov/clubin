@@ -19,7 +19,7 @@ const EventSliderItem = ({ item, handleClick, openModal }) => {
          <div className="title col-span-2">
             <h2
                className="font-pb text-xl text-center underline xl:no-underline"
-               onClick={isMobile && openModal}
+               onClick={isMobile ? openModal : () => {}}
             >
                {item.name}
             </h2>
