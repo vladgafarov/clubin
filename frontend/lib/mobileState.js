@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react'
-import { isMobile } from 'react-device-detect'
+import { isMobile, isDesktop } from 'react-device-detect'
 
 const LocalStateContext = createContext()
 const LocalStateProvider = LocalStateContext.Provider
@@ -9,6 +9,7 @@ export const MobileStateProvider = ({ children }) => {
       <LocalStateProvider
          value={{
             isMobile,
+            isDesktop,
          }}
       >
          {children}
