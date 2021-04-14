@@ -42,7 +42,6 @@ const HomePage = () => {
             <Header />
             <Hero />
          </MainStyles>
-         PC Laptop
          <Event />
          <Artist />
          <Subscribe />
