@@ -44,6 +44,7 @@ const HomePage = () => {
             <Header />
             <Hero />
          </MainStyles>
+         PC
          <Event />
          <Artist />
          <Subscribe />
@@ -51,7 +52,6 @@ const HomePage = () => {
          <RegisterNow />
          <Contact />
          <Footer />
-
          {/* Dynamic elements */}
          <StickyHeader isScrolled={isScrolled} />
          <ArrowUp isScrolled={isScrolled} />
