@@ -41,7 +41,7 @@ const NavStyles = styled.nav`
    .close {
       ${tw`block xl:hidden`}
    }
-   @media (max-width: 1024px) {
+   @media (max-width: 1280px) {
       background-color: #21212e;
    }
 `
@@ -95,7 +95,7 @@ const Nav = () => {
 
    useEffect(() => {
       const els = document.querySelectorAll('.animation-link')
-      if (window.screen.width < 1280) {
+      if (window.screen.width <= 1280) {
          els.forEach(el => el.addEventListener('click', () => closeMenu()))
          window.addEventListener('click', handleOutsideClick)
 

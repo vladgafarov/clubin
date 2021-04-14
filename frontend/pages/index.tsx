@@ -11,7 +11,6 @@ import Footer from '../components/Footer'
 import ArrowUp from '../components/ArrowUp'
 import React, { useEffect, useState } from 'react'
 import StickyHeader from '../components/StickyHeader'
-import { useMobile } from '../lib/mobileState'
 
 const MainStyles = styled.section`
    background-image: url('/images/main2.png');
@@ -22,7 +21,6 @@ const MainStyles = styled.section`
 
 const HomePage = () => {
    const [isScrolled, setScroll] = useState(false)
-   const { isMobile } = useMobile()
 
    const handleScroll = () => {
       if (window.pageYOffset > window.innerHeight / 2) {
@@ -44,7 +42,7 @@ const HomePage = () => {
             <Header />
             <Hero />
          </MainStyles>
-         PC
+         PC Laptop
          <Event />
          <Artist />
          <Subscribe />

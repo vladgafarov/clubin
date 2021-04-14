@@ -1,9 +1,18 @@
+import { useEffect, useState } from 'react'
 import formatDate from '../../lib/event/formatDate'
 import { useMobile } from '../../lib/mobileState'
 
 const EventSliderItem = ({ item, handleClick, openModal }) => {
    const { isMobile } = useMobile()
+   const [isLaptop, setLaptop] = useState(false)
+
    const date = formatDate(new Date(item.time))
+
+   useEffect(() => {
+      if (window.screen.width <= 1280) {
+         setLaptop(true)
+      }
+   })
 
    return (
       <div className="event" onClick={() => handleClick(item.id)}>
@@ -19,7 +28,7 @@ const EventSliderItem = ({ item, handleClick, openModal }) => {
          <div className="title col-span-2">
             <h2
                className="font-pb text-xl text-center underline xl:no-underline"
-               onClick={isMobile ? openModal : () => {}}
+               onClick={isMobile || isLaptop ? openModal : () => {}}
             >
                {item.name}
             </h2>
