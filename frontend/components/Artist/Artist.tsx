@@ -89,7 +89,7 @@ const ArtistStyles = styled.section`
       }
    }
    .slick-prev {
-      left: 40%;
+      left: 35%;
       right: auto !important;
       @media (max-width: 1025px) {
          left: 30%;
@@ -99,7 +99,7 @@ const ArtistStyles = styled.section`
       }
    }
    .slick-next {
-      right: 40%;
+      right: 35%;
       @media (max-width: 1025px) {
          right: 30%;
       }
