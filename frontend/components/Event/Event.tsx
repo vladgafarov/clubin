@@ -119,7 +119,7 @@ const Event = () => {
             />
          )}
          <Events className="events">
-            <h1>Event</h1>
+            <h1>Events</h1>
             <p className="text-left mt-4">Click to view details</p>
             {error && <DisplayError error={error} />}
             {loading ? (
