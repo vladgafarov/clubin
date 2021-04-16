@@ -109,7 +109,10 @@ const Event = () => {
    }
 
    return (
-      <EventStyles className={padding} id="events">
+      <EventStyles
+         className="px-7 md:px-12 lg:px-18 xl:px-12 2xl:px-32"
+         id="events"
+      >
          {loading ? (
             'Loading...'
          ) : (
