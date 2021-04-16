@@ -16,6 +16,10 @@ module.exports = {
          md: '0 0 40px rgb(130, 46, 255)',
          none: 'none',
       },
+      // screens: {
+      //    desktop: '1260px',
+      //    // => @media (min-width: 1280px) { ... }
+      // },
    },
    variants: {
       extend: {},
