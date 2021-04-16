@@ -9,6 +9,7 @@ import { useMenu } from '../lib/menuState'
 const HeaderStyles = styled.header`
    ${tw`
       flex justify-center xl:justify-between items-center
+      -mt-5
    `}
    .open {
       ${tw`
@@ -20,6 +21,9 @@ const HeaderStyles = styled.header`
          z-20
       `}
    }
+   img {
+      /* max-width: 8%; */
+   }
 `
 
 const Header = () => {
@@ -27,7 +31,7 @@ const Header = () => {
 
    return (
       <HeaderStyles className={padding} id="header">
-         <Image src="/images/logo.png" width="" height="" />
+         <Image src="/images/logo.png" width="250" height="" />
          <CgMenuRight className="open" onClick={openMenu} />
          <Nav />
       </HeaderStyles>
