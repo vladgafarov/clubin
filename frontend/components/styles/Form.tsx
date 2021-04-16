@@ -12,7 +12,7 @@ const Form = styled.form`
    border-image-slice: 1;
    ${tw`
       rounded border-2 border-gray-400
-      p-8
+      p-6 2xl:p-8
       text-lg text-black
       bg-white
    `}
