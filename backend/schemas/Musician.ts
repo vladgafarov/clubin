@@ -14,7 +14,8 @@ export const Musician = list({
          many: true,
       }),
       photo: relationship({
-         ref: 'MusicianImage.musician',
+         ref: 'Image.musician',
+         many: false,
          ui: {
             displayMode: 'cards',
             cardFields: ['image', 'altText'],

@@ -16,7 +16,8 @@ export const Event = list({
          many: true,
       }),
       photo: relationship({
-         ref: 'EventImage.event',
+         ref: 'Image.event',
+         many: false,
          ui: {
             displayMode: 'cards',
             cardFields: ['image', 'altText'],

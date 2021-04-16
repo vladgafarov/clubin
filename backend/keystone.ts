@@ -7,8 +7,7 @@ import {
 } from '@keystone-next/keystone/session'
 import { User } from './schemas/User'
 import { Event } from './schemas/Event'
-import { EventImage } from './schemas/EventImage'
-import { MusicianImage } from './schemas/MusicianImage'
+import { Image } from './schemas/Image'
 import { Musician } from './schemas/Musician'
 import { insertSeedData } from './seed-data'
 import { sendPasswordResetEmail } from './lib/mail'
@@ -57,8 +56,7 @@ export default withAuth(
          User,
          Event,
          Musician,
-         EventImage,
-         MusicianImage,
+         Image,
       }),
       ui: {
          isAccessAllowed: ({ session }) => {
