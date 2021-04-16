@@ -10,12 +10,20 @@ const HeroStyles = styled.div`
       flex
       items-center
       flex-grow
-      -mt-20
+      -mt-12
       justify-between
       pr-6 md:pr-0 2xl:pr-32
    `}
    .hero-image {
       ${tw`hidden md:block`}
+      img {
+         width: 800px;
+         height: 800px;
+         @media (max-width: 1280px) {
+            width: 550px;
+            height: 550px;
+         }
+      }
    }
 `
 
@@ -34,12 +42,7 @@ const Hero = () => {
             </Link>
          </div>
          <div className="hero-image">
-            <Image
-               src="/images/main.png"
-               width="800px"
-               height="800px"
-               quality="100"
-            />
+            <Image src="/images/main.png" width="" height="" quality="100" />
          </div>
       </HeroStyles>
    )
