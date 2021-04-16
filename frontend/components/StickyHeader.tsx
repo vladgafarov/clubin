@@ -8,7 +8,7 @@ const StickyHeaderStyles = styled.div`
       hidden xl:flex
       fixed w-full top-0 left-0 z-30
       justify-center space-x-12
-      text-2xl font-pm
+      text-xl 2xl:text-2xl font-pm
       py-5
       transition
       transform -translate-y-full
