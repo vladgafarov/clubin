@@ -9,6 +9,8 @@ const FooterStyles = styled.footer`
    ${tw`py-7`}
    .content {
       ${tw`grid grid-rows-3 md:grid-rows-1 md:grid-flow-col md:auto-cols-auto`}
+      .logo {
+      }
       span {
          ${tw`text-blue-400 font-pb text-xl`}
       }
@@ -39,7 +41,7 @@ const Footer = () => {
       <FooterStyles className={padding}>
          <div className="content">
             <div className="logo">
-               <Image src="/images/logo.png" width="" height="" />
+               <Image src="/images/logo.png" width="260px" height="100px" />
             </div>
             <div className="social">
                <span>Social</span>
