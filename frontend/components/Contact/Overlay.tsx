@@ -25,15 +25,26 @@ const OverlayStyles = styled.div`
       z-10
       transition
    `}
+   &::after {
+      content: '';
+      ${tw`
+         absolute 
+         block
+         w-28 h-28 bg-black bg-opacity-20
+         rounded-full
+         top-1/2 left-1/2
+         transform -translate-x-1/2 -translate-y-1/2
+         z-10
+      `}
+   }
    ${props =>
-      props.disabled || props.status
-         ? tw`opacity-100 pointer-events-auto`
-         : ''}     
+      props.disabled || props.status ? tw`opacity-100 pointer-events-auto` : ''}
    .loader, .tick {
       ${tw`
          hidden
          w-16 h-16
          transition
+         z-20
       `}
    }
    .loader {
@@ -41,7 +52,9 @@ const OverlayStyles = styled.div`
       ${props => (!props.status && props.disabled ? tw`block` : '')}
    }
    .tick {
-      ${tw`w-28 h-28`}
+      ${tw`
+         w-24 h-24
+      `}
       ${props => (props.status ? tw`block` : '')}
    }
 `

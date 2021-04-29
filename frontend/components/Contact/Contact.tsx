@@ -107,7 +107,6 @@ const Contact = () => {
                })}
                onSubmit={async (values, actions) => {
                   const res = await sendEmail(values)
-                  console.log(res)
 
                   if (res?.data !== null) setError(res.data)
                   else {
