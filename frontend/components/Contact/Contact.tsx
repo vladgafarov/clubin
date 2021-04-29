@@ -28,14 +28,14 @@ const ContactStyles = styled.section`
    }
    fieldset {
       ${tw`
-         w-full sm:w-1/2 lg:w-2/5
-         mt-6 lg:mt-10 mb-6 lg:mb-0
+         w-full
+         flex flex-col
       `}
    }
    form {
       ${tw`
-         w-full
-         flex flex-col
+         w-full sm:w-1/2 lg:w-2/5
+         mt-6 lg:mt-10 mb-6 lg:mb-0
       `}
    }
    label {

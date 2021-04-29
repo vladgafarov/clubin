@@ -1,6 +1,6 @@
-import { Field, Form, ErrorMessage, FormikProps, FormikValues } from 'formik'
+import { Field, Form, ErrorMessage, FormikProps } from 'formik'
 import { useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import tw from 'twin.macro'
 import Button from '../styles/Button'
 import { FormValues } from './Contact'
@@ -18,13 +18,13 @@ const ContactForm = ({
    setStatus,
 }: FormikProps<FormValues>) => {
    return (
-      <FieldsetStyles disabled={isSubmitting}>
-         <Overlay
-            isSubmitting={isSubmitting}
-            status={status}
-            setStatus={setStatus}
-         />
-         <Form>
+      <Form>
+         <FieldsetStyles disabled={isSubmitting}>
+            <Overlay
+               isSubmitting={isSubmitting}
+               status={status}
+               setStatus={setStatus}
+            />
             <label htmlFor="name">Name:</label>
             <Field name="name" type="text" placeholder="Your name" />
             <ErrorMessage name="name">
@@ -44,8 +44,8 @@ const ContactForm = ({
             </ErrorMessage>
 
             <Button type="submit">Submit</Button>
-         </Form>
-      </FieldsetStyles>
+         </FieldsetStyles>
+      </Form>
    )
 }
 
