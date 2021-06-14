@@ -11,7 +11,7 @@ const SIGNOUT_MUATION = gql`
 `
 
 const Button = styled.button`
-   ${tw`hover:text-gray-300`}
+   ${tw`text-gray-300`}
 `
 
 const SignOut = () => {

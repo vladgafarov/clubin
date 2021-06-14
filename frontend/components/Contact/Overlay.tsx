@@ -2,9 +2,6 @@ import styled, { keyframes } from 'styled-components'
 import tw from 'twin.macro'
 import { CgSpinner } from 'react-icons/cg'
 import { TiTick } from 'react-icons/ti'
-import { FormikProps } from 'formik'
-import { FormValues } from './Contact'
-import { useEffect } from 'react'
 
 const rotate = keyframes`
   from {

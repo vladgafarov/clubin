@@ -3,10 +3,10 @@ import { padding } from './Page'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import SignIn from './SignIn'
+import SignIn from './Login/SignIn'
 import { useModal } from '../lib/useModal'
 import { useState } from 'react'
-import SignUp from './SignUp'
+import SignUp from './Login/SignUp'
 import Modal from './Modal'
 
 const RegisterStyles = styled.section`

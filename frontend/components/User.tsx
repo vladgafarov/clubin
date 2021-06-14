@@ -13,6 +13,8 @@ export const CURRENT_USER_QUERY = gql`
 `
 
 export const useUser = () => {
-   const { data, loading, error } = useQuery(CURRENT_USER_QUERY)
-   return { data, loading, error }
+   // const { data, loading, error } = useQuery(CURRENT_USER_QUERY)
+   // return { data?.authenticatedItem, loading, error }
+   const { data } = useQuery(CURRENT_USER_QUERY)
+   return data?.authenticatedItem
 }

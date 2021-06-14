@@ -7,9 +7,13 @@ import React, { useEffect, useState } from 'react'
 import Links from './Links'
 import { useModal } from '../lib/useModal'
 import Modal from './Modal'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import SignIn from './Login/SignIn'
+import SignUp from './Login/SignUp'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { useUser } from './User'
+import { FaUserAlt } from 'react-icons/fa'
+import { useMobile } from '../lib/mobileState'
+import SignOut from './SignOut'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -64,7 +68,24 @@ const AnimationStyles = styled.span`
    }
 `
 
+const UserStyles = styled.div`
+   ${tw`
+      flex flex-col md:flex-row
+   `}
+   p {
+      ${tw`pl-2 cursor-pointer`}
+   }
+   div {
+      ${tw`
+         flex items-center
+      `}
+   }
+`
+
 const Nav = () => {
+   const user = useUser()
+   const { isMobile } = useMobile()
+
    const { closeMenu, isOpen } = useMenu()
    let Component = SignIn
    const { isOpen: isModalOpen, openModal, closeModal } = useModal()
@@ -114,12 +135,22 @@ const Nav = () => {
       <>
          <NavStyles isOpen={isOpen}>
             <Links spy={false} />
-            <span className="buttons">
-               <Button isGradient onClick={handleSignInClick}>
-                  Sign In
-               </Button>
-               <Button onClick={handleSignUpClick}>Sign Up</Button>
-            </span>
+            {!user ? (
+               <UserStyles>
+                  <div>
+                     <FaUserAlt />
+                     <p>Profile</p>
+                  </div>
+                  {isMobile && <SignOut />}
+               </UserStyles>
+            ) : (
+               <span className="buttons">
+                  <Button isGradient onClick={handleSignInClick}>
+                     Sign In
+                  </Button>
+                  <Button onClick={handleSignUpClick}>Sign Up</Button>
+               </span>
+            )}
             <CloseButton className="close" onClick={closeMenu}>
                &times;
             </CloseButton>

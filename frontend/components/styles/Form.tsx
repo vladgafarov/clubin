@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-const Form = styled.form`
+const FormStyles = styled.div`
    transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
    position: relative;
    border-image-source: radial-gradient(
@@ -20,14 +20,19 @@ const Form = styled.form`
       ${tw`font-pm text-3xl mb-4`}
    }
    fieldset {
-      ${tw`flex flex-col justify-center`}
+      ${tw`flex flex-col justify-center relative`}
       &[disabled] {
          opacity: 0.5;
+      }
+      label {
+         ${tw`font-pm text-xl`}
+         &:not(:first-of-type) {
+            ${tw`mt-5`}
+         }
       }
       input {
          ${tw`
             px-5 py-3
-            mb-4
             border-2 border-gray-300 rounded transition 
             w-full
             font-pm
@@ -42,7 +47,7 @@ const Form = styled.form`
          outline: none;
       }
       button {
-         ${tw`mt-4`}
+         ${tw`mt-8`}
       }
    }
    .bottom {
@@ -83,4 +88,4 @@ const Form = styled.form`
    }
 `
 
-export default Form
+export default FormStyles
