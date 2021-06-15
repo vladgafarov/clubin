@@ -1,6 +1,7 @@
 import Button from './styles/Button'
 import styled from 'styled-components'
 import tw from 'twin.macro'
+import Link from 'next/link'
 import CloseButton from './styles/CloseButton'
 import { useMenu } from '../lib/menuState'
 import React, { useEffect, useState } from 'react'
@@ -74,8 +75,8 @@ const UserStyles = styled.div`
    ${tw`
       flex flex-col md:flex-row
    `}
-   p {
-      ${tw`pl-2 cursor-pointer`}
+   a {
+      ${tw`ml-2 cursor-pointer`}
    }
    div {
       ${tw`
@@ -144,7 +145,9 @@ const Nav = () => {
                      elem={
                         <div>
                            <FaUserAlt />
-                           <p>Profile</p>
+                           <Link href="profile">
+                              <a className="animation-link">Profile</a>
+                           </Link>
                         </div>
                      }
                   >

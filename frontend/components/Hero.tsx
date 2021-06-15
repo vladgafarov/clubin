@@ -30,7 +30,7 @@ const HeroStyles = styled.div`
 const Hero = () => {
    return (
       <HeroStyles className={padding}>
-         <div className="">
+         <div>
             <p className="font-pm text-lg">IT’S NOT JUST LOVE FOR MUSIC</p>
             <h1 className="text-6xl md:text-7xl text-blue-400 font-pb py-6">
                Feel The Rhythm
