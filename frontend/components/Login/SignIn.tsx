@@ -30,9 +30,6 @@ const SIGNIN_MUTATION = gql`
 const ErrorStyles = 'text-red-300 font-pm'
 
 const SignIn = ({ setType }) => {
-   // const { data: userData } = useUser()
-   // const user = userData?.authenticatedItem
-
    const [signIn, { data, loading, error: errorMutation }] = useMutation(
       SIGNIN_MUTATION
    )

@@ -12,8 +12,10 @@ import SignUp from './Login/SignUp'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useUser } from './User'
 import { FaUserAlt } from 'react-icons/fa'
+import { RiLogoutBoxFill } from 'react-icons/ri'
 import { useMobile } from '../lib/mobileState'
 import SignOut from './SignOut'
+import Tooltip from './Tooltip'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -135,12 +137,19 @@ const Nav = () => {
       <>
          <NavStyles isOpen={isOpen}>
             <Links spy={false} />
-            {!user ? (
+            {user ? (
                <UserStyles>
-                  <div>
-                     <FaUserAlt />
-                     <p>Profile</p>
-                  </div>
+                  <Tooltip
+                     wrapper={false}
+                     elem={
+                        <div>
+                           <FaUserAlt />
+                           <p>Profile</p>
+                        </div>
+                     }
+                  >
+                     <SignOut />
+                  </Tooltip>
                   {isMobile && <SignOut />}
                </UserStyles>
             ) : (
