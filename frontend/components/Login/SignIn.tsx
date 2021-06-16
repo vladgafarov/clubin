@@ -63,7 +63,7 @@ const SignIn = ({ setType }) => {
                   variables: values,
                   refetchQueries: [{ query: CURRENT_USER_QUERY }],
                })
-
+               // TODO: UI
                // if (loading) {
                //    actions.setSubmitting(true)
                //    console.log('loading')

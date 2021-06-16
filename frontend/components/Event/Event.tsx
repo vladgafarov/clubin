@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
-import { padding } from '../Page'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/client'
 import EventSlider from './EventSlider'
