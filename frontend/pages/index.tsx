@@ -11,6 +11,7 @@ import Footer from '../components/Footer'
 import ArrowUp from '../components/ArrowUp'
 import React, { useEffect, useState } from 'react'
 import StickyHeader from '../components/StickyHeader'
+import { useUser } from '../components/User'
 
 const MainStyles = styled.section`
    background-image: url('/images/main2.png');
@@ -21,6 +22,7 @@ const MainStyles = styled.section`
 
 const HomePage = () => {
    const [isScrolled, setScroll] = useState(false)
+   const user = useUser()
 
    const handleScroll = () => {
       if (window.pageYOffset > window.innerHeight / 2) {
@@ -46,7 +48,7 @@ const HomePage = () => {
          <Artist />
          <Subscribe />
          <About />
-         <RegisterNow />
+         {!user && <RegisterNow />}
          <Contact />
          <Footer />
          {/* Dynamic elements */}
