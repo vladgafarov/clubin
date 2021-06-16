@@ -25,6 +25,10 @@ export const Event = list({
             inlineEdit: { fields: ['image', 'altText'] },
          },
       }),
+      user: relationship({
+         ref: 'User.event',
+         many: true,
+      }),
    },
    ui: {
       listView: {
