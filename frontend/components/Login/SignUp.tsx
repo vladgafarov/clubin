@@ -32,8 +32,6 @@ const SignUp = ({ setType }) => {
       await signup()
    }
 
-   console.log(data)
-
    return (
       <>
          <Formik
