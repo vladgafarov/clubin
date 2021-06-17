@@ -129,6 +129,7 @@ const Event = () => {
             ) : (
                <EventSlider
                   events={data?.allEvents}
+                  currentEvent={current ? current : data?.allEvents[0]}
                   handleClick={handleClick}
                   openModal={openModal}
                />

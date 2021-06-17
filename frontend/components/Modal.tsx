@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import tw from 'twin.macro'

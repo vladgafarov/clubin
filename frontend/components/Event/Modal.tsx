@@ -1,7 +1,15 @@
 import Modal from '../Modal'
+import styled from 'styled-components'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { RiMapPinLine } from 'react-icons/ri'
 import { format } from 'date-fns'
+import tw from 'twin.macro'
+
+export const ModalButton = styled.button`
+   ${tw`
+   bg-purple-500 text-xl font-pb py-2 px-5 rounded-full text-white block my-0 mx-auto transition transform hover:scale-105 focus:ring-indigo-500 focus:ring-2
+   `}
+`
 
 const EventModal = ({ event, isOpen, closeModal }) => {
    return (
@@ -29,12 +37,7 @@ const EventModal = ({ event, isOpen, closeModal }) => {
             ))}
          </div>
 
-         <button
-            type="button"
-            className="bg-purple-500 text-xl font-pb py-2 px-5 rounded-full text-white block my-0 mx-auto transition transform hover:scale-105 focus:ring-indigo-500 focus:ring-2"
-         >
-            Book Event
-         </button>
+         <ModalButton type="button">Book Event</ModalButton>
       </Modal>
    )
 }

@@ -1,7 +1,13 @@
 import formatDate from '../../lib/event/formatDate'
 import { useMobile } from '../../lib/mobileState'
 
-const EventSliderItem = ({ item, handleClick, handleBookClick, openModal }) => {
+const EventSliderItem = ({
+   item,
+   handleClick,
+   handleBookClick,
+   openModal,
+   openBookModal,
+}) => {
    const { isMobile } = useMobile()
 
    const date = formatDate(new Date(item.time))
@@ -31,7 +37,7 @@ const EventSliderItem = ({ item, handleClick, handleBookClick, openModal }) => {
          <button
             type="button"
             className="bg-purple-500 font-pb"
-            onClick={() => handleBookClick(item.id)}
+            onClick={openBookModal}
          >
             Book Event
          </button>
