@@ -1,13 +1,7 @@
 import formatDate from '../../lib/event/formatDate'
 import { useMobile } from '../../lib/mobileState'
 
-const EventSliderItem = ({
-   item,
-   handleClick,
-   handleBookClick,
-   openModal,
-   openBookModal,
-}) => {
+const EventSliderItem = ({ item, handleClick, openModal, openBookModal }) => {
    const { isMobile } = useMobile()
 
    const date = formatDate(new Date(item.time))

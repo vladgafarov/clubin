@@ -11,7 +11,11 @@ import { useMutation } from '@apollo/client'
 import Modal from '../Modal'
 import { useModal } from '../../lib/useModal'
 import { format } from 'date-fns'
-import { ModalButton } from './Modal'
+import { ModalButton } from './ModalButtonStyles'
+import { CgSpinner } from 'react-icons/cg'
+import { TiTick } from 'react-icons/ti'
+import DisplayError from '../ErrorMessage'
+import { useEffect } from 'react'
 
 const BOOK_EVENT_MUTATION = gql`
    mutation BOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
@@ -86,7 +90,10 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
    } = useModal()
 
    const user = useUser()
-   const [bookEvent, mutationResponse] = useMutation(BOOK_EVENT_MUTATION)
+   const [bookEvent, { loading, data, error }] = useMutation(
+      BOOK_EVENT_MUTATION
+   )
+   let passData = data
 
    const handleBookClick = async itemId => {
       await bookEvent({
@@ -96,6 +103,16 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
          },
       })
    }
+
+   useEffect(() => {
+      if (!loading) {
+         setTimeout(() => {
+            passData = undefined
+         }, 2000)
+      }
+   }, [data])
+
+   console.log(passData)
 
    return (
       <>
@@ -109,7 +126,6 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
                               key={item.id}
                               item={item}
                               handleClick={handleClick}
-                              handleBookClick={handleBookClick}
                               openModal={openModal}
                               openBookModal={openBookModal}
                            />
@@ -145,7 +161,21 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
                   <div className="border"></div>
                </div>
             </EventInfoStyles>
-            <ModalButton type="button">Book Event</ModalButton>
+            {error && <DisplayError error={error} />}
+            <ModalButton
+               type="button"
+               onClick={() => handleBookClick(currentEvent.id)}
+               disabled={loading || passData}
+               success={passData}
+            >
+               Book Event
+               <div className="loading absolute inset-0 flex items-center justify-center text-3xl bg-purple-500 ">
+                  <CgSpinner className="animate-spin" />
+               </div>
+               <div className="success absolute inset-0 flex items-center justify-center text-3xl bg-purple-500 ">
+                  <TiTick fill="#ffffff" className="tick" />
+               </div>
+            </ModalButton>
          </Modal>
       </>
    )
