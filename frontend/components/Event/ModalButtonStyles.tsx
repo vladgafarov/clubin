@@ -1,5 +1,23 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import tw from 'twin.macro'
+
+const fade = keyframes`
+  from {
+    opacity: 1;
+  }
+  75% {
+     opacity: 1;
+  }
+  50% {
+     opacity: 1;
+  }
+  25% {
+     opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`
 
 export const ModalButton = styled.button`
    ${tw`
@@ -20,7 +38,7 @@ export const ModalButton = styled.button`
       cursor: wait;
    }
    .success {
-      opacity: ${props => (props.success ? 1 : 0)};
+      animation: ${props => props.success && fade} 3s 1 ease-out;
    }
    &:disabled {
       opacity: 0.9;
