@@ -4,6 +4,8 @@ import tw from 'twin.macro'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { RiMapPinLine } from 'react-icons/ri'
 import { format } from 'date-fns'
+import { useContext } from 'react'
+import { BookEventContext } from './BookEventContext'
 
 const EventInfoStyles = styled.div`
    position: relative;
@@ -29,7 +31,9 @@ const EventInfoStyles = styled.div`
    }
 `
 
-const EventInfo = ({ event, openModal }) => {
+const EventInfo = ({ openModal }) => {
+   const { currentEvent: event } = useContext(BookEventContext)
+
    return (
       <>
          <EventInfoStyles className="hidden xl:block">

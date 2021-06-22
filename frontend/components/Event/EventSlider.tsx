@@ -11,11 +11,11 @@ import { useMutation } from '@apollo/client'
 import Modal from '../Modal'
 import { useModal } from '../../lib/useModal'
 import { format } from 'date-fns'
-import { ModalButton } from './ModalButtonStyles'
-import { CgSpinner } from 'react-icons/cg'
-import { TiTick } from 'react-icons/ti'
+import ModalButton from './ModalButton'
 import DisplayError from '../ErrorMessage'
 import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { BookEventContext } from './BookEventContext'
 
 const BOOK_EVENT_MUTATION = gql`
    mutation BOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
@@ -61,7 +61,7 @@ const EventInfoStyles = styled.div`
    }
 `
 
-const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
+const EventSlider = ({ events, handleClick, openModal }) => {
    const settings = {
       dots: false,
       infinite: false,
@@ -81,6 +81,11 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
       ],
    }
 
+   const {
+      mutationResult: { error },
+      currentEvent,
+   } = useContext(BookEventContext)
+
    const newEvents = eventSlider(5, events)
 
    const {
@@ -88,20 +93,6 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
       openModal: openBookModal,
       closeModal: closeBookModal,
    } = useModal()
-
-   const user = useUser()
-   const [bookEvent, { loading, data, error, called }] = useMutation(
-      BOOK_EVENT_MUTATION
-   )
-
-   const handleBookClick = async itemId => {
-      await bookEvent({
-         variables: {
-            id: itemId,
-            userId: user.id,
-         },
-      })
-   }
 
    return (
       <>
@@ -151,20 +142,7 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
                </div>
             </EventInfoStyles>
             {error && <DisplayError error={error} />}
-            <ModalButton
-               type="button"
-               onClick={() => handleBookClick(currentEvent.id)}
-               disabled={loading}
-               success={!loading && called ? true : false}
-            >
-               Book Event
-               <div className="loading absolute inset-0 flex items-center justify-center text-3xl bg-purple-500 ">
-                  <CgSpinner className="animate-spin" />
-               </div>
-               <div className="success absolute inset-0 flex items-center justify-center text-3xl bg-purple-500 ">
-                  <TiTick fill="#ffffff" className="tick" />
-               </div>
-            </ModalButton>
+            <ModalButton />
          </Modal>
       </>
    )

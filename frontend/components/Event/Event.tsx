@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import EventSlider from './EventSlider'
 import DisplayError from '../ErrorMessage'
 import EventInfo from './EventInfo'
 import { useState } from 'react'
 import { useModal } from '../../lib/useModal'
-import Modal from './Modal'
+import EventInfoModal from './EventInfoModal'
+import { BookEventContext } from './BookEventContext'
+import { useUser } from '../User'
 
 const EventStyles = styled.div`
    ${tw`
@@ -97,7 +99,20 @@ const EVENT_QUERY = gql`
    }
 `
 
-const Event = () => {
+const BOOK_EVENT_MUTATION = gql`
+   mutation BOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
+      updateEvent(id: $id, data: { user: { connect: { id: $userId } } }) {
+         user {
+            name
+         }
+      }
+   }
+`
+
+const Event: React.FC = () => {
+   const user = useUser()
+   const [bookEvent, mutationResult] = useMutation(BOOK_EVENT_MUTATION)
+
    const { data, loading, error } = useQuery(EVENT_QUERY)
    const { isOpen, openModal, closeModal } = useModal()
    const [current, setCurrent] = useState<Object>()
@@ -107,42 +122,48 @@ const Event = () => {
       setCurrent(newEvent)
    }
 
+   const handleBookClick = async itemId => {
+      await bookEvent({
+         variables: {
+            id: itemId,
+            userId: user.id,
+         },
+      })
+   }
+
+   const contextValue = {
+      bookEvent,
+      mutationResult,
+      handleBookClick,
+      currentEvent: current ? current : data?.allEvents[0],
+   }
+
    return (
-      <EventStyles
-         className="px-7 md:px-12 lg:px-18 xl:px-12 2xl:px-32"
-         id="events"
-      >
-         {loading ? (
-            'Loading...'
-         ) : (
-            <EventInfo
-               event={current ? current : data?.allEvents[0]}
-               openModal={openModal}
-            />
-         )}
-         <Events className="events">
-            <h1>Events</h1>
-            <p className="text-left mt-4">Click to view details</p>
-            {error && <DisplayError error={error} />}
-            {loading ? (
-               'Loading...'
-            ) : (
-               <EventSlider
-                  events={data?.allEvents}
-                  currentEvent={current ? current : data?.allEvents[0]}
-                  handleClick={handleClick}
-                  openModal={openModal}
-               />
+      <BookEventContext.Provider value={contextValue}>
+         <EventStyles
+            className="px-7 md:px-12 lg:px-18 xl:px-12 2xl:px-32"
+            id="events"
+         >
+            {loading ? 'Loading...' : <EventInfo openModal={openModal} />}
+            <Events className="events">
+               <h1>Events</h1>
+               <p className="text-left mt-4">Click to view details</p>
+               {error && <DisplayError error={error} />}
+               {loading ? (
+                  'Loading...'
+               ) : (
+                  <EventSlider
+                     events={data?.allEvents}
+                     handleClick={handleClick}
+                     openModal={openModal}
+                  />
+               )}
+            </Events>
+            {!loading && (
+               <EventInfoModal closeModal={closeModal} isOpen={isOpen} />
             )}
-         </Events>
-         {!loading && (
-            <Modal
-               event={current ? current : data?.allEvents[0]}
-               closeModal={closeModal}
-               isOpen={isOpen}
-            />
-         )}
-      </EventStyles>
+         </EventStyles>
+      </BookEventContext.Provider>
    )
 }
 

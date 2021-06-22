@@ -4,9 +4,13 @@ import tw from 'twin.macro'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { RiMapPinLine } from 'react-icons/ri'
 import { format } from 'date-fns'
-import { ModalButton } from './ModalButtonStyles'
+import ModalButton from './ModalButton'
+import { useContext } from 'react'
+import { BookEventContext } from './BookEventContext'
 
-const EventModal = ({ event, isOpen, closeModal }) => {
+const EventInfoModal = ({ isOpen, closeModal }) => {
+   const { currentEvent: event } = useContext(BookEventContext)
+
    return (
       <Modal isOpen={isOpen} closeModal={closeModal}>
          <h1 className="text-3xl mb-2 font-pb">{event.name}</h1>
@@ -32,9 +36,9 @@ const EventModal = ({ event, isOpen, closeModal }) => {
             ))}
          </div>
 
-         <ModalButton type="button">Book Event</ModalButton>
+         <ModalButton />
       </Modal>
    )
 }
 
-export default EventModal
+export default EventInfoModal
