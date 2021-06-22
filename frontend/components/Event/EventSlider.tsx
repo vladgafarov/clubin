@@ -15,7 +15,7 @@ import { ModalButton } from './ModalButtonStyles'
 import { CgSpinner } from 'react-icons/cg'
 import { TiTick } from 'react-icons/ti'
 import DisplayError from '../ErrorMessage'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const BOOK_EVENT_MUTATION = gql`
    mutation BOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
@@ -90,10 +90,9 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
    } = useModal()
 
    const user = useUser()
-   const [bookEvent, { loading, data, error }] = useMutation(
+   const [bookEvent, { loading, data, error, called }] = useMutation(
       BOOK_EVENT_MUTATION
    )
-   let passData = data
 
    const handleBookClick = async itemId => {
       await bookEvent({
@@ -103,16 +102,6 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
          },
       })
    }
-
-   useEffect(() => {
-      if (!loading) {
-         setTimeout(() => {
-            passData = undefined
-         }, 2000)
-      }
-   }, [data])
-
-   console.log(passData)
 
    return (
       <>
@@ -165,8 +154,8 @@ const EventSlider = ({ events, handleClick, openModal, currentEvent }) => {
             <ModalButton
                type="button"
                onClick={() => handleBookClick(currentEvent.id)}
-               disabled={loading || passData}
-               success={passData}
+               disabled={loading}
+               success={!loading && called ? true : false}
             >
                Book Event
                <div className="loading absolute inset-0 flex items-center justify-center text-3xl bg-purple-500 ">
