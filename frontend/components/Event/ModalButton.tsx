@@ -23,7 +23,7 @@ const fade = keyframes`
   }
 `
 
-const ModalButtonStyles = styled.button`
+const ButtonStyles = styled.button`
    ${tw`
       relative overflow-hidden
       bg-purple-500 
@@ -53,10 +53,16 @@ const ModalButtonStyles = styled.button`
    }
 `
 
+const CancelButtonStyles = styled(ButtonStyles)`
+   ${tw`bg-red-500 focus:ring-red-300`}
+`
+
 const ModalButton: React.FC = () => {
    const {
       handleBookClick,
-      mutationResult: { loading, called },
+      handleUnBookClick,
+      bookMutationResult: { loading, called },
+      unBookMutationResult: { loading: cancelLoading, called: cancelCalled },
       currentEvent,
       user,
    } = useContext(BookEventContext)
@@ -67,12 +73,30 @@ const ModalButton: React.FC = () => {
 
    if (isBookedCurrentUser) {
       return (
-         <span className="text-center">You've already booked this event</span>
+         <>
+            <span className="text-center">
+               You've already booked this event
+            </span>
+            <CancelButtonStyles
+               type="button"
+               onClick={() => handleUnBookClick(currentEvent.id)}
+               disabled={cancelLoading}
+               success={!cancelLoading && cancelCalled ? true : false}
+            >
+               Cancel book
+               <div className="loading absolute inset-0 flex items-center justify-center text-3xl bg-red-500 ">
+                  <CgSpinner className="animate-spin" />
+               </div>
+               <div className="success absolute inset-0 flex items-center justify-center text-3xl bg-red-500 ">
+                  <TiTick fill="#ffffff" className="tick" />
+               </div>
+            </CancelButtonStyles>
+         </>
       )
    }
 
    return (
-      <ModalButtonStyles
+      <ButtonStyles
          type="button"
          onClick={() => handleBookClick(currentEvent.id)}
          disabled={loading}
@@ -85,7 +109,7 @@ const ModalButton: React.FC = () => {
          <div className="success absolute inset-0 flex items-center justify-center text-3xl bg-purple-500 ">
             <TiTick fill="#ffffff" className="tick" />
          </div>
-      </ModalButtonStyles>
+      </ButtonStyles>
    )
 }
 

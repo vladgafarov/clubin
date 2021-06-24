@@ -72,7 +72,8 @@ const EventSlider = ({ events, handleClick, openModal }) => {
    }
 
    const {
-      mutationResult: { error },
+      bookMutationResult: { error },
+      unBookMutationResult: { error: cancelError },
       currentEvent,
    } = useContext(BookEventContext)
 
@@ -131,7 +132,9 @@ const EventSlider = ({ events, handleClick, openModal }) => {
                   <div className="border"></div>
                </div>
             </EventInfoStyles>
-            {error && <DisplayError error={error} />}
+            {(error || cancelError) && (
+               <DisplayError error={error || cancelError} />
+            )}
             <ModalButton />
          </Modal>
       </>

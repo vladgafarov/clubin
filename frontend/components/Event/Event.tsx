@@ -137,9 +137,22 @@ const BOOK_EVENT_MUTATION = gql`
    }
 `
 
+const UNBOOK_EVENT_MUTATION = gql`
+   mutation UNBOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
+      updateEvent(id: $id, data: { user: { disconnect: { id: $userId } } }) {
+         user {
+            name
+         }
+      }
+   }
+`
+
 const Event: React.FC = () => {
    const user = useUser()
-   const [bookEvent, mutationResult] = useMutation(BOOK_EVENT_MUTATION)
+   const [bookEvent, bookMutationResult] = useMutation(BOOK_EVENT_MUTATION)
+   const [unBookEvent, unBookMutationResult] = useMutation(
+      UNBOOK_EVENT_MUTATION
+   )
 
    const { data, loading, error } = useQuery(EVENT_QUERY)
    const { isOpen, openModal, closeModal } = useModal()
@@ -165,10 +178,27 @@ const Event: React.FC = () => {
       })
    }
 
+   const handleUnBookClick = async itemId => {
+      await unBookEvent({
+         variables: {
+            id: itemId,
+            userId: user.id,
+         },
+         refetchQueries: [
+            {
+               query: CURRENT_EVENT_QUERY,
+               variables: { id: itemId },
+            },
+         ],
+      })
+   }
+
    const contextValue = {
       bookEvent,
-      mutationResult,
+      bookMutationResult,
+      unBookMutationResult,
       handleBookClick,
+      handleUnBookClick,
       currentEvent: current ? current : data?.allEvents[0],
       user,
    }
