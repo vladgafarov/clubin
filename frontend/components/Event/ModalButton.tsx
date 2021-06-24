@@ -58,7 +58,18 @@ const ModalButton: React.FC = () => {
       handleBookClick,
       mutationResult: { loading, called },
       currentEvent,
+      user,
    } = useContext(BookEventContext)
+
+   const isBookedCurrentUser = currentEvent.user.some(
+      data => data.id === user.id
+   )
+
+   if (isBookedCurrentUser) {
+      return (
+         <span className="text-center">You've already booked this event</span>
+      )
+   }
 
    return (
       <ModalButtonStyles

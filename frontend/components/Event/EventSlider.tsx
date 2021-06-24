@@ -17,16 +17,6 @@ import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
 
-const BOOK_EVENT_MUTATION = gql`
-   mutation BOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
-      updateEvent(id: $id, data: { user: { connect: { id: $userId } } }) {
-         user {
-            name
-         }
-      }
-   }
-`
-
 const EventInfoStyles = styled.div`
    ${tw`mb-3`}
    div {

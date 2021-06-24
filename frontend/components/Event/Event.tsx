@@ -95,6 +95,34 @@ const EVENT_QUERY = gql`
                publicUrl
             }
          }
+         user {
+            id
+         }
+      }
+   }
+`
+
+const CURRENT_EVENT_QUERY = gql`
+   query CURRENT_EVENT_QUERY($id: ID!) {
+      Event(where: { id: $id }) {
+         name
+         time
+         description
+         id
+         place
+         musician {
+            name
+            id
+         }
+         photo {
+            altText
+            image {
+               publicUrl
+            }
+         }
+         user {
+            id
+         }
       }
    }
 `
@@ -128,6 +156,12 @@ const Event: React.FC = () => {
             id: itemId,
             userId: user.id,
          },
+         refetchQueries: [
+            {
+               query: CURRENT_EVENT_QUERY,
+               variables: { id: itemId },
+            },
+         ],
       })
    }
 
@@ -136,6 +170,7 @@ const Event: React.FC = () => {
       mutationResult,
       handleBookClick,
       currentEvent: current ? current : data?.allEvents[0],
+      user,
    }
 
    return (
