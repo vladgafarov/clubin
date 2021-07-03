@@ -8,6 +8,7 @@ import { useModal } from '../lib/useModal'
 import { useState } from 'react'
 import SignUp from './Login/SignUp'
 import Modal from './Modal'
+import { useRegisterModal } from '../lib/registerModal'
 
 const RegisterStyles = styled.section`
    background-image: url('/images/img6.png');
@@ -43,25 +44,7 @@ const AnimationStyles = styled.span`
 `
 
 const RegisterNow = () => {
-   let Component = SignIn
-   const { isOpen: isModalOpen, openModal, closeModal } = useModal()
-   const [type, setType] = useState('signUp')
-
-   if (type == 'singIn') {
-      Component = SignIn
-   } else if (type == 'signUp') {
-      Component = SignUp
-   }
-
-   const handleSignInClick = () => {
-      setType('signIn')
-      openModal()
-   }
-
-   const handleSignUpClick = () => {
-      setType('signUp')
-      openModal()
-   }
+   const { handleSignUpClick } = useRegisterModal()
 
    return (
       <>
@@ -74,21 +57,6 @@ const RegisterNow = () => {
                Register Now
             </Button>
          </RegisterStyles>
-         <Modal isOpen={isModalOpen} closeModal={closeModal} customStyles>
-            <AnimationStyles>
-               <TransitionGroup>
-                  <CSSTransition
-                     unmountOnExit
-                     classNames="modal"
-                     className="modal"
-                     key={type}
-                     timeout={{ enter: 400, exit: 400 }}
-                  >
-                     <Component setType={setType} />
-                  </CSSTransition>
-               </TransitionGroup>
-            </AnimationStyles>
-         </Modal>
       </>
    )
 }

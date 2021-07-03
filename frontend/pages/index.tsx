@@ -12,6 +12,7 @@ import ArrowUp from '../components/ArrowUp'
 import React, { useEffect, useState } from 'react'
 import StickyHeader from '../components/StickyHeader'
 import { useUser } from '../components/User'
+import RegisterModal from '../components/RegisterModal'
 
 const MainStyles = styled.section`
    background-image: url('/images/main2.png');
@@ -54,6 +55,7 @@ const HomePage = () => {
          {/* Dynamic elements */}
          <StickyHeader isScrolled={isScrolled} />
          <ArrowUp isScrolled={isScrolled} />
+         <RegisterModal />
       </>
    )
 }

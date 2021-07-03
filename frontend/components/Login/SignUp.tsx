@@ -7,6 +7,7 @@ import Button from '../styles/Button'
 import * as Yup from 'yup'
 import FormStyles from '../styles/Form'
 import Overlay from '../Contact/Overlay'
+import { useRegisterModal } from '../../lib/registerModal'
 
 const SIGNUP_MUTATION = gql`
    mutation SIGNUP_MUTATION(
@@ -24,8 +25,10 @@ const SIGNUP_MUTATION = gql`
 
 const ErrorStyles = 'text-red-300 font-pm'
 
-const SignUp = ({ setType }) => {
+const SignUp = () => {
    const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION)
+
+   const { setSignIn } = useRegisterModal()
 
    const handleSubmit = async e => {
       e.preventDefault()
@@ -109,10 +112,7 @@ const SignUp = ({ setType }) => {
                         <div className="bottom">
                            <span>OR</span>
                            <br />
-                           <span
-                              className="link"
-                              onClick={() => setType('signIn')}
-                           >
+                           <span className="link" onClick={setSignIn}>
                               Sign In
                            </span>
                         </div>

@@ -16,6 +16,7 @@ import DisplayError from '../ErrorMessage'
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
+import Button from '../styles/Button'
 
 const EventInfoStyles = styled.div`
    ${tw`mb-3`}

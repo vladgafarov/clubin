@@ -8,6 +8,7 @@ import FormStyles from '../styles/Form'
 import { CURRENT_USER_QUERY, useUser } from '../User'
 import Overlay from '../Contact/Overlay'
 import wait from 'waait'
+import { useRegisterModal } from '../../lib/registerModal'
 
 const SIGNIN_MUTATION = gql`
    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -29,10 +30,12 @@ const SIGNIN_MUTATION = gql`
 
 const ErrorStyles = 'text-red-300 font-pm'
 
-const SignIn = ({ setType }) => {
+const SignIn = () => {
    const [signIn, { data, loading, error: errorMutation }] = useMutation(
       SIGNIN_MUTATION
    )
+
+   const { setSignUp } = useRegisterModal()
 
    const error =
       data?.authenticateUserWithPassword.__typename ===
@@ -127,10 +130,7 @@ const SignIn = ({ setType }) => {
                         <div className="bottom">
                            <span>OR</span>
                            <br />
-                           <span
-                              className="link"
-                              onClick={() => setType('signUp')}
-                           >
+                           <span className="link" onClick={setSignUp}>
                               Sign Up
                            </span>
                         </div>

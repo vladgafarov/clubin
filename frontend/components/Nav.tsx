@@ -17,6 +17,7 @@ import { RiLogoutBoxFill } from 'react-icons/ri'
 import { useMobile } from '../lib/mobileState'
 import SignOut from './SignOut'
 import Tooltip from './Tooltip'
+import { useRegisterModal } from '../lib/registerModal'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -90,25 +91,12 @@ const Nav = () => {
    const { isMobile } = useMobile()
 
    const { closeMenu, isOpen } = useMenu()
-   let Component = SignIn
-   const { isOpen: isModalOpen, openModal, closeModal } = useModal()
-   const [type, setType] = useState('signIn')
 
-   if (type == 'singIn') {
-      Component = SignIn
-   } else if (type == 'signUp') {
-      Component = SignUp
-   }
-
-   const handleSignInClick = () => {
-      setType('signIn')
-      openModal()
-   }
-
-   const handleSignUpClick = () => {
-      setType('signUp')
-      openModal()
-   }
+   const {
+      isOpen: isModalOpen,
+      handleSignInClick,
+      handleSignUpClick,
+   } = useRegisterModal()
 
    /* Menu */
    const handleOutsideClick = e => {
@@ -167,7 +155,7 @@ const Nav = () => {
                &times;
             </CloseButton>
          </NavStyles>
-         <Modal isOpen={isModalOpen} closeModal={closeModal} customStyles>
+         {/* <Modal isOpen={isModalOpen} closeModal={closeModal} customStyles>
             <AnimationStyles>
                <TransitionGroup>
                   <CSSTransition
@@ -181,7 +169,7 @@ const Nav = () => {
                   </CSSTransition>
                </TransitionGroup>
             </AnimationStyles>
-         </Modal>
+         </Modal> */}
       </>
    )
 }
