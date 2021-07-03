@@ -54,7 +54,7 @@ const ButtonStyles = styled.button`
 `
 
 const CancelButtonStyles = styled(ButtonStyles)`
-   ${tw`bg-red-500 focus:ring-red-300`}
+   ${tw`bg-gray-400 focus:ring-gray-300 text-base py-1 px-3`}
 `
 
 const ModalButton: React.FC = () => {
@@ -68,7 +68,7 @@ const ModalButton: React.FC = () => {
    } = useContext(BookEventContext)
 
    const isBookedCurrentUser = currentEvent.user.some(
-      data => data.id === user.id
+      data => data.id === user?.id
    )
 
    if (isBookedCurrentUser) {
