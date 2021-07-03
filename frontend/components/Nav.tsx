@@ -4,20 +4,14 @@ import tw from 'twin.macro'
 import Link from 'next/link'
 import CloseButton from './styles/CloseButton'
 import { useMenu } from '../lib/menuState'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Links from './Links'
-import { useModal } from '../lib/useModal'
-import Modal from './Modal'
-import SignIn from './Login/SignIn'
-import SignUp from './Login/SignUp'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useUser } from './User'
 import { FaUserAlt } from 'react-icons/fa'
-import { RiLogoutBoxFill } from 'react-icons/ri'
 import { useMobile } from '../lib/mobileState'
 import SignOut from './SignOut'
 import Tooltip from './Tooltip'
-import { useRegisterModal } from '../lib/registerModal'
+import { useRegisterModal } from '../lib/useRegisterModal'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -54,24 +48,6 @@ const NavStyles = styled.nav`
    }
 `
 
-const AnimationStyles = styled.span`
-   .modal {
-      display: none;
-   }
-   .modal-enter {
-      opacity: 0;
-   }
-   .modal-enter-active {
-      opacity: 1;
-   }
-   .modal-exit {
-      opacity: 0;
-   }
-   .modal-exit-active {
-      display: none;
-   }
-`
-
 const UserStyles = styled.div`
    ${tw`
       flex flex-col md:flex-row
@@ -92,11 +68,7 @@ const Nav = () => {
 
    const { closeMenu, isOpen } = useMenu()
 
-   const {
-      isOpen: isModalOpen,
-      handleSignInClick,
-      handleSignUpClick,
-   } = useRegisterModal()
+   const { handleSignInClick, handleSignUpClick } = useRegisterModal()
 
    /* Menu */
    const handleOutsideClick = e => {
@@ -155,21 +127,6 @@ const Nav = () => {
                &times;
             </CloseButton>
          </NavStyles>
-         {/* <Modal isOpen={isModalOpen} closeModal={closeModal} customStyles>
-            <AnimationStyles>
-               <TransitionGroup>
-                  <CSSTransition
-                     unmountOnExit
-                     classNames="modal"
-                     className="modal"
-                     key={type}
-                     timeout={{ enter: 400, exit: 400 }}
-                  >
-                     <Component setType={setType} />
-                  </CSSTransition>
-               </TransitionGroup>
-            </AnimationStyles>
-         </Modal> */}
       </>
    )
 }

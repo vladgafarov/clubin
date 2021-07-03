@@ -8,7 +8,7 @@ import { useModal } from '../lib/useModal'
 import { useState } from 'react'
 import SignUp from './Login/SignUp'
 import Modal from './Modal'
-import { useRegisterModal } from '../lib/registerModal'
+import { useRegisterModal } from '../lib/useRegisterModal'
 
 const RegisterStyles = styled.section`
    background-image: url('/images/img6.png');

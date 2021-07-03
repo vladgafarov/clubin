@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/client'
 import withData from '../lib/withData'
 import { MobileStateProvider } from '../lib/mobileState'
 import { MenuStateProvider } from '../lib/menuState'
-import { RegisterModalStateProvider } from '../lib/registerModal'
+import { RegisterModalStateProvider } from '../lib/useRegisterModal'
 
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())

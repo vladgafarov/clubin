@@ -8,7 +8,7 @@ import FormStyles from '../styles/Form'
 import { CURRENT_USER_QUERY, useUser } from '../User'
 import Overlay from '../Contact/Overlay'
 import wait from 'waait'
-import { useRegisterModal } from '../../lib/registerModal'
+import { useRegisterModal } from '../../lib/useRegisterModal'
 
 const SIGNIN_MUTATION = gql`
    mutation SIGNIN_MUTATION($email: String!, $password: String!) {

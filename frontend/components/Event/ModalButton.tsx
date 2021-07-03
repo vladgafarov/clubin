@@ -4,7 +4,7 @@ import { CgSpinner } from 'react-icons/cg'
 import { TiTick } from 'react-icons/ti'
 import { BookEventContext } from './BookEventContext'
 import { useContext } from 'react'
-import { useRegisterModal } from '../../lib/registerModal'
+import { useRegisterModal } from '../../lib/useRegisterModal'
 
 const fade = keyframes`
   from {

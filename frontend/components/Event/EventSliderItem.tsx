@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import formatDate from '../../lib/event/formatDate'
 import { useMobile } from '../../lib/mobileState'
-import { useRegisterModal } from '../../lib/registerModal'
+import { useRegisterModal } from '../../lib/useRegisterModal'
 import { BookEventContext } from './BookEventContext'
 
 const EventSliderItem = ({ item, handleClick, openModal, openBookModal }) => {

@@ -7,7 +7,7 @@ import Button from '../styles/Button'
 import * as Yup from 'yup'
 import FormStyles from '../styles/Form'
 import Overlay from '../Contact/Overlay'
-import { useRegisterModal } from '../../lib/registerModal'
+import { useRegisterModal } from '../../lib/useRegisterModal'
 
 const SIGNUP_MUTATION = gql`
    mutation SIGNUP_MUTATION(
