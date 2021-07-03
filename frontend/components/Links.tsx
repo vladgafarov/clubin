@@ -28,7 +28,7 @@ const Links: React.FC<Links> = ({ spy }) => {
             Events
          </Link>
          <Link to="artist" duration={1200} {...linkProps}>
-            Artist
+            Artists
          </Link>
          <Link to="about" duration={1500} {...linkProps}>
             About us
