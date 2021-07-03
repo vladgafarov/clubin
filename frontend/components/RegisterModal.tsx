@@ -1,10 +1,9 @@
 import Modal from './Modal'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import styled from 'styled-components'
-import { useState } from 'react'
 import SignIn from './Login/SignIn'
 import SignUp from './Login/SignUp'
-import { modalType, useRegisterModal } from '../lib/registerModal'
+import { useRegisterModal } from '../lib/registerModal'
 
 const AnimationStyles = styled.span`
    .modal {

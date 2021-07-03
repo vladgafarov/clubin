@@ -52,7 +52,7 @@ const EventInfoStyles = styled.div`
    }
 `
 
-const EventSlider = ({ events, handleClick, openModal }) => {
+const EventSlider = ({ events, handleClick }) => {
    const settings = {
       dots: false,
       infinite: false,
@@ -76,6 +76,7 @@ const EventSlider = ({ events, handleClick, openModal }) => {
       bookMutationResult: { error },
       unBookMutationResult: { error: cancelError },
       currentEvent,
+      openModal,
    } = useContext(BookEventContext)
 
    const newEvents = eventSlider(5, events)

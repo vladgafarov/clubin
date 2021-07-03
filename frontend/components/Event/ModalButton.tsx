@@ -4,6 +4,7 @@ import { CgSpinner } from 'react-icons/cg'
 import { TiTick } from 'react-icons/ti'
 import { BookEventContext } from './BookEventContext'
 import { useContext } from 'react'
+import { useRegisterModal } from '../../lib/registerModal'
 
 const fade = keyframes`
   from {
@@ -65,11 +66,27 @@ const ModalButton: React.FC = () => {
       unBookMutationResult: { loading: cancelLoading, called: cancelCalled },
       currentEvent,
       user,
+      closeModal,
    } = useContext(BookEventContext)
+
+   const { handleSignInClick } = useRegisterModal()
+
+   const closeModalOpenSignIn = () => {
+      closeModal()
+      handleSignInClick()
+   }
 
    const isBookedCurrentUser = currentEvent.user.some(
       data => data.id === user?.id
    )
+
+   if (!user) {
+      return (
+         <ButtonStyles onClick={closeModalOpenSignIn}>
+            Sign In to Book
+         </ButtonStyles>
+      )
+   }
 
    if (isBookedCurrentUser) {
       return (

@@ -8,8 +8,10 @@ import ModalButton from './ModalButton'
 import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
 
-const EventInfoModal = ({ isOpen, closeModal }) => {
-   const { currentEvent: event } = useContext(BookEventContext)
+const EventInfoModal = () => {
+   const { currentEvent: event, isOpen, closeModal } = useContext(
+      BookEventContext
+   )
 
    return (
       <Modal isOpen={isOpen} closeModal={closeModal}>

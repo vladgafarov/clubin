@@ -31,8 +31,8 @@ const EventInfoStyles = styled.div`
    }
 `
 
-const EventInfo = ({ openModal }) => {
-   const { currentEvent: event } = useContext(BookEventContext)
+const EventInfo = () => {
+   const { currentEvent: event, openModal } = useContext(BookEventContext)
 
    return (
       <>

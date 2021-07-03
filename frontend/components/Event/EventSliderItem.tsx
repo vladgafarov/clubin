@@ -1,8 +1,13 @@
+import { useContext } from 'react'
 import formatDate from '../../lib/event/formatDate'
 import { useMobile } from '../../lib/mobileState'
+import { useRegisterModal } from '../../lib/registerModal'
+import { BookEventContext } from './BookEventContext'
 
 const EventSliderItem = ({ item, handleClick, openModal, openBookModal }) => {
    const { isMobile } = useMobile()
+   const { user } = useContext(BookEventContext)
+   const { handleSignInClick } = useRegisterModal()
 
    const date = formatDate(new Date(item.time))
 
@@ -31,7 +36,7 @@ const EventSliderItem = ({ item, handleClick, openModal, openBookModal }) => {
          <button
             type="button"
             className="bg-purple-500 font-pb"
-            onClick={openBookModal}
+            onClick={user ? openBookModal : handleSignInClick}
          >
             Book Event
          </button>

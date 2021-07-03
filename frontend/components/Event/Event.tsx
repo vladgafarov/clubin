@@ -201,6 +201,9 @@ const Event: React.FC = () => {
       handleUnBookClick,
       currentEvent: current ? current : data?.allEvents[0],
       user,
+      isOpen,
+      openModal,
+      closeModal,
    }
 
    return (
@@ -209,7 +212,7 @@ const Event: React.FC = () => {
             className="px-7 md:px-12 lg:px-18 xl:px-12 2xl:px-32"
             id="events"
          >
-            {loading ? 'Loading...' : <EventInfo openModal={openModal} />}
+            {loading ? 'Loading...' : <EventInfo />}
             <Events className="events">
                <h1>Events</h1>
                <p className="text-left mt-4">Click to view details</p>
@@ -220,13 +223,10 @@ const Event: React.FC = () => {
                   <EventSlider
                      events={data?.allEvents}
                      handleClick={handleClick}
-                     openModal={openModal}
                   />
                )}
             </Events>
-            {!loading && (
-               <EventInfoModal closeModal={closeModal} isOpen={isOpen} />
-            )}
+            {!loading && <EventInfoModal />}
          </EventStyles>
       </BookEventContext.Provider>
    )
