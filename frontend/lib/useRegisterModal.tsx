@@ -11,10 +11,10 @@ interface IRegisterModal {
    setSignUp: () => void
 }
 
-const LocalStateContext = createContext(undefined)
-const LocalStateProvider = LocalStateContext.Provider
-
 export type modalType = 'SignIn' | 'SignUp' | 'Reset'
+
+const LocalStateContext = createContext<IRegisterModal | null>(null)
+const LocalStateProvider = LocalStateContext.Provider
 
 export const RegisterModalStateProvider = ({ children }) => {
    const { isOpen, openModal, closeModal } = useModal()
@@ -55,6 +55,6 @@ export const RegisterModalStateProvider = ({ children }) => {
 }
 
 export const useRegisterModal = () => {
-   const all: IRegisterModal = useContext(LocalStateContext)
+   const all = useContext(LocalStateContext)
    return all
 }
