@@ -16,13 +16,11 @@ const MyApp = ({ Component, pageProps, apollo }) => {
    return (
       <ApolloProvider client={apollo}>
          <MobileStateProvider>
-            <RegisterModalStateProvider>
-               <MenuStateProvider>
-                  <Page>
-                     <Component {...pageProps} />
-                  </Page>
-               </MenuStateProvider>
-            </RegisterModalStateProvider>
+            <MenuStateProvider>
+               <Page>
+                  <Component {...pageProps} />
+               </Page>
+            </MenuStateProvider>
          </MobileStateProvider>
       </ApolloProvider>
    )

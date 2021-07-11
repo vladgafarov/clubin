@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react'
 import StickyHeader from '../components/StickyHeader'
 import { useUser } from '../components/User'
 import RegisterModal from '../components/RegisterModal'
+import { RegisterModalStateProvider } from '../lib/useRegisterModal'
 
 const MainStyles = styled.section`
    background-image: url('/images/main2.png');
@@ -40,7 +41,7 @@ const HomePage = () => {
    }, [])
 
    return (
-      <>
+      <RegisterModalStateProvider>
          <MainStyles className="min-h-screen flex flex-col relative overflow-hidden">
             <Header />
             <Hero />
@@ -56,7 +57,7 @@ const HomePage = () => {
          <StickyHeader isScrolled={isScrolled} />
          <ArrowUp isScrolled={isScrolled} />
          <RegisterModal />
-      </>
+      </RegisterModalStateProvider>
    )
 }
 
