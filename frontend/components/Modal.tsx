@@ -16,7 +16,7 @@ const ModalStyles = styled.div`
 
 const ModalContent = styled.div`
    ${props => !props.customStyles && tw`bg-white p-5 text-black`}
-   ${tw`relative w-11/12 sm:w-4/5 lg:w-2/3 xl:w-1/3`}
+   ${tw`relative w-11/12 sm:w-4/5 lg:w-2/3 xl:w-1/3 rounded-xl`}
 `
 
 const CloseButton = styled.span`
