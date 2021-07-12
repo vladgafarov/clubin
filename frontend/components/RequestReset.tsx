@@ -1,9 +1,14 @@
-import Form from './styles/Form'
-import useForm from '../lib/useForm'
+import { ErrorMessage, Field, Formik, Form } from 'formik'
+import * as Yup from 'yup'
+import FormStyles from './styles/Form'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 import DisplayError from './ErrorMessage'
 import Button from './styles/Button'
+import LoadingOverlay from './LoadingOverlay'
+import { useRegisterModal } from '../lib/useRegisterModal'
+
+const ErrorStyles = 'text-red-300 font-pm'
 
 const REQUEST_RESET_MUTATION = gql`
    mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -14,49 +19,74 @@ const REQUEST_RESET_MUTATION = gql`
    }
 `
 
-const RequestReset = ({ children }) => {
-   const { inputs, handleChange, resetForm } = useForm({
-      email: '',
-   })
-
-   const [signup, { data, loading, error }] = useMutation(
-      REQUEST_RESET_MUTATION,
-      {
-         variables: inputs,
-         // refetchQueries: [{ query: CURRENT_USER_QUERY }],
-      }
+const RequestReset = () => {
+   const [requestReset, { loading, error, called }] = useMutation(
+      REQUEST_RESET_MUTATION
    )
 
-   const handleSubmit = async e => {
-      e.preventDefault()
-      await signup().catch(console.error)
-      resetForm()
-   }
+   const { setSignIn } = useRegisterModal()
 
    return (
-      <Form method="POST" onSubmit={handleSubmit}>
-         <h2>Request a password reset</h2>
-         <DisplayError error={error} />
-         <fieldset>
-            {data?.sendUserPasswordResetLink === null && (
-               <p>Success! Check your email for a link!</p>
-            )}
-            <label htmlFor="email">
-               Email
-               <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  autoComplete="email"
-                  value={inputs.email}
-                  onChange={handleChange}
-                  required
-               />
-            </label>
-            <Button type="submit">Request reset</Button>
-         </fieldset>
-         {children}
-      </Form>
+      <Formik
+         initialValues={{
+            email: '',
+         }}
+         validateOnBlur={false}
+         validateOnChange={false}
+         validationSchema={Yup.object({
+            email: Yup.string()
+               .email('Invalid email address')
+               .required('Required'),
+         })}
+         onSubmit={async (values, actions) => {
+            await requestReset({
+               variables: values,
+            })
+         }}
+      >
+         {props => (
+            <FormStyles>
+               <Form>
+                  <fieldset disabled={loading}>
+                     <LoadingOverlay
+                        loading={loading}
+                        error={!!error?.message}
+                        called={called}
+                     />
+                     <label htmlFor="email">
+                        Email:
+                        <Field
+                           name="email"
+                           type="email"
+                           placeholder="Your email"
+                        />
+                     </label>
+                     <ErrorMessage name="email">
+                        {text => <span className={ErrorStyles}>{text}</span>}
+                     </ErrorMessage>
+
+                     {error && <DisplayError error={error} />}
+                     {called && !loading && (
+                        <p className="font-pm text-green-400">
+                           if the account exists, then you will receive an email
+                        </p>
+                     )}
+
+                     <Button type="submit" isGradient>
+                        Submit
+                     </Button>
+                     <div className="bottom">
+                        <span>OR</span>
+                        <br />
+                        <span className="link" onClick={setSignIn}>
+                           Sign In
+                        </span>
+                     </div>
+                  </fieldset>
+               </Form>
+            </FormStyles>
+         )}
+      </Formik>
    )
 }
 

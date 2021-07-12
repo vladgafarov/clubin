@@ -32,7 +32,7 @@ const ErrorStyles = 'text-red-300 font-pm'
 const SignIn = () => {
    const [signIn, { data, loading, called }] = useMutation(SIGNIN_MUTATION)
 
-   const { setSignUp, closeModal } = useRegisterModal()
+   const { setSignUp, closeModal, setReset } = useRegisterModal()
 
    let error =
       data?.authenticateUserWithPassword.__typename ===
@@ -114,6 +114,10 @@ const SignIn = () => {
                         <br />
                         <span className="link" onClick={setSignUp}>
                            Sign Up
+                        </span>
+                        <br />
+                        <span className="link" onClick={setReset}>
+                           Reset password
                         </span>
                      </div>
                   </fieldset>

@@ -1,10 +1,15 @@
-import Form from './styles/Form'
-import useForm from '../lib/useForm'
+import { ErrorMessage, Field, Formik, Form } from 'formik'
+import * as Yup from 'yup'
+import Image from 'next/image'
+import Link from 'next/link'
+import FormStyles from './styles/Form'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
-import { CURRENT_USER_QUERY } from './User'
-import DisplayError from './ErrorMessage'
 import Button from './styles/Button'
+import { useEffect, useState } from 'react'
+import LoadingOverlay from './LoadingOverlay'
+import { useRouter } from 'next/router'
+import { padding } from './Page'
 
 const RESET_MUTATION = gql`
    mutation RESET_MUTATION(
@@ -23,59 +28,142 @@ const RESET_MUTATION = gql`
    }
 `
 
-const Reset = ({ token }) => {
-   const { inputs, handleChange, resetForm } = useForm({
-      email: '',
-      password: '',
-      token,
-   })
+const ErrorStyles = 'text-red-300 font-pm'
 
-   const [reset, { data, loading, error }] = useMutation(RESET_MUTATION, {
-      variables: inputs,
-   })
+const Reset = ({ query: { token } }) => {
+   const [reset, { data, loading, error: errorMutation, called }] = useMutation(
+      RESET_MUTATION
+   )
 
-   const successfulError = data?.redeemUserPasswordResetToken?.code
-      ? data?.redeemUserPasswordResetToken
-      : undefined
+   const router = useRouter()
 
-   const handleSubmit = async e => {
-      e.preventDefault()
-      await reset().catch(console.error)
-      resetForm()
+   const [error, setError] = useState()
+
+   useEffect(() => {
+      if (!token) {
+         router.push('/')
+      }
+   }, [token])
+
+   if (!token) {
+      return (
+         <div className={padding + ' mt-10'}>
+            <p>You don't have access to this resource</p>
+            <p>Redirecting...</p>
+         </div>
+      )
    }
 
    return (
-      <Form method="POST" onSubmit={handleSubmit}>
-         <h2>Reset your password</h2>
-         <DisplayError error={error || successfulError} />
-         <fieldset>
-            {data?.redeemUserPasswordResetToken === null && (
-               <p>Success! You can now sign in</p>
-            )}
-            <label htmlFor="email">
-               Email
-               <input
-                  type="email"
-                  name="email"
-                  placeholder="Email..."
-                  autoComplete="email"
-                  value={inputs.email}
-                  onChange={handleChange}
-               />
-            </label>
-            <label htmlFor="password">
-               Passwod
-               <input
-                  type="password"
-                  name="password"
-                  placeholder="Password..."
-                  value={inputs.password}
-                  onChange={handleChange}
-               />
-            </label>
-            <Button type="submit">Request reset</Button>
-         </fieldset>
-      </Form>
+      <>
+         <header className="flex justify-center">
+            <Link href="/">
+               <a>
+                  <Image
+                     src="/images/logo.png"
+                     alt="Logo"
+                     width="250"
+                     height=""
+                  />
+               </a>
+            </Link>
+         </header>
+         <div className="w-11/12 lg:w-3/5 mx-auto">
+            <h1 className="font-pb text-lg">Reset your password</h1>
+            <Formik
+               initialValues={{
+                  email: '',
+                  password: '',
+               }}
+               validateOnBlur={false}
+               validateOnChange={false}
+               validationSchema={Yup.object({
+                  email: Yup.string()
+                     .email('Invalid email address')
+                     .required('Required'),
+                  password: Yup.string()
+                     .min(8, 'Must be 8 characters or more')
+                     .required('Required'),
+               })}
+               onSubmit={async ({ email, password }) => {
+                  setError(undefined)
+
+                  await reset({
+                     variables: {
+                        email,
+                        password,
+                        token,
+                     },
+                  }).then(async res => {
+                     const { data } = res
+
+                     if (data) {
+                        setError(data.redeemUserPasswordResetToken.message)
+                     }
+                  })
+               }}
+            >
+               {props => (
+                  <FormStyles>
+                     <Form>
+                        <fieldset disabled={loading}>
+                           <LoadingOverlay
+                              loading={loading}
+                              error={!!errorMutation?.message || !!error}
+                              called={called}
+                           />
+                           <label htmlFor="email">
+                              Email:
+                              <Field
+                                 name="email"
+                                 type="email"
+                                 placeholder="Your email"
+                              />
+                           </label>
+                           <ErrorMessage name="email">
+                              {text => (
+                                 <span className={ErrorStyles}>{text}</span>
+                              )}
+                           </ErrorMessage>
+
+                           <label htmlFor="password">
+                              Password:
+                              <Field
+                                 name="password"
+                                 placeholder="Your password"
+                              />
+                           </label>
+                           <ErrorMessage name="password">
+                              {text => (
+                                 <span className={ErrorStyles}>{text}</span>
+                              )}
+                           </ErrorMessage>
+
+                           {(errorMutation || error) && (
+                              <span className={ErrorStyles}>
+                                 {errorMutation?.message || error}
+                              </span>
+                           )}
+
+                           <Button type="submit" isGradient>
+                              Submit
+                           </Button>
+
+                           {data?.redeemUserPasswordResetToken === null && (
+                              <p className="pt-5">
+                                 Success! You can now{' '}
+                                 <span className="text-indigo-500">
+                                    <Link href="/">Sign in</Link>
+                                 </span>
+                              </p>
+                           )}
+                        </fieldset>
+                     </Form>
+                  </FormStyles>
+               )}
+            </Formik>
+         </div>
+      </>
    )
 }
 
