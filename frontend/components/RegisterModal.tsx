@@ -3,7 +3,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import styled from 'styled-components'
 import SignIn from './Login/SignIn'
 import SignUp from './Login/SignUp'
-import { useRegisterModal } from '../lib/useRegisterModal'
+import { modalType, useRegisterModal } from '../lib/useRegisterModal'
+import RequestReset from './RequestReset'
 
 const AnimationStyles = styled.span`
    .modal {
@@ -23,18 +24,15 @@ const AnimationStyles = styled.span`
    }
 `
 
+const ModalComponents = {
+   SignIn,
+   SignUp,
+   Reset: RequestReset,
+}
+
 const RegisterModal = () => {
    const { isOpen, closeModal, type } = useRegisterModal()
-   let Component: React.FC = SignIn
-
-   switch (type) {
-      case 'SignIn':
-         Component = SignIn
-         break
-      case 'SignUp':
-         Component = SignUp
-         break
-   }
+   const Component = ModalComponents[type]
 
    return (
       <Modal isOpen={isOpen} closeModal={closeModal} customStyles>
