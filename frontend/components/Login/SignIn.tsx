@@ -1,13 +1,14 @@
 import { gql, useMutation } from '@apollo/client'
 import { ErrorMessage, Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 import Button from '../styles/Button'
 import FormStyles from '../styles/Form'
 import { CURRENT_USER_QUERY } from '../User'
 import LoadingOverlay from '../LoadingOverlay'
 import wait from 'waait'
 import { useRegisterModal } from '../../lib/useRegisterModal'
-import DisplayError from '../ErrorMessage'
+import PassVisibilityIcon from './PassVisibilityIcon'
 
 const SIGNIN_MUTATION = gql`
    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -32,7 +33,7 @@ const ErrorStyles = 'text-red-300 font-pm'
 const SignIn = () => {
    const [signIn, { data, loading, called }] = useMutation(SIGNIN_MUTATION)
 
-   const { setSignUp, closeModal, setReset } = useRegisterModal()
+   const { setSignUp, closeModal, setReset, isPassVisible } = useRegisterModal()
 
    let error =
       data?.authenticateUserWithPassword.__typename ===
@@ -98,13 +99,24 @@ const SignIn = () => {
 
                      <label htmlFor="password">
                         Password:
-                        <Field name="password" placeholder="Your password" />
+                        <span className="input-password">
+                           <Field name="password">
+                              {({ field, form, meta }) => (
+                                 <input
+                                    type={isPassVisible ? 'text' : 'password'}
+                                    placeholder="Your password"
+                                    {...field}
+                                 ></input>
+                              )}
+                           </Field>
+                           <PassVisibilityIcon />
+                        </span>
                      </label>
                      <ErrorMessage name="password">
                         {text => <span className={ErrorStyles}>{text}</span>}
                      </ErrorMessage>
 
-                     {error && <DisplayError error={error} />}
+                     {error && <p className={ErrorStyles}>{error?.message}</p>}
 
                      <Button type="submit" isGradient>
                         Submit

@@ -8,6 +8,7 @@ import FormStyles from '../styles/Form'
 import { useRegisterModal } from '../../lib/useRegisterModal'
 import LoadingOverlay from '../LoadingOverlay'
 import { useState } from 'react'
+import PassVisibilityIcon from './PassVisibilityIcon'
 
 const SIGNUP_MUTATION = gql`
    mutation SIGNUP_MUTATION(
@@ -30,7 +31,12 @@ const SignUp = () => {
 
    const [error, setError] = useState<string>()
 
-   const { setSignIn, closeModal, handleSignInClick } = useRegisterModal()
+   const {
+      setSignIn,
+      closeModal,
+      handleSignInClick,
+      isPassVisible,
+   } = useRegisterModal()
 
    return (
       <Formik
@@ -108,7 +114,18 @@ const SignUp = () => {
 
                      <label htmlFor="password">
                         Password:
-                        <Field name="password" placeholder="Your password" />
+                        <span className="input-password">
+                           <Field name="password">
+                              {({ field, form, meta }) => (
+                                 <input
+                                    type={isPassVisible ? 'text' : 'password'}
+                                    placeholder="Your password"
+                                    {...field}
+                                 ></input>
+                              )}
+                           </Field>
+                           <PassVisibilityIcon />
+                        </span>
                      </label>
                      <ErrorMessage name="password">
                         {text => <span className={ErrorStyles}>{text}</span>}

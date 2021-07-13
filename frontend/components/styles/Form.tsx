@@ -29,6 +29,25 @@ const FormStyles = styled.div`
          &:not(:first-of-type) {
             ${tw`mt-5`}
          }
+         .input-password {
+            position: relative;
+            overflow: visible;
+            .icon {
+               ${tw`
+                  absolute
+                  right-4 top-1/2
+                  transform -translate-y-1/2
+                  cursor-pointer
+                  p-2
+                  w-9 h-9
+                  rounded
+                  transition
+                  text-gray-400
+                  hover:text-gray-600
+                  hover:bg-gray-300
+               `}
+            }
+         }
       }
       input {
          ${tw`

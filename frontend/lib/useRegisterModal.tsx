@@ -1,5 +1,10 @@
-import Router from 'next/router'
-import { createContext, useContext, useState } from 'react'
+import {
+   createContext,
+   Dispatch,
+   SetStateAction,
+   useContext,
+   useState,
+} from 'react'
 import { useModal } from './useModal'
 
 interface IRegisterModal {
@@ -11,6 +16,8 @@ interface IRegisterModal {
    setSignIn: () => void
    setSignUp: () => void
    setReset: () => void
+   isPassVisible: boolean
+   setPassVisible: Dispatch<SetStateAction<boolean>>
 }
 
 export type modalType = 'SignIn' | 'SignUp' | 'Reset'
@@ -23,11 +30,11 @@ export const RegisterModalStateProvider = ({ children }) => {
 
    const [type, setType] = useState<modalType>('SignIn')
 
+   const [isPassVisible, setPassVisible] = useState<boolean>(false)
+
    const handleSignInClick = () => {
       setType('SignIn')
       openModal()
-
-      // Router.push({}, 'signin?token=skfjljl')
    }
 
    const setSignIn = () => {
@@ -56,6 +63,8 @@ export const RegisterModalStateProvider = ({ children }) => {
       setSignIn,
       setSignUp,
       setReset,
+      isPassVisible,
+      setPassVisible,
    }
 
    return (
