@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import styled from 'styled-components'
 import SignIn from './Login/SignIn'
 import SignUp from './Login/SignUp'
-import { modalType, useRegisterModal } from '../lib/useRegisterModal'
+import { useRegisterModal } from '../lib/useRegisterModal'
 import RequestReset from './RequestReset'
 
 const AnimationStyles = styled.span`
