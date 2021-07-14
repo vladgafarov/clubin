@@ -1,1 +1,1 @@
-export { default } from '../components/Reset'
+export { default } from '../components/Login/Reset'

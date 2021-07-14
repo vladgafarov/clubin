@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form } from 'formik'
 import gql from 'graphql-tag'
 import Button from '../styles/Button'
 import * as Yup from 'yup'
@@ -8,7 +8,10 @@ import FormStyles from '../styles/Form'
 import { useRegisterModal } from '../../lib/useRegisterModal'
 import LoadingOverlay from '../LoadingOverlay'
 import { useState } from 'react'
-import PassVisibilityIcon from './PassVisibilityIcon'
+import EmailInput from './EmailInput'
+import NameInput from './NameInput'
+import PasswordInput from './PasswordInput'
+import ErrorStyles from './ErrorStyles'
 
 const SIGNUP_MUTATION = gql`
    mutation SIGNUP_MUTATION(
@@ -24,19 +27,12 @@ const SIGNUP_MUTATION = gql`
    }
 `
 
-const ErrorStyles = 'text-red-300 font-pm'
-
 const SignUp = () => {
    const [signup, { data, loading, called }] = useMutation(SIGNUP_MUTATION)
 
    const [error, setError] = useState<string>()
 
-   const {
-      setSignIn,
-      closeModal,
-      handleSignInClick,
-      isPassVisible,
-   } = useRegisterModal()
+   const { setSignIn, closeModal, handleSignInClick } = useRegisterModal()
 
    return (
       <Formik
@@ -88,48 +84,10 @@ const SignUp = () => {
                         error={!!error}
                         called={called}
                      />
-                     <label htmlFor="name">
-                        Name:
-                        <Field
-                           name="name"
-                           type="text"
-                           placeholder="Your name"
-                        />
-                     </label>
-                     <ErrorMessage name="name">
-                        {text => <span className={ErrorStyles}>{text}</span>}
-                     </ErrorMessage>
 
-                     <label htmlFor="email">
-                        Email:
-                        <Field
-                           name="email"
-                           type="email"
-                           placeholder="Your email"
-                        />
-                     </label>
-                     <ErrorMessage name="email">
-                        {text => <span className={ErrorStyles}>{text}</span>}
-                     </ErrorMessage>
-
-                     <label htmlFor="password">
-                        Password:
-                        <div className="input-password">
-                           <Field name="password">
-                              {({ field, form, meta }) => (
-                                 <input
-                                    type={isPassVisible ? 'text' : 'password'}
-                                    placeholder="Your password"
-                                    {...field}
-                                 />
-                              )}
-                           </Field>
-                           <PassVisibilityIcon />
-                        </div>
-                     </label>
-                     <ErrorMessage name="password">
-                        {text => <span className={ErrorStyles}>{text}</span>}
-                     </ErrorMessage>
+                     <NameInput />
+                     <EmailInput />
+                     <PasswordInput />
 
                      {error && <p className={ErrorStyles}>{error}</p>}
 

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import SignIn from './Login/SignIn'
 import SignUp from './Login/SignUp'
 import { useRegisterModal } from '../lib/useRegisterModal'
-import RequestReset from './RequestReset'
+import RequestReset from './Login/RequestReset'
 
 const AnimationStyles = styled.span`
    .modal {

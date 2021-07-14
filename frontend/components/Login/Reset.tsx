@@ -1,15 +1,18 @@
-import { ErrorMessage, Field, Formik, Form } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import Image from 'next/image'
 import Link from 'next/link'
-import FormStyles from './styles/Form'
+import FormStyles from '../styles/Form'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
-import Button from './styles/Button'
+import Button from '../styles/Button'
 import { useEffect, useState } from 'react'
-import LoadingOverlay from './LoadingOverlay'
+import LoadingOverlay from '../LoadingOverlay'
 import { useRouter } from 'next/router'
-import { padding } from './Page'
+import { padding } from '../Page'
+import EmailInput from './EmailInput'
+import PasswordInput from './PasswordInput'
+import ErrorStyles from './ErrorStyles'
 
 const RESET_MUTATION = gql`
    mutation RESET_MUTATION(
@@ -27,8 +30,6 @@ const RESET_MUTATION = gql`
       }
    }
 `
-
-const ErrorStyles = 'text-red-300 font-pm'
 
 const Reset = ({ query: { token } }) => {
    const [reset, { data, loading, error: errorMutation, called }] = useMutation(
@@ -112,32 +113,9 @@ const Reset = ({ query: { token } }) => {
                               error={!!errorMutation?.message || !!error}
                               called={called}
                            />
-                           <label htmlFor="email">
-                              Email:
-                              <Field
-                                 name="email"
-                                 type="email"
-                                 placeholder="Your email"
-                              />
-                           </label>
-                           <ErrorMessage name="email">
-                              {text => (
-                                 <span className={ErrorStyles}>{text}</span>
-                              )}
-                           </ErrorMessage>
 
-                           <label htmlFor="password">
-                              Password:
-                              <Field
-                                 name="password"
-                                 placeholder="Your password"
-                              />
-                           </label>
-                           <ErrorMessage name="password">
-                              {text => (
-                                 <span className={ErrorStyles}>{text}</span>
-                              )}
-                           </ErrorMessage>
+                           <EmailInput />
+                           <PasswordInput />
 
                            {(errorMutation || error) && (
                               <span className={ErrorStyles}>

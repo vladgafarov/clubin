@@ -1,14 +1,13 @@
-import { ErrorMessage, Field, Formik, Form } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import FormStyles from './styles/Form'
+import FormStyles from '../styles/Form'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
-import DisplayError from './ErrorMessage'
-import Button from './styles/Button'
-import LoadingOverlay from './LoadingOverlay'
-import { useRegisterModal } from '../lib/useRegisterModal'
-
-const ErrorStyles = 'text-red-300 font-pm'
+import DisplayError from '../ErrorMessage'
+import Button from '../styles/Button'
+import LoadingOverlay from '../LoadingOverlay'
+import { useRegisterModal } from '../../lib/useRegisterModal'
+import EmailInput from './EmailInput'
 
 const REQUEST_RESET_MUTATION = gql`
    mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -53,17 +52,8 @@ const RequestReset = () => {
                         error={!!error?.message}
                         called={called}
                      />
-                     <label htmlFor="email">
-                        Email:
-                        <Field
-                           name="email"
-                           type="email"
-                           placeholder="Your email"
-                        />
-                     </label>
-                     <ErrorMessage name="email">
-                        {text => <span className={ErrorStyles}>{text}</span>}
-                     </ErrorMessage>
+
+                     <EmailInput />
 
                      {error && <DisplayError error={error} />}
                      {called && !loading && (

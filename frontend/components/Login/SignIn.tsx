@@ -1,14 +1,15 @@
 import { gql, useMutation } from '@apollo/client'
-import { ErrorMessage, Field, Formik, Form } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
 import Button from '../styles/Button'
 import FormStyles from '../styles/Form'
 import { CURRENT_USER_QUERY } from '../User'
 import LoadingOverlay from '../LoadingOverlay'
 import wait from 'waait'
 import { useRegisterModal } from '../../lib/useRegisterModal'
-import PassVisibilityIcon from './PassVisibilityIcon'
+import EmailInput from './EmailInput'
+import PasswordInput from './PasswordInput'
+import ErrorStyles from './ErrorStyles'
 
 const SIGNIN_MUTATION = gql`
    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -28,12 +29,10 @@ const SIGNIN_MUTATION = gql`
    }
 `
 
-const ErrorStyles = 'text-red-300 font-pm'
-
 const SignIn = () => {
    const [signIn, { data, loading, called }] = useMutation(SIGNIN_MUTATION)
 
-   const { setSignUp, closeModal, setReset, isPassVisible } = useRegisterModal()
+   const { setSignUp, closeModal, setReset } = useRegisterModal()
 
    let error =
       data?.authenticateUserWithPassword.__typename ===
@@ -85,36 +84,9 @@ const SignIn = () => {
                         error={!!error?.message}
                         called={called}
                      />
-                     <label htmlFor="email">
-                        Email:
-                        <Field
-                           name="email"
-                           type="email"
-                           placeholder="Your email"
-                        />
-                     </label>
-                     <ErrorMessage name="email">
-                        {text => <span className={ErrorStyles}>{text}</span>}
-                     </ErrorMessage>
 
-                     <label htmlFor="password">
-                        Password:
-                        <div className="input-password">
-                           <Field name="password">
-                              {({ field, form, meta }) => (
-                                 <input
-                                    type={isPassVisible ? 'text' : 'password'}
-                                    placeholder="Your password"
-                                    {...field}
-                                 />
-                              )}
-                           </Field>
-                           <PassVisibilityIcon />
-                        </div>
-                     </label>
-                     <ErrorMessage name="password">
-                        {text => <span className={ErrorStyles}>{text}</span>}
-                     </ErrorMessage>
+                     <EmailInput />
+                     <PasswordInput />
 
                      {error && <p className={ErrorStyles}>{error?.message}</p>}
 
