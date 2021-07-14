@@ -114,18 +114,18 @@ const SignUp = () => {
 
                      <label htmlFor="password">
                         Password:
-                        <span className="input-password">
+                        <div className="input-password">
                            <Field name="password">
                               {({ field, form, meta }) => (
                                  <input
                                     type={isPassVisible ? 'text' : 'password'}
                                     placeholder="Your password"
                                     {...field}
-                                 ></input>
+                                 />
                               )}
                            </Field>
                            <PassVisibilityIcon />
-                        </span>
+                        </div>
                      </label>
                      <ErrorMessage name="password">
                         {text => <span className={ErrorStyles}>{text}</span>}
