@@ -6,12 +6,12 @@ import CloseButton from './styles/CloseButton'
 import { useMenu } from '../lib/menuState'
 import React, { useEffect } from 'react'
 import Links from './Links'
-import { useUser } from './User'
 import { FaUserAlt } from 'react-icons/fa'
 import { useMobile } from '../lib/mobileState'
 import SignOut from './SignOut'
 import Tooltip from './Tooltip'
 import { useRegisterModal } from '../lib/useRegisterModal'
+import { useUserGlobal } from '../lib/useUser'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -63,7 +63,7 @@ const UserStyles = styled.div`
 `
 
 const Nav = () => {
-   const user = useUser()
+   const { user } = useUserGlobal()
    const { isMobile } = useMobile()
 
    const { closeMenu, isOpen } = useMenu()

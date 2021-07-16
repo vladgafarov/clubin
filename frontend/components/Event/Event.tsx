@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { useModal } from '../../lib/useModal'
 import EventInfoModal from './EventInfoModal'
 import { BookEventContext } from './BookEventContext'
-import { useUser } from '../User'
+import { useUserGlobal } from '../../lib/useUser'
 
 const EventStyles = styled.div`
    ${tw`
@@ -148,7 +148,7 @@ const UNBOOK_EVENT_MUTATION = gql`
 `
 
 const Event: React.FC = () => {
-   const user = useUser()
+   const { user } = useUserGlobal()
    const [bookEvent, bookMutationResult] = useMutation(BOOK_EVENT_MUTATION)
    const [unBookEvent, unBookMutationResult] = useMutation(
       UNBOOK_EVENT_MUTATION

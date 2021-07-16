@@ -11,9 +11,9 @@ import Footer from '../components/Footer'
 import ArrowUp from '../components/ArrowUp'
 import React, { useEffect, useState } from 'react'
 import StickyHeader from '../components/StickyHeader'
-import { useUser } from '../components/User'
 import RegisterModal from '../components/RegisterModal'
 import { RegisterModalStateProvider } from '../lib/useRegisterModal'
+import { useUserGlobal } from '../lib/useUser'
 
 const MainStyles = styled.section`
    background-image: url('/images/main2.png');
@@ -24,7 +24,7 @@ const MainStyles = styled.section`
 
 const HomePage = () => {
    const [isScrolled, setScroll] = useState(false)
-   const user = useUser()
+   const { user } = useUserGlobal()
 
    const handleScroll = () => {
       if (window.pageYOffset > window.innerHeight / 2) {
