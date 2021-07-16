@@ -1,13 +1,20 @@
 import { createContext, useContext } from 'react'
-import { useUser } from '../components/User'
+import { User, useUser } from '../components/User'
 
-const LocalStateContext = createContext(null)
+const LocalStateContext = createContext<User | null>(null)
 const LocalStateProvider = LocalStateContext.Provider
 
 export const UseUserProvider = ({ children }) => {
-   const user = useUser()
+   const { user, loading } = useUser()
 
-   return <LocalStateProvider value={{ user }}>{children}</LocalStateProvider>
+   const contextValue = {
+      user,
+      loading,
+   }
+
+   return (
+      <LocalStateProvider value={contextValue}>{children}</LocalStateProvider>
+   )
 }
 
 export const useUserGlobal = () => {

@@ -12,14 +12,20 @@ export const CURRENT_USER_QUERY = gql`
    }
 `
 
-type User = {
-   email: string
-   name: string
-   id: string
-   __typename: string
+export type User = {
+   user: {
+      email: string
+      name: string
+      id: string
+      __typename: string
+   }
+   loading: boolean
 }
 
 export const useUser = () => {
-   const { data } = useQuery(CURRENT_USER_QUERY)
-   return data?.authenticatedItem as User
+   const { data, loading, error } = useQuery(CURRENT_USER_QUERY)
+   return {
+      user: data?.authenticatedItem,
+      loading,
+   } as User
 }
