@@ -5,18 +5,13 @@ import PrevArrow from '../slider/PrevArrow'
 import NextArrow from '../slider/NextArrow'
 import eventSlider from '../../lib/event/eventSlider'
 import EventSliderItem from './EventSliderItem'
-import gql from 'graphql-tag'
-import { useUser } from '../User'
-import { useMutation } from '@apollo/client'
 import Modal from '../Modal'
 import { useModal } from '../../lib/useModal'
 import { format } from 'date-fns'
 import ModalButton from './ModalButton'
 import DisplayError from '../ErrorMessage'
-import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
-import Button from '../styles/Button'
 
 const EventInfoStyles = styled.div`
    ${tw`mb-3`}
