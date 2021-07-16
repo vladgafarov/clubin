@@ -37,12 +37,10 @@ const Events = () => {
       return <p>Loading...</p>
    }
 
-   if (error) {
-      return <DisplayError error={error} />
-   }
-
    return (
       <div>
+         {error && <DisplayError error={error} />}
+         {data?.allEvents.length == 0 && <p>Nothing to show!</p>}
          {data?.allEvents.map((item, i) => (
             <p key={i}>{item.name}</p>
          ))}
