@@ -60,7 +60,7 @@ interface ILoadingOverlay {
 
 const LoadingOverlay = ({ loading, error, called }: ILoadingOverlay) => {
    return (
-      <OverlayStyles $loading={loading} error={error} called={called}>
+      <OverlayStyles loading={loading} error={error} called={called}>
          <CgSpinner className="loader animate-spin" />
          <TiTick fill="#27ae60" className="tick" />
       </OverlayStyles>
