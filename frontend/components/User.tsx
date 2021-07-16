@@ -12,9 +12,14 @@ export const CURRENT_USER_QUERY = gql`
    }
 `
 
+type User = {
+   email: string
+   name: string
+   id: string
+   __typename: string
+}
+
 export const useUser = () => {
-   // const { data, loading, error } = useQuery(CURRENT_USER_QUERY)
-   // return { data?.authenticatedItem, loading, error }
    const { data } = useQuery(CURRENT_USER_QUERY)
-   return data?.authenticatedItem
+   return data?.authenticatedItem as User
 }
