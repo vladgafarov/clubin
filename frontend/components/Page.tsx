@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import tw from 'twin.macro'
 
-export const padding = 'px-7 md:px-12 lg:px-20 xl:px-22 2xl:px-32'
+export const padding = 'px-7 md:px-12 lg:px-20 xl:px-24 2xl:px-32'
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
