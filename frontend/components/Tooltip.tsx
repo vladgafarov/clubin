@@ -1,5 +1,4 @@
-import Tippy from '@tippyjs/react/headless'
-import { Fragment } from 'react'
+import Tippy, { TippyProps } from '@tippyjs/react/headless'
 import { animated } from 'react-spring'
 import styled from 'styled-components'
 import tw from 'twin.macro'
@@ -18,13 +17,21 @@ const TooltipStyles = styled(animated.div)`
    }
 `
 
+interface ITooltip {
+   children: React.ReactElement
+   elem: React.ReactElement
+   trigger?: string
+   interactive?: boolean
+   wrapper?: boolean
+}
+
 const Tooltip = ({
    children,
    elem,
    trigger = 'mouseenter focus',
    interactive = true,
    wrapper = true,
-}) => {
+}: ITooltip) => {
    const { props, onMount, onHide } = useAnimation()
 
    return (
