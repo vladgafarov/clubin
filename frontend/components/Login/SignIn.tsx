@@ -10,6 +10,7 @@ import { useRegisterModal } from '../../lib/useRegisterModal'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import ErrorStyles from './ErrorStyles'
+import { RegisterModalVariants } from '../RegisterModal'
 
 const SIGNIN_MUTATION = gql`
    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -76,7 +77,12 @@ const SignIn = () => {
          }}
       >
          {props => (
-            <FormStyles>
+            <FormStyles
+               variants={RegisterModalVariants}
+               initial="initial"
+               animate="animate"
+               exit="exit"
+            >
                <Form>
                   <fieldset disabled={loading}>
                      <LoadingOverlay

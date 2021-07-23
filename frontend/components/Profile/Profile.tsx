@@ -4,7 +4,6 @@ import { padding } from '../Page'
 import tw from 'twin.macro'
 import Link from 'next/link'
 import SignOut from '../SignOut'
-import Tooltip from '../Tooltip'
 import TabsMain from './Tabs'
 import { useUserGlobal } from '../../lib/useUser'
 import { useRouter } from 'next/router'
@@ -75,7 +74,7 @@ const Profile = (props: IProfile) => {
                   <span>In</span>
                </a>
             </Link>
-            <Tooltip
+            {/* <Tooltip
                wrapper={false}
                elem={
                   <div className="user">
@@ -85,7 +84,7 @@ const Profile = (props: IProfile) => {
                }
             >
                <SignOut />
-            </Tooltip>
+            </Tooltip> */}
          </HeaderStyles>
          <div className={padding}>
             <TabsMain />

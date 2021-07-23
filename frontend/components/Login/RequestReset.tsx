@@ -8,6 +8,7 @@ import Button from '../styles/Button'
 import LoadingOverlay from '../LoadingOverlay'
 import { useRegisterModal } from '../../lib/useRegisterModal'
 import EmailInput from './EmailInput'
+import { RegisterModalVariants } from '../RegisterModal'
 
 const REQUEST_RESET_MUTATION = gql`
    mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -44,7 +45,12 @@ const RequestReset = () => {
          }}
       >
          {props => (
-            <FormStyles>
+            <FormStyles
+               variants={RegisterModalVariants}
+               initial="initial"
+               animate="animate"
+               exit="exit"
+            >
                <Form>
                   <fieldset disabled={loading}>
                      <LoadingOverlay

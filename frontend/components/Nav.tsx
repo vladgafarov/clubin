@@ -9,7 +9,6 @@ import Links from './Links'
 import { FaUserAlt } from 'react-icons/fa'
 import { useMobile } from '../lib/mobileState'
 import SignOut from './SignOut'
-import Tooltip from './Tooltip'
 import { useRegisterModal } from '../lib/useRegisterModal'
 import { useUserGlobal } from '../lib/useUser'
 
@@ -100,7 +99,7 @@ const Nav = () => {
             <Links spy={false} />
             {user ? (
                <UserStyles>
-                  <Tooltip
+                  {/* <Tooltip
                      wrapper={false}
                      elem={
                         <div>
@@ -112,7 +111,7 @@ const Nav = () => {
                      }
                   >
                      <SignOut />
-                  </Tooltip>
+                  </Tooltip> */}
                   {isMobile && <SignOut />}
                </UserStyles>
             ) : (

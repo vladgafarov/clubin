@@ -12,6 +12,7 @@ import EmailInput from './EmailInput'
 import NameInput from './NameInput'
 import PasswordInput from './PasswordInput'
 import ErrorStyles from './ErrorStyles'
+import { RegisterModalVariants } from '../RegisterModal'
 
 const SIGNUP_MUTATION = gql`
    mutation SIGNUP_MUTATION(
@@ -76,7 +77,12 @@ const SignUp = () => {
          }}
       >
          {props => (
-            <FormStyles>
+            <FormStyles
+               variants={RegisterModalVariants}
+               initial="initial"
+               animate="animate"
+               exit="exit"
+            >
                <Form>
                   <fieldset disabled={loading}>
                      <LoadingOverlay

@@ -1,18 +1,19 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-const FormStyles = styled.div`
-   transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+const FormStyles = styled(motion.div)`
+   /* transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1); */
    position: relative;
-   border-image-source: radial-gradient(
+   /* border-image-source: radial-gradient(
       circle farthest-corner at 12.3% 19.3%,
       #ab56d8 0%,
       #ef444a 100.2%
    );
-   border-image-slice: 1;
+   border-image-slice: 1; */
+   /* border-2 */
+   /* p-6 2xl:p-8 */
    ${tw`
-      border-2
-      p-6 2xl:p-8
       text-lg text-black
       bg-white
    `}
