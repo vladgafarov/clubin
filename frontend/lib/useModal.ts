@@ -1,6 +1,13 @@
 import { useState } from 'react'
 
-export const useModal = () => {
+interface IModal {
+   isOpen: boolean
+   openModal: () => void
+   closeModal: () => void
+   toggleModal: () => void
+}
+
+export const useModal = (): IModal => {
    const [isOpen, setOpen] = useState<boolean>(false)
 
    const openModal = () => {
