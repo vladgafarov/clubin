@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 
-interface Links {
+interface ILinks {
    spy: boolean
 }
 
-const Links: React.FC<Links> = ({ spy }) => {
+const Links = ({ spy }: ILinks) => {
    const [offset, setOffset] = useState<number>(0)
 
    useEffect(() => {

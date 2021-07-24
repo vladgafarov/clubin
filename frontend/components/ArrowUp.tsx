@@ -23,11 +23,11 @@ const ArrowUpStyles = styled.div`
    ${props => props.isScrolled && tw`opacity-100 pointer-events-auto`}
 `
 
-interface ArrowUp {
+interface IArrowUp {
    isScrolled: boolean
 }
 
-const ArrowUp: React.FC<ArrowUp> = ({ isScrolled }) => {
+const ArrowUp = ({ isScrolled }: IArrowUp) => {
    return (
       <a onClick={scroll.scrollToTop}>
          <ArrowUpStyles isScrolled={isScrolled}>
