@@ -8,6 +8,7 @@ import TabsMain from './Tabs'
 import { useUserGlobal } from '../../lib/useUser'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import Tooltip from '../Tooltip'
 
 const HeaderStyles = styled.header`
    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
@@ -74,17 +75,12 @@ const Profile = (props: IProfile) => {
                   <span>In</span>
                </a>
             </Link>
-            {/* <Tooltip
-               wrapper={false}
-               elem={
-                  <div className="user">
-                     <CgProfile size={24} className="mr-1" />
-                     <span className="font-pm">{user?.name}</span>
-                  </div>
-               }
-            >
-               <SignOut />
-            </Tooltip> */}
+            <Tooltip content={<SignOut />}>
+               <div className="user">
+                  <CgProfile size={24} className="mr-1" />
+                  <span className="font-pm">{user?.name}</span>
+               </div>
+            </Tooltip>
          </HeaderStyles>
          <div className={padding}>
             <TabsMain />
