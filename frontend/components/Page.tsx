@@ -52,6 +52,14 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     position: relative;
     cursor: pointer;
+    .underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: #fff;
+    }
   }
   .animation-link::after {
       position: absolute;

@@ -14,9 +14,6 @@ const StickyHeaderStyles = styled.div`
       transform -translate-y-full
    `}
    ${props => props.isScrolled && tw`translate-y-0`}
-   .active::after {
-      width: 100%;
-   }
 `
 
 const StickyHeader = ({ isScrolled }) => {

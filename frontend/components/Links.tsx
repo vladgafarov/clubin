@@ -1,5 +1,25 @@
+import { AnimateSharedLayout, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
+
+const LinksContent = [
+   {
+      to: 'events',
+      text: 'Events',
+   },
+   {
+      to: 'artist',
+      text: 'Artists',
+   },
+   {
+      to: 'about',
+      text: 'About us',
+   },
+   {
+      to: 'contact',
+      text: 'Contact',
+   },
+]
 
 interface ILinks {
    spy: boolean
@@ -7,6 +27,7 @@ interface ILinks {
 
 const Links = ({ spy }: ILinks) => {
    const [offset, setOffset] = useState<number>(0)
+   const [active, setActive] = useState<string>(null)
 
    useEffect(() => {
       setOffset(window.innerHeight / 6)
@@ -23,8 +44,30 @@ const Links = ({ spy }: ILinks) => {
    }
 
    return (
-      <>
-         <Link to="events" {...linkProps}>
+      <AnimateSharedLayout>
+         {LinksContent.map(link => (
+            <Link
+               to={link.to}
+               onSetActive={() => setActive(link.to)}
+               {...linkProps}
+            >
+               {link.text}
+               {active == link.to && (
+                  <motion.div
+                     layoutId="underline"
+                     className="underline"
+                     initial={false}
+                     animate={{ opacity: 1 }}
+                     transition={{
+                        type: 'spring',
+                        stiffness: 500,
+                        damping: 50,
+                     }}
+                  />
+               )}
+            </Link>
+         ))}
+         {/* <Link to="events" {...linkProps}>
             Events
          </Link>
          <Link to="artist" duration={1200} {...linkProps}>
@@ -35,8 +78,8 @@ const Links = ({ spy }: ILinks) => {
          </Link>
          <Link to="contact" duration={1500} {...linkProps}>
             Contact
-         </Link>
-      </>
+         </Link> */}
+      </AnimateSharedLayout>
    )
 }
 
