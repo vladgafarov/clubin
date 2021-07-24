@@ -11,6 +11,7 @@ import { useMobile } from '../lib/mobileState'
 import SignOut from './SignOut'
 import { useRegisterModal } from '../lib/useRegisterModal'
 import { useUserGlobal } from '../lib/useUser'
+import Tooltip from './Tooltip'
 
 const NavStyles = styled.nav`
    ${tw`
@@ -99,19 +100,16 @@ const Nav = () => {
             <Links spy={false} />
             {user ? (
                <UserStyles>
-                  {/* <Tooltip
-                     wrapper={false}
-                     elem={
-                        <div>
-                           <FaUserAlt />
-                           <Link href="profile">
-                              <a className="animation-link">Profile</a>
-                           </Link>
-                        </div>
-                     }
-                  >
-                     <SignOut />
-                  </Tooltip> */}
+                  <Tooltip content={<SignOut />} arrow={false}>
+                     <div>
+                        <Link href="profile">
+                           <a className="animation-link flex items-center">
+                              <FaUserAlt className="mr-1" />
+                              Profile
+                           </a>
+                        </Link>
+                     </div>
+                  </Tooltip>
                   {isMobile && <SignOut />}
                </UserStyles>
             ) : (

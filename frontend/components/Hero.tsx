@@ -4,6 +4,7 @@ import Button from './styles/Button'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import { Link } from 'react-scroll'
+import Tooltip from './Tooltip'
 
 const HeroStyles = styled.div`
    ${tw`
@@ -32,6 +33,7 @@ const Hero = () => {
       <HeroStyles className={padding}>
          <div>
             <p className="font-pm text-lg">IT’S NOT JUST LOVE FOR MUSIC</p>
+
             <h1 className="text-6xl md:text-7xl text-blue-400 font-pb py-6">
                Feel The Rhythm
             </h1>
