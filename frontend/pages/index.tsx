@@ -23,13 +23,13 @@ const MainStyles = styled.section`
 `
 
 const HomePage = () => {
-   const [isScrolled, setScroll] = useState(false)
+   const [isScrolled, setIsScrolled] = useState(false)
    const { user } = useUserGlobal()
 
    const handleScroll = () => {
       if (window.pageYOffset > window.innerHeight / 2) {
-         setScroll(true)
-      } else setScroll(false)
+         setIsScrolled(true)
+      } else setIsScrolled(false)
    }
 
    useEffect(() => {
@@ -53,10 +53,10 @@ const HomePage = () => {
          {!user && <RegisterNow />}
          <Contact />
          <Footer />
+         <RegisterModal />
          {/* Dynamic elements */}
          <StickyHeader isScrolled={isScrolled} />
          <ArrowUp isScrolled={isScrolled} />
-         <RegisterModal />
       </RegisterModalStateProvider>
    )
 }
