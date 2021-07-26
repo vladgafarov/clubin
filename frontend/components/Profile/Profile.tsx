@@ -9,6 +9,7 @@ import { useUserGlobal } from '../../lib/useUser'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Tooltip from '../Tooltip'
+import Redirect from '../Redirect'
 
 const HeaderStyles = styled.header`
    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
@@ -58,12 +59,7 @@ const Profile = (props: IProfile) => {
    }, [user])
 
    if (!user && !loading) {
-      return (
-         <div className={padding + ' mt-10'}>
-            <p>You don't have access to this resource</p>
-            <p>Redirecting...</p>
-         </div>
-      )
+      return <Redirect />
    }
 
    return (

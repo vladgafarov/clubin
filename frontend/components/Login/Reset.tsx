@@ -13,6 +13,7 @@ import { padding } from '../Page'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import ErrorStyles from './ErrorStyles'
+import Redirect from '../Redirect'
 
 const RESET_MUTATION = gql`
    mutation RESET_MUTATION(
@@ -32,9 +33,8 @@ const RESET_MUTATION = gql`
 `
 
 const Reset = ({ query: { token } }) => {
-   const [reset, { data, loading, error: errorMutation, called }] = useMutation(
-      RESET_MUTATION
-   )
+   const [reset, { data, loading, error: errorMutation, called }] =
+      useMutation(RESET_MUTATION)
 
    const router = useRouter()
 
@@ -47,12 +47,7 @@ const Reset = ({ query: { token } }) => {
    }, [token])
 
    if (!token) {
-      return (
-         <div className={padding + ' mt-10'}>
-            <p>You don't have access to this resource</p>
-            <p>Redirecting...</p>
-         </div>
-      )
+      return <Redirect />
    }
 
    return (
