@@ -5,6 +5,9 @@ import { IoMdSettings } from 'react-icons/io'
 import { MdEvent } from 'react-icons/md'
 import ProfileInfo from './ProfileInfo'
 import Events from './Events'
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
+import { useState } from 'react'
+import SmoothTransition from '../Animations/SmoothTransition'
 
 const TabsStyles = styled(Tabs)`
    ${tw`mt-9`}
@@ -12,15 +15,18 @@ const TabsStyles = styled(Tabs)`
       ${tw`font-pm`}
       button {
          ${tw`
+            relative
             px-6 py-3 
             transition
             border-b-4 border-gray-700
             hover:bg-gray-600
             hover:text-gray-200
             hover:border-gray-200
+            z-20
          `}
-         &[aria-selected="true"] {
-            ${tw`border-gray-300 bg-gray-700`}
+         .background {
+            z-index: -1;
+            ${tw`absolute inset-0 border-gray-300 bg-gray-700`}
          }
       }
    }
@@ -29,25 +35,53 @@ const TabsStyles = styled(Tabs)`
    }
 `
 
+const transition = {
+   duration: 0.45,
+   stiffness: 500,
+   damping: 50,
+}
+
 const TabsMain = () => {
+   const [activeTab, setActiveTab] = useState(0)
+
    return (
-      <TabsStyles>
-         <TabList>
-            <Tab>
-               <MdEvent className="mr-1" size="22" />
-               My events
-            </Tab>
-            <Tab>
-               <IoMdSettings className="mr-1" size="22" /> Profile Settings
-            </Tab>
-         </TabList>
+      <TabsStyles onChange={number => setActiveTab(number)}>
+         <AnimateSharedLayout>
+            <TabList>
+               <Tab>
+                  <MdEvent className="mr-1" size="22" />
+                  My events
+                  {activeTab == 0 && <SmoothTransition name="background" />}
+               </Tab>
+               <Tab>
+                  <IoMdSettings className="mr-1" size="22" /> Profile Settings
+                  {activeTab == 1 && <SmoothTransition name="background" />}
+               </Tab>
+            </TabList>
+         </AnimateSharedLayout>
 
          <TabPanels>
             <TabPanel>
-               <Events />
+               <motion.div
+                  animate={{
+                     opacity: activeTab == 0 ? 1 : 0,
+                     y: activeTab == 0 ? 0 : 20,
+                  }}
+                  transition={transition}
+               >
+                  <Events />
+               </motion.div>
             </TabPanel>
             <TabPanel>
-               <ProfileInfo />
+               <motion.div
+                  animate={{
+                     opacity: activeTab != 0 ? 1 : 0,
+                     y: activeTab != 0 ? 0 : 20,
+                  }}
+                  transition={transition}
+               >
+                  <ProfileInfo />
+               </motion.div>
             </TabPanel>
          </TabPanels>
       </TabsStyles>

@@ -1,6 +1,7 @@
 import { AnimateSharedLayout, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
+import SmoothTransition from './Animations/SmoothTransition'
 
 const LinksContent = [
    {
@@ -52,19 +53,7 @@ const Links = ({ spy }: ILinks) => {
                {...linkProps}
             >
                {link.text}
-               {active == link.to && (
-                  <motion.div
-                     layoutId="underline"
-                     className="underline"
-                     initial={false}
-                     animate={{ opacity: 1 }}
-                     transition={{
-                        type: 'spring',
-                        stiffness: 500,
-                        damping: 50,
-                     }}
-                  />
-               )}
+               {active == link.to && <SmoothTransition name="underline" />}
             </Link>
          ))}
          {/* <Link to="events" {...linkProps}>
