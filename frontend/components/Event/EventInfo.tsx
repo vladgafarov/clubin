@@ -43,7 +43,7 @@ const EventInfo = () => {
                   height=""
                   width=""
                   sizes="100"
-                  alt={event.photo.altText}
+                  alt={event.photo?.altText}
                />
             ) : (
                <Image
