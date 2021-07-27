@@ -10,7 +10,7 @@ import { useState } from 'react'
 import SmoothTransition from '../Animations/SmoothTransition'
 
 const TabsStyles = styled(Tabs)`
-   ${tw`mt-9`}
+   ${tw`my-9`}
    .chakra-tabs__tablist {
       ${tw`font-pm`}
       button {
@@ -39,6 +39,7 @@ const transition = {
    duration: 0.45,
    stiffness: 500,
    damping: 50,
+   staggerChildren: 0.3,
 }
 
 const TabsMain = () => {
@@ -54,7 +55,8 @@ const TabsMain = () => {
                   {activeTab == 0 && <SmoothTransition name="background" />}
                </Tab>
                <Tab>
-                  <IoMdSettings className="mr-1" size="22" /> Profile Settings
+                  <IoMdSettings className="mr-1" size="22" />
+                  Profile Settings
                   {activeTab == 1 && <SmoothTransition name="background" />}
                </Tab>
             </TabList>

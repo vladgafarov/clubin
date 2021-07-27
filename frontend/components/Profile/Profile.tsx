@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Tooltip from '../Tooltip'
 import Redirect from '../Redirect'
+import { useUser } from '../User'
 
 const HeaderStyles = styled.header`
    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
