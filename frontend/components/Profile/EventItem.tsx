@@ -1,9 +1,11 @@
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { AiOutlineCalendar } from 'react-icons/ai'
+import { FiMoreVertical } from 'react-icons/fi'
 import { RiMapPinLine } from 'react-icons/ri'
 import styled from 'styled-components'
 import tw from 'twin.macro'
+import Tooltip from '../Tooltip'
 
 const ItemStyles = styled.div`
    /* flex: 1 1 0; */
@@ -43,8 +45,20 @@ const EventItem = ({ item }) => {
                />
             )}
          </div>
-         <div>
-            <h1>{item.name}</h1>
+         <div className="flex-auto">
+            <div className="flex justify-between">
+               <h1>{item.name}</h1>
+               <Tooltip
+                  content="Some tooltip"
+                  arrow={false}
+                  triggerOnClick={true}
+                  placement="bottom-end"
+               >
+                  <div className="cursor-pointer p-1 rounded-sm transition hover:bg-gray-700 mt-0.5">
+                     <FiMoreVertical size="20" />
+                  </div>
+               </Tooltip>
+            </div>
             <div className="flex items-center space-x-2">
                <AiOutlineCalendar color="#A919D8" size="25" />
                <span className="text-blue-500">
