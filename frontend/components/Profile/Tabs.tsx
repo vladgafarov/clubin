@@ -31,6 +31,7 @@ const TabsStyles = styled(Tabs)`
       }
    }
    .chakra-tabs__tab-panels {
+      min-height: 80vh;
       ${tw`mt-4`}
    }
 `

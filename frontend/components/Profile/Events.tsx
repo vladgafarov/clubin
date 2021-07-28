@@ -50,7 +50,7 @@ const Events = () => {
          {error && <DisplayError error={error} />}
          {data?.allEvents.length == 0 && <p>Nothing to show!</p>}
          {data?.allEvents.map((item, i) => (
-            <EventItem item={item} />
+            <EventItem key={i} item={item} />
          ))}
       </EventStyles>
    )
