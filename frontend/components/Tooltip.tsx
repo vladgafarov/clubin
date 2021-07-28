@@ -1,6 +1,7 @@
-import Tippy from '@tippyjs/react/headless'
+import Tippy, { TippyProps } from '@tippyjs/react/headless'
 import styled from 'styled-components'
 import { useSpring, motion } from 'framer-motion'
+import { useState } from 'react'
 
 const Box = styled(motion.div)`
    background: #333;
@@ -42,14 +43,8 @@ const Arrow = styled(motion.div)`
    }
 `
 
-type Position = 'auto' | 'bottom' | 'left' | 'right' | 'top'
-type PositionPlacement = 'end' | 'start'
-
 interface ITooltip {
-   content: string | React.ReactNode
-   children: React.ReactElement
-   placement?: `${Position}-${PositionPlacement}` | Position
-   arrow?: boolean
+   triggerOnClick?: boolean
 }
 
 const Tooltip = ({
@@ -57,7 +52,8 @@ const Tooltip = ({
    children,
    placement = 'bottom',
    arrow = true,
-}: ITooltip) => {
+   triggerOnClick = false,
+}: TippyProps & ITooltip) => {
    const springConfig = { damping: 40, stiffness: 400 }
    const initialScale = 0.8
    const opacity = useSpring(0, springConfig)
@@ -78,6 +74,37 @@ const Tooltip = ({
 
       scale.set(initialScale)
       opacity.set(0)
+   }
+
+   const [visible, setVisible] = useState(false)
+   const show = () => setVisible(true)
+   const hide = () => setVisible(false)
+
+   if (triggerOnClick) {
+      return (
+         <Tippy
+            render={attrs => (
+               <Box
+                  style={{ scale, opacity }}
+                  data-popper-placement={placement}
+                  {...attrs}
+               >
+                  {content}
+                  {arrow && <Arrow data-popper-arrow="" />}
+               </Box>
+            )}
+            animation={true}
+            onMount={onMount}
+            onHide={onHide}
+            interactive={true}
+            offset={[0, 7]}
+            placement={placement}
+            visible={visible}
+            onClickOutside={hide}
+         >
+            <div onClick={visible ? hide : show}>{children}</div>
+         </Tippy>
+      )
    }
 
    return (
