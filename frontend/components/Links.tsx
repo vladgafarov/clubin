@@ -46,8 +46,9 @@ const Links = ({ spy }: ILinks) => {
 
    return (
       <AnimateSharedLayout>
-         {LinksContent.map(link => (
+         {LinksContent.map((link, i) => (
             <Link
+               key={i}
                to={link.to}
                onSetActive={() => setActive(link.to)}
                {...linkProps}
