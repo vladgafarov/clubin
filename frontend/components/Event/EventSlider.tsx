@@ -82,6 +82,10 @@ const EventSlider = ({ events, handleClick }) => {
       closeModal: closeBookModal,
    } = useModal()
 
+   if (!currentEvent) {
+      return <p>Nothing</p>
+   }
+
    return (
       <>
          <Slider {...settings} className="sm:-ml-8 max-w-full">

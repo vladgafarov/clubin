@@ -147,7 +147,7 @@ const UNBOOK_EVENT_MUTATION = gql`
    }
 `
 
-const Event: React.FC = () => {
+const Event = () => {
    const { user } = useUserGlobal()
    const [bookEvent, bookMutationResult] = useMutation(BOOK_EVENT_MUTATION)
    const [unBookEvent, unBookMutationResult] = useMutation(

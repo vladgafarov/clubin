@@ -9,9 +9,15 @@ import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
 
 const EventInfoModal = () => {
-   const { currentEvent: event, isOpen, closeModal } = useContext(
-      BookEventContext
-   )
+   const {
+      currentEvent: event,
+      isOpen,
+      closeModal,
+   } = useContext(BookEventContext)
+
+   if (!event) {
+      return <p>Nothing</p>
+   }
 
    return (
       <Modal isOpen={isOpen} closeModal={closeModal}>

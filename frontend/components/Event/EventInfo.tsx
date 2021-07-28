@@ -34,16 +34,20 @@ const EventInfoStyles = styled.div`
 const EventInfo = () => {
    const { currentEvent: event, openModal } = useContext(BookEventContext)
 
+   if (!event) {
+      return <p>Nothing</p>
+   }
+
    return (
       <>
          <EventInfoStyles className="hidden xl:block">
-            {event.photo?.image?.publicUrl ? (
+            {event?.photo?.image?.publicUrl ? (
                <Image
-                  src={event.photo?.image.publicUrl}
+                  src={event?.photo?.image.publicUrl}
                   height=""
                   width=""
                   sizes="100"
-                  alt={event.photo?.altText}
+                  alt={event?.photo?.altText}
                />
             ) : (
                <Image
@@ -56,16 +60,16 @@ const EventInfo = () => {
             )}
             <div className="event-info__text">
                <div className="top">
-                  <h2 className="text-4xl font-pb">{event.name}</h2>
+                  <h2 className="text-4xl font-pb">{event?.name}</h2>
                   <p className="flex items-center space-x-2">
                      <AiOutlineCalendar color="#A919D8" size="25" />
                      <span className="text-blue-400">
-                        {format(new Date(event.time), 'dd.LL.yyy')}
+                        {format(new Date(event?.time), 'dd.LL.yyy')}
                      </span>
                   </p>
                </div>
                <p className="pt-3 truncate">
-                  {event.description && event.description}
+                  {event?.description && event?.description}
                </p>
                <div className="bottom flex items-center space-x-2 justify-between">
                   <button
@@ -76,7 +80,7 @@ const EventInfo = () => {
                   </button>
                   <div className="flex space-x-2">
                      <RiMapPinLine color="#A919D8" size="25" />
-                     <span className="text-blue-400">{event.place}</span>
+                     <span className="text-blue-400">{event?.place}</span>
                   </div>
                </div>
             </div>
