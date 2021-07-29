@@ -7,7 +7,7 @@ import DisplayError from '../ErrorMessage'
 import EventItem from './EventItem'
 import { motion } from 'framer-motion'
 
-const USER_EVENT_QUERY = gql`
+export const USER_EVENT_QUERY = gql`
    query USER_EVENT_QUERY($id: ID!) {
       allEvents(where: { user_some: { id: $id } }) {
          name
