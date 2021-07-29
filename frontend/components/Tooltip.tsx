@@ -85,7 +85,7 @@ const Tooltip = ({
          <Tippy
             render={attrs => (
                <Box
-                  style={{ scale, opacity }}
+                  style={{ scale, opacity, padding: '5px 0' }}
                   data-popper-placement={placement}
                   {...attrs}
                >
@@ -97,7 +97,7 @@ const Tooltip = ({
             onMount={onMount}
             onHide={onHide}
             interactive={true}
-            offset={[0, 7]}
+            offset={[0, 0]}
             placement={placement}
             visible={visible}
             onClickOutside={hide}
