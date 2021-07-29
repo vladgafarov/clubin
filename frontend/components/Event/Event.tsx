@@ -137,7 +137,7 @@ const BOOK_EVENT_MUTATION = gql`
    }
 `
 
-const UNBOOK_EVENT_MUTATION = gql`
+export const UNBOOK_EVENT_MUTATION = gql`
    mutation UNBOOK_EVENT_MUTATION($id: ID!, $userId: ID!) {
       updateEvent(id: $id, data: { user: { disconnect: { id: $userId } } }) {
          user {
