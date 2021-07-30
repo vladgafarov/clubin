@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client'
 import { format } from 'date-fns'
 import Image from 'next/image'
-import { useState } from 'react'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { FiMoreVertical } from 'react-icons/fi'
 import { RiMapPinLine } from 'react-icons/ri'
@@ -10,9 +9,11 @@ import tw from 'twin.macro'
 import { useModal } from '../../lib/useModal'
 import { useUserGlobal } from '../../lib/useUser'
 import { UNBOOK_EVENT_MUTATION } from '../Event/Event'
+import LoadingOverlay from '../LoadingOverlay'
 import Modal from '../Modal'
 import Tooltip from '../Tooltip'
 import { USER_EVENT_QUERY } from './Events'
+import wait from 'waait'
 
 const ItemStyles = styled.div`
    ${tw`
@@ -50,6 +51,8 @@ const EventItem = ({ item }) => {
       }
    )
 
+   console.log({ data, called, id: item.id })
+
    const handleUnbookClick = async () => {
       await unBookEvent({
          refetchQueries: [
@@ -59,6 +62,8 @@ const EventItem = ({ item }) => {
             },
          ],
       })
+      await wait(2600)
+      closeModal()
    }
 
    return (
@@ -116,15 +121,14 @@ const EventItem = ({ item }) => {
             </div>
          </ItemStyles>
          <Modal isOpen={isOpen} closeModal={closeModal}>
+            {error && <p className="text-red-500">{error?.message}</p>}
+            <LoadingOverlay loading={loading} error={!!error} called={called} />
             <h1 className="font-pb text-2xl">
                Do you really want to cancel the event?
             </h1>
             <div className="flex flex-wrap mt-2">
                <button
-                  onClick={() => {
-                     handleUnbookClick()
-                     closeModal()
-                  }}
+                  onClick={handleUnbookClick}
                   className="flex-1 font-pm border-2 rounded-lg py-2 px-4 transition border-green-500 hover:bg-green-500 hover:text-white focus:bg-green-700"
                >
                   Yes
