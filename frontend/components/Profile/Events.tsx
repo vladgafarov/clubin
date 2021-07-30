@@ -49,8 +49,8 @@ const Events = () => {
       <EventStyles>
          {error && <DisplayError error={error} />}
          {data?.allEvents.length == 0 && <p>Nothing to show!</p>}
-         {data?.allEvents.map((item, i) => (
-            <EventItem key={i} item={item} />
+         {data?.allEvents.map(item => (
+            <EventItem key={item.id} item={item} />
          ))}
       </EventStyles>
    )
