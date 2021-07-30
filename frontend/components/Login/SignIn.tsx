@@ -31,7 +31,8 @@ const SIGNIN_MUTATION = gql`
 `
 
 const SignIn = () => {
-   const [signIn, { data, loading, called }] = useMutation(SIGNIN_MUTATION)
+   const [signIn, { data, error: errorMutation, loading, called }] =
+      useMutation(SIGNIN_MUTATION)
 
    const { setSignUp, closeModal, setReset } = useRegisterModal()
 
@@ -68,7 +69,10 @@ const SignIn = () => {
             }).then(async res => {
                const { data } = res
 
-               if (data.authenticateUserWithPassword.code !== 'FAILURE') {
+               if (
+                  data.authenticateUserWithPassword.code !== 'FAILURE' &&
+                  !errorMutation
+               ) {
                   actions.resetForm()
                   await wait(2000)
                   closeModal()
@@ -87,14 +91,18 @@ const SignIn = () => {
                   <fieldset disabled={loading}>
                      <LoadingOverlay
                         loading={loading}
-                        error={!!error?.message}
+                        error={!!error?.message || !!errorMutation?.message}
                         called={called}
                      />
 
                      <EmailInput />
                      <PasswordInput />
 
-                     {error && <p className={ErrorStyles}>{error?.message}</p>}
+                     {(error || errorMutation) && (
+                        <p className={ErrorStyles}>
+                           {error?.message || errorMutation?.message}
+                        </p>
+                     )}
 
                      <Button type="submit" isGradient>
                         Submit

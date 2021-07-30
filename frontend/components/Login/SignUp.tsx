@@ -29,7 +29,8 @@ const SIGNUP_MUTATION = gql`
 `
 
 const SignUp = () => {
-   const [signup, { data, loading, called }] = useMutation(SIGNUP_MUTATION)
+   const [signup, { data, error: errorMutation, loading, called }] =
+      useMutation(SIGNUP_MUTATION)
 
    const [error, setError] = useState<string>()
 
@@ -87,7 +88,7 @@ const SignUp = () => {
                   <fieldset disabled={loading}>
                      <LoadingOverlay
                         loading={loading}
-                        error={!!error}
+                        error={!!error || !!errorMutation?.message}
                         called={called}
                      />
 
@@ -95,7 +96,11 @@ const SignUp = () => {
                      <EmailInput />
                      <PasswordInput />
 
-                     {error && <p className={ErrorStyles}>{error}</p>}
+                     {(error || errorMutation) && (
+                        <p className={ErrorStyles}>
+                           {error || errorMutation?.message}
+                        </p>
+                     )}
 
                      <Button type="submit" isGradient>
                         Submit
