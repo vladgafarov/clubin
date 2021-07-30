@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { useUserGlobal } from '../../lib/useUser'
 import DisplayError from '../ErrorMessage'
 import EventItem from './EventItem'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export const USER_EVENT_QUERY = gql`
    query USER_EVENT_QUERY($id: ID!) {
@@ -33,7 +33,7 @@ const EventStyles = styled(motion.div)`
    ${tw`grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-6`}
 `
 
-const Events = () => {
+const Events = ({ controls }) => {
    const { user } = useUserGlobal()
    const { data, loading, error } = useQuery(USER_EVENT_QUERY, {
       variables: {
@@ -49,9 +49,16 @@ const Events = () => {
       <EventStyles>
          {error && <DisplayError error={error} />}
          {data?.allEvents.length == 0 && <p>Nothing to show!</p>}
-         {data?.allEvents.map(item => (
-            <EventItem key={item.id} item={item} />
-         ))}
+         <AnimatePresence>
+            {data?.allEvents.map((item, i) => (
+               <EventItem
+                  custom={i}
+                  controls={controls}
+                  key={item.id}
+                  item={item}
+               />
+            ))}
+         </AnimatePresence>
       </EventStyles>
    )
 }

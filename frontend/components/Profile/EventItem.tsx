@@ -14,6 +14,7 @@ import Modal from '../Modal'
 import Tooltip from '../Tooltip'
 import { USER_EVENT_QUERY } from './Events'
 import wait from 'waait'
+import { motion } from 'framer-motion'
 
 const ItemStyles = styled.div`
    ${tw`
@@ -34,14 +35,27 @@ const ItemStyles = styled.div`
    }
 `
 
-const EventItem = ({ item }) => {
+const variants = {
+   visible: i => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+         delay: i * 0.25,
+         damping: 50,
+         stinffness: 500,
+      },
+   }),
+   hidden: { opacity: 0, y: 10 },
+}
+
+const EventItem = ({ item, custom, controls }) => {
    const {
       user: { id: userId },
    } = useUserGlobal()
 
    const { isOpen, openModal, closeModal } = useModal()
 
-   const [unBookEvent, { data, loading, error, called }] = useMutation(
+   const [unBookEvent, { loading, error, called }] = useMutation(
       UNBOOK_EVENT_MUTATION,
       {
          variables: {
@@ -50,8 +64,6 @@ const EventItem = ({ item }) => {
          },
       }
    )
-
-   console.log({ data, called, id: item.id })
 
    const handleUnbookClick = async () => {
       await unBookEvent({
@@ -62,12 +74,18 @@ const EventItem = ({ item }) => {
             },
          ],
       })
-      await wait(2600)
+      await wait(2300)
       closeModal()
    }
 
    return (
-      <>
+      <motion.div
+         custom={custom}
+         variants={variants}
+         initial="hidden"
+         animate={controls}
+         exit="hidden"
+      >
          <ItemStyles>
             <div className="flex-none relative w-1/3">
                {item.photo?.image?.publicUrl ? (
@@ -141,7 +159,7 @@ const EventItem = ({ item }) => {
                </button>
             </div>
          </Modal>
-      </>
+      </motion.div>
    )
 }
 

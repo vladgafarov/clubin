@@ -5,9 +5,10 @@ import { IoMdSettings } from 'react-icons/io'
 import { MdEvent } from 'react-icons/md'
 import ProfileInfo from './ProfileInfo'
 import Events from './Events'
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
+import { AnimateSharedLayout, useAnimation } from 'framer-motion'
 import { useState } from 'react'
 import SmoothTransition from '../Animations/SmoothTransition'
+import { useEffect } from 'react'
 
 const TabsStyles = styled(Tabs)`
    ${tw`my-9`}
@@ -36,18 +37,30 @@ const TabsStyles = styled(Tabs)`
    }
 `
 
-const transition = {
-   duration: 0.45,
-   stiffness: 500,
-   damping: 50,
-   staggerChildren: 0.3,
-}
-
 const TabsMain = () => {
    const [activeTab, setActiveTab] = useState(0)
 
+   const eventControls = useAnimation()
+   const infoControls = useAnimation()
+
+   useEffect(() => {
+      eventControls.start('visible')
+      // infoControls.start('visible')
+   }, [])
+
    return (
-      <TabsStyles onChange={number => setActiveTab(number)}>
+      <TabsStyles
+         onChange={number => {
+            setActiveTab(number)
+            if (number == 0) {
+               eventControls.start('visible')
+               infoControls.start('hidden')
+            } else {
+               infoControls.start('visible')
+               eventControls.start('hidden')
+            }
+         }}
+      >
          <AnimateSharedLayout>
             <TabList>
                <Tab>
@@ -65,26 +78,10 @@ const TabsMain = () => {
 
          <TabPanels>
             <TabPanel>
-               <motion.div
-                  animate={{
-                     opacity: activeTab == 0 ? 1 : 0,
-                     y: activeTab == 0 ? 0 : 20,
-                  }}
-                  transition={transition}
-               >
-                  <Events />
-               </motion.div>
+               <Events controls={eventControls} />
             </TabPanel>
             <TabPanel>
-               <motion.div
-                  animate={{
-                     opacity: activeTab != 0 ? 1 : 0,
-                     y: activeTab != 0 ? 0 : 20,
-                  }}
-                  transition={transition}
-               >
-                  <ProfileInfo />
-               </motion.div>
+               <ProfileInfo controls={infoControls} />
             </TabPanel>
          </TabPanels>
       </TabsStyles>
