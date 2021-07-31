@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import { useUserGlobal } from '../../lib/useUser'
+import Button from '../styles/Button'
+import Input from './Input'
 
 const ProfileInfoStyles = styled.div`
    ${tw`mb-4`}
@@ -34,13 +36,17 @@ const ProfileInfo = ({ controls }) => {
          <ProfileInfoStyles>
             <span>Name:</span>
             <br />
-            <span>{user?.name}</span>
+            <Input value={user?.name} />
          </ProfileInfoStyles>
          <ProfileInfoStyles>
             <span>Email:</span>
             <br />
             <span>{user?.email}</span>
          </ProfileInfoStyles>
+         <div className="controls">
+            <Button>Save</Button>
+            <Button>Cancel</Button>
+         </div>
       </motion.div>
    )
 }
