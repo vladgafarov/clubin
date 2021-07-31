@@ -45,7 +45,6 @@ const TabsMain = () => {
 
    useEffect(() => {
       eventControls.start('visible')
-      // infoControls.start('visible')
    }, [])
 
    return (
