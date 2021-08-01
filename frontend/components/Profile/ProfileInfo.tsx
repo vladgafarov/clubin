@@ -36,7 +36,7 @@ const ProfileInfo = ({ controls }) => {
          <ProfileInfoStyles>
             <span>Name:</span>
             <br />
-            <Input value={user?.name} />
+            <Input value={user?.name} id={user?.id} />
          </ProfileInfoStyles>
          <ProfileInfoStyles>
             <span>Email:</span>
