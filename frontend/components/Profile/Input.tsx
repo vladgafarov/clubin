@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client'
-import { ErrorMessage, Field, Formik } from 'formik'
+import { useFormik } from 'formik'
 import gql from 'graphql-tag'
 import { useEffect, useRef, useState } from 'react'
 import { IoClose } from 'react-icons/io5'
@@ -75,16 +75,6 @@ const Input = ({ value, id }) => {
    const [updateName, { loading, error, called }] =
       useMutation(UPDATE_NAME_MUTATION)
 
-   const validateName = fieldValue => {
-      let error
-
-      if (fieldValue == value) {
-         error = "The names can't match"
-      }
-
-      return error
-   }
-
    const handleEditClick = async () => {
       setIsEditing(true)
       await wait(1)
@@ -98,6 +88,7 @@ const Input = ({ value, id }) => {
          isEditing
       ) {
          setIsEditing(false)
+         formik.resetForm()
       }
    }
 
@@ -109,82 +100,67 @@ const Input = ({ value, id }) => {
       }
    }, [isEditing])
 
-   return (
-      <Formik
-         initialValues={{
-            name: value,
-         }}
-         validateOnBlur={false}
-         validateOnChange={false}
-         validationSchema={Yup.object({
-            name: Yup.string()
-               .max(30, '30 characters max')
-               .required('Must be at least 1 character length'),
-         })}
-         onSubmit={async ({ name }, actions) => {
-            setIsEditing(false)
-            await updateName({
-               variables: {
-                  id,
-                  name,
-               },
-            }).catch(() => setIsEditing(true))
-         }}
-      >
-         {props => (
-            <div className="w-1/3 relative mt-1">
-               <LoadingOverlay
-                  loading={loading}
-                  error={!!error}
-                  called={called}
-               />
-               {error && <p className={ErrorStyles}>{error?.message}</p>}
+   const formik = useFormik({
+      initialValues: {
+         name: value,
+      },
+      validateOnBlur: false,
+      validateOnChange: false,
+      validationSchema: Yup.object({
+         name: Yup.string()
+            .max(30, '30 characters max')
+            .not([value], 'The names cannot be the same')
+            .required('Must be at least 1 character length'),
+      }),
+      onSubmit: async ({ name }) => {
+         setIsEditing(false)
+         await updateName({
+            variables: {
+               id,
+               name,
+            },
+         }).catch(() => setIsEditing(true))
+      },
+   })
 
-               <InputStyles className="relative">
-                  <Field name="name" validate={validateName}>
-                     {({ field }) => (
-                        <input
-                           type="text"
-                           disabled={!isEditing}
-                           ref={inputEl}
-                           {...field}
-                        />
-                     )}
-                  </Field>
-                  <Tooltip content="Edit" delay={[500, 0]} placement="top">
-                     <div className="icon" onClick={handleEditClick}>
-                        <MdModeEdit size={28} />
-                     </div>
-                  </Tooltip>
-                  <Fade
-                     condition={isEditing}
-                     className="absolute -right-24 inset-y-0 flex items-center space-x-2"
-                  >
-                     <div
-                        className={'submit ' + ButtonStyles}
-                        onClick={props.submitForm}
-                     >
-                        <TiTick className="submit" />
-                     </div>
-                     <div
-                        className={ButtonStyles}
-                        onClick={() => {
-                           setIsEditing(false)
-                           props.resetForm()
-                        }}
-                     >
-                        <IoClose />
-                     </div>
-                  </Fade>
-               </InputStyles>
-               <Fade condition={isEditing}>
-                  <ErrorMessage name="name">
-                     {text => <p className={ErrorStyles}>{text}</p>}
-                  </ErrorMessage>
-               </Fade>
-            </div>
-         )}
-      </Formik>
+   return (
+      <div className="w-1/3 relative mt-1">
+         <LoadingOverlay loading={loading} error={!!error} called={called} />
+         {error && <p className={ErrorStyles}>{error?.message}</p>}
+
+         <InputStyles className="relative">
+            <input
+               name="name"
+               type="text"
+               onChange={formik.handleChange}
+               value={formik.values.name}
+               disabled={!isEditing}
+               ref={inputEl}
+            />
+            <Tooltip content="Edit" delay={[500, 0]} placement="top">
+               <div className="icon" onClick={handleEditClick}>
+                  <MdModeEdit size={28} />
+               </div>
+            </Tooltip>
+            <Fade
+               condition={isEditing}
+               className="absolute -right-24 inset-y-0 flex items-center space-x-2"
+            >
+               <div
+                  className={'submit ' + ButtonStyles}
+                  onClick={formik.submitForm}
+               >
+                  <TiTick className="submit" />
+               </div>
+               <div className={ButtonStyles}>
+                  <IoClose />
+               </div>
+            </Fade>
+         </InputStyles>
+         <Fade condition={!!(isEditing && formik.errors.name)}>
+            <p className={ErrorStyles}>{formik.errors.name}</p>
+         </Fade>
+      </div>
    )
 }
 
