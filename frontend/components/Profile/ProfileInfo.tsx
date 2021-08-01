@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import { useUserGlobal } from '../../lib/useUser'
 import Button from '../styles/Button'
+import EmailInput from './EmailInput'
 import NameInput from './NameInput'
 
 const ProfileInfoStyles = styled.div`
@@ -34,12 +35,9 @@ const ProfileInfo = ({ controls }) => {
          <ProfileInfoStyles>
             <span>Email:</span>
             <br />
-            <span>{user?.email}</span>
+            <EmailInput value={user?.email} id={user?.id} />
          </ProfileInfoStyles>
-         {/* <div className="controls">
-            <Button>Save</Button>
-            <Button>Cancel</Button>
-         </div> */}
+         <Button>Change password</Button>
       </motion.div>
    )
 }
