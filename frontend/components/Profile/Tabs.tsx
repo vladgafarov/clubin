@@ -61,7 +61,7 @@ const TabsMain = () => {
          }}
       >
          <AnimateSharedLayout>
-            <TabList>
+            <TabList defaultValue={0}>
                <Tab>
                   <MdEvent className="mr-1" size="22" />
                   My events
