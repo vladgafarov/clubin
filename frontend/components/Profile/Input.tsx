@@ -56,7 +56,7 @@ const InputStyles = styled.div`
 `
 
 const ButtonStyles =
-   'w-9 h-9 bg-gray-700 p-2 flex items-center justify-center rounded cursor-pointer transition hover:bg-gray-800'
+   'w-9 h-9 bg-gray-700 p-2 rounded cursor-pointer transition hover:bg-gray-800'
 
 const UPDATE_NAME_MUTATION = gql`
    mutation UPDATE_NAME_MUTATION($id: ID!, $name: String!) {
@@ -101,9 +101,7 @@ const Input = ({ value, id }) => {
    }, [isEditing])
 
    const formik = useFormik({
-      initialValues: {
-         name: value,
-      },
+      initialValues: { name: value },
       validateOnBlur: false,
       validateOnChange: false,
       validationSchema: Yup.object({
@@ -124,7 +122,7 @@ const Input = ({ value, id }) => {
    })
 
    return (
-      <div className="w-1/3 relative mt-1">
+      <div className="w-full md:w-1/3 relative mt-1">
          <LoadingOverlay loading={loading} error={!!error} called={called} />
          {error && <p className={ErrorStyles}>{error?.message}</p>}
 
@@ -137,24 +135,22 @@ const Input = ({ value, id }) => {
                disabled={!isEditing}
                ref={inputEl}
             />
-            <Tooltip content="Edit" delay={[500, 0]} placement="top">
-               <div className="icon" onClick={handleEditClick}>
-                  <MdModeEdit size={28} />
-               </div>
-            </Tooltip>
+            <Fade condition={!isEditing}>
+               <Tooltip content="Edit" delay={[500, 0]} placement="top">
+                  <div className="icon" onClick={handleEditClick}>
+                     <MdModeEdit size={28} />
+                  </div>
+               </Tooltip>
+            </Fade>
             <Fade
                condition={isEditing}
-               className="absolute -right-24 inset-y-0 flex items-center space-x-2"
+               className="absolute right-4 inset-y-0 flex items-center space-x-2"
             >
-               <div
+               <TiTick
                   className={'submit ' + ButtonStyles}
                   onClick={formik.submitForm}
-               >
-                  <TiTick className="submit" />
-               </div>
-               <div className={ButtonStyles}>
-                  <IoClose />
-               </div>
+               />
+               <IoClose className={ButtonStyles} />
             </Fade>
          </InputStyles>
          <Fade condition={!!(isEditing && formik.errors.name)}>
