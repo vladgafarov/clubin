@@ -42,9 +42,6 @@ const SignIn = () => {
          ? data?.authenticateUserWithPassword
          : undefined
 
-   console.log({ error })
-   // console.log(data)
-
    return (
       //TODO: useMemo()
       <Formik
