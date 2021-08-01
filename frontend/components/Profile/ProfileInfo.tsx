@@ -7,15 +7,8 @@ import Input from './Input'
 
 const ProfileInfoStyles = styled.div`
    ${tw`mb-4`}
-   span:first-of-type {
+   span {
       ${tw`text-base`}
-   }
-   span:last-of-type {
-      ${tw`
-         text-2xl
-         border-b-2 border-gray-500
-         font-pm
-      `}
    }
 `
 
@@ -43,10 +36,10 @@ const ProfileInfo = ({ controls }) => {
             <br />
             <span>{user?.email}</span>
          </ProfileInfoStyles>
-         <div className="controls">
+         {/* <div className="controls">
             <Button>Save</Button>
             <Button>Cancel</Button>
-         </div>
+         </div> */}
       </motion.div>
    )
 }
