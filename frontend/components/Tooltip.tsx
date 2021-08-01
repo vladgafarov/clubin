@@ -51,6 +51,7 @@ const Tooltip = ({
    content,
    children,
    placement = 'bottom',
+   delay = 0,
    arrow = true,
    triggerOnClick = false,
 }: TippyProps & ITooltip) => {
@@ -101,6 +102,7 @@ const Tooltip = ({
             placement={placement}
             visible={visible}
             onClickOutside={hide}
+            delay={delay}
          >
             <div onClick={visible ? hide : show}>{children}</div>
          </Tippy>
@@ -125,6 +127,7 @@ const Tooltip = ({
          interactive={true}
          offset={[0, 7]}
          placement={placement}
+         delay={delay}
       >
          {children}
       </Tippy>
