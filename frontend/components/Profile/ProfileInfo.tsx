@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import { useUserGlobal } from '../../lib/useUser'
 import Button from '../styles/Button'
-import Input from './Input'
+import NameInput from './NameInput'
 
 const ProfileInfoStyles = styled.div`
    ${tw`mb-4`}
@@ -29,7 +29,7 @@ const ProfileInfo = ({ controls }) => {
          <ProfileInfoStyles>
             <span>Name:</span>
             <br />
-            <Input value={user?.name} id={user?.id} />
+            <NameInput value={user?.name} id={user?.id} />
          </ProfileInfoStyles>
          <ProfileInfoStyles>
             <span>Email:</span>

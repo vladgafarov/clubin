@@ -68,7 +68,7 @@ const UPDATE_NAME_MUTATION = gql`
    }
 `
 
-const Input = ({ value, id }) => {
+const NameInput = ({ value, id }) => {
    const inputEl = useRef(null)
 
    const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -163,4 +163,4 @@ const Input = ({ value, id }) => {
    )
 }
 
-export default Input
+export default NameInput
