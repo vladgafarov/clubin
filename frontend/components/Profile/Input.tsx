@@ -70,6 +70,7 @@ const UPDATE_NAME_MUTATION = gql`
 
 const Input = ({ value, id }) => {
    const inputEl = useRef(null)
+
    const [isEditing, setIsEditing] = useState<boolean>(false)
 
    const [updateName, { loading, error, called }] =
@@ -82,9 +83,11 @@ const Input = ({ value, id }) => {
    }
 
    const handleOutsideInputClick = e => {
+      const el = e.target
       if (
-         e.target.localName !== 'input' &&
-         e.target.classList[0] !== 'submit' &&
+         el.localName !== 'input' &&
+         el.classList[0] !== 'submit' &&
+         el.parentElement.classList[0] !== 'submit' &&
          isEditing
       ) {
          setIsEditing(false)
