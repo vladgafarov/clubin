@@ -86,11 +86,7 @@ const SignUp = () => {
             >
                <Form>
                   <fieldset disabled={loading}>
-                     <LoadingOverlay
-                        loading={loading}
-                        error={!!error || !!errorMutation?.message}
-                        called={called}
-                     />
+                     <LoadingOverlay loading={loading} />
 
                      <NameInput />
                      <EmailInput />

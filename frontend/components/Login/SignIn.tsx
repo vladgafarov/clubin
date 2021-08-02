@@ -86,11 +86,7 @@ const SignIn = () => {
             >
                <Form>
                   <fieldset disabled={loading}>
-                     <LoadingOverlay
-                        loading={loading}
-                        error={!!error?.message || !!errorMutation?.message}
-                        called={called}
-                     />
+                     <LoadingOverlay loading={loading} />
 
                      <EmailInput />
                      <PasswordInput />
