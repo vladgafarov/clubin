@@ -140,7 +140,7 @@ const EventItem = ({ item, custom, controls }) => {
          </ItemStyles>
          <Modal isOpen={isOpen} closeModal={closeModal}>
             {error && <p className="text-red-500">{error?.message}</p>}
-            <LoadingOverlay loading={loading} error={!!error} called={called} />
+            <LoadingOverlay loading={loading} />
             <h1 className="font-pb text-2xl">
                Do you really want to cancel the event?
             </h1>
