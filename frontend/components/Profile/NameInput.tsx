@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import wait from 'waait'
 import * as Yup from 'yup'
+import { useLoader } from '../../lib/useLoader'
 import Fade from '../Animations/Fade'
 import LoadingOverlay from '../LoadingOverlay'
 import ErrorStyles from '../Login/ErrorStyles'
@@ -73,8 +74,7 @@ const NameInput = ({ value, id }) => {
 
    const [isEditing, setIsEditing] = useState<boolean>(false)
 
-   const [updateName, { loading, error, called }] =
-      useMutation(UPDATE_NAME_MUTATION)
+   const [updateName, { loading, error }] = useMutation(UPDATE_NAME_MUTATION)
 
    const handleEditClick = async () => {
       setIsEditing(true)
@@ -91,7 +91,7 @@ const NameInput = ({ value, id }) => {
          isEditing
       ) {
          setIsEditing(false)
-         formik.resetForm()
+         formik.setFieldValue('name', value)
       }
    }
 
@@ -120,13 +120,21 @@ const NameInput = ({ value, id }) => {
                id,
                name,
             },
-         }).catch(() => setIsEditing(true))
+         }).catch(() => {
+            setIsEditing(true)
+         })
       },
    })
 
    return (
-      <div className="w-full md:w-1/3 relative mt-1">
-         <LoadingOverlay loading={loading} error={!!error} called={called} />
+      <form
+         onSubmit={e => {
+            e.preventDefault()
+            formik.submitForm()
+         }}
+         className="w-full md:w-1/3 relative mt-1"
+      >
+         <LoadingOverlay loading={loading} />
          {error && <p className={ErrorStyles}>{error?.message}</p>}
 
          <InputStyles className="relative">
@@ -159,7 +167,7 @@ const NameInput = ({ value, id }) => {
          <Fade condition={!!(isEditing && formik.errors.name)}>
             <p className={ErrorStyles}>{formik.errors.name}</p>
          </Fade>
-      </div>
+      </form>
    )
 }
 
