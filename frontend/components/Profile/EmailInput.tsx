@@ -120,13 +120,15 @@ const EmailInput = ({ value, id }) => {
                id,
                name,
             },
-         }).catch(() => setIsEditing(true))
+         })
+            .then(res => setIsSuccess(true))
+            .catch(() => setIsEditing(true))
       },
    })
 
    return (
       <div className="w-full md:w-1/3 relative mt-1">
-         <LoadingOverlay loading={loading} error={!!error} called={called} />
+         <LoadingOverlay loading={loading} />
          {error && <p className={ErrorStyles}>{error?.message}</p>}
 
          <InputStyles className="relative">
