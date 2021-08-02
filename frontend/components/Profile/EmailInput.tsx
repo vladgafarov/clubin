@@ -120,9 +120,7 @@ const EmailInput = ({ value, id }) => {
                id,
                name,
             },
-         })
-            .then(res => setIsSuccess(true))
-            .catch(() => setIsEditing(true))
+         }).catch(() => setIsEditing(true))
       },
    })
 
