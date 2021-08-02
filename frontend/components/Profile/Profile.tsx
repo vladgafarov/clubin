@@ -1,7 +1,7 @@
 import styled from 'styled-components'
+import tw from 'twin.macro'
 import { CgProfile } from 'react-icons/cg'
 import { padding } from '../Page'
-import tw from 'twin.macro'
 import Link from 'next/link'
 import SignOut from '../SignOut'
 import TabsMain from './Tabs'
@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import Tooltip from '../Tooltip'
 import Redirect from '../Redirect'
 import { useUser } from '../User'
+import Notifications from '../Notifications'
 
 const HeaderStyles = styled.header`
    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
@@ -82,6 +83,7 @@ const Profile = (props: IProfile) => {
          <div className={padding}>
             <TabsMain />
          </div>
+         <Notifications />
       </>
    )
 }
