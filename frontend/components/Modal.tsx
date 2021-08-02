@@ -10,8 +10,7 @@ const ModalStyles = styled(motion.div)`
 `
 
 const ModalContent = styled(motion.div)`
-   ${props => !props.customStyles && tw`bg-white p-6 text-black`}
-   ${tw`relative w-11/12 sm:w-4/5 lg:w-2/3 xl:w-1/3 rounded-xl pointer-events-auto overflow-hidden`}
+   ${tw`relative w-11/12 sm:w-4/5 lg:w-2/3 xl:w-1/3 rounded-xl pointer-events-auto overflow-hidden bg-white p-6 text-black`}
 `
 
 const CloseButton = styled.span`
