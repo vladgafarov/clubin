@@ -13,6 +13,7 @@ import NameInput from './NameInput'
 import PasswordInput from './PasswordInput'
 import ErrorStyles from './ErrorStyles'
 import { RegisterModalVariants } from '../RegisterModal'
+import { useNotifications } from '../../lib/useNotifications'
 
 const SIGNUP_MUTATION = gql`
    mutation SIGNUP_MUTATION(
@@ -31,6 +32,8 @@ const SIGNUP_MUTATION = gql`
 const SignUp = () => {
    const [signup, { data, error: errorMutation, loading, called }] =
       useMutation(SIGNUP_MUTATION)
+
+   const { addNotification } = useNotifications()
 
    const [error, setError] = useState<string>()
 
@@ -64,8 +67,10 @@ const SignUp = () => {
                .then(async res => {
                   actions.resetForm()
 
-                  await wait(2000)
+                  await wait(1000)
                   closeModal()
+
+                  addNotification('Signed up')
 
                   await wait(200)
                   handleSignInClick()

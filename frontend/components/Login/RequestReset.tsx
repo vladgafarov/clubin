@@ -9,6 +9,7 @@ import LoadingOverlay from '../LoadingOverlay'
 import { useRegisterModal } from '../../lib/useRegisterModal'
 import EmailInput from './EmailInput'
 import { RegisterModalVariants } from '../RegisterModal'
+import { useNotifications } from '../../lib/useNotifications'
 
 const REQUEST_RESET_MUTATION = gql`
    mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -23,6 +24,8 @@ const RequestReset = () => {
    const [requestReset, { loading, error, called }] = useMutation(
       REQUEST_RESET_MUTATION
    )
+
+   const { addNotification } = useNotifications()
 
    const { setSignIn } = useRegisterModal()
 
@@ -41,7 +44,7 @@ const RequestReset = () => {
          onSubmit={async (values, actions) => {
             await requestReset({
                variables: values,
-            })
+            }).then(() => addNotification('Requested reset'))
          }}
       >
          {props => (
@@ -53,11 +56,7 @@ const RequestReset = () => {
             >
                <Form>
                   <fieldset disabled={loading}>
-                     <LoadingOverlay
-                        loading={loading}
-                        error={!!error?.message}
-                        called={called}
-                     />
+                     <LoadingOverlay loading={loading} />
 
                      <EmailInput />
 

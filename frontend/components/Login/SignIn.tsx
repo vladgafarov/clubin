@@ -11,6 +11,7 @@ import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import ErrorStyles from './ErrorStyles'
 import { RegisterModalVariants } from '../RegisterModal'
+import { useNotifications } from '../../lib/useNotifications'
 
 const SIGNIN_MUTATION = gql`
    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -34,6 +35,8 @@ const SignIn = () => {
    const [signIn, { data, error: errorMutation, loading, called }] =
       useMutation(SIGNIN_MUTATION)
 
+   const { addNotification } = useNotifications()
+
    const { setSignUp, closeModal, setReset } = useRegisterModal()
 
    let error =
@@ -43,7 +46,6 @@ const SignIn = () => {
          : undefined
 
    return (
-      //TODO: useMemo()
       <Formik
          initialValues={{
             email: '',
@@ -70,8 +72,9 @@ const SignIn = () => {
                   data.authenticateUserWithPassword.code !== 'FAILURE' &&
                   !errorMutation
                ) {
+                  addNotification('Signed in')
                   actions.resetForm()
-                  await wait(2000)
+                  await wait(1000)
                   closeModal()
                }
             })
