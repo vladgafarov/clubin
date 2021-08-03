@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import { useUserGlobal } from '../../lib/useUser'
 import Button from '../styles/Button'
+import Tooltip from '../Tooltip'
 import EmailInput from './EmailInput'
 import NameInput from './NameInput'
 
@@ -37,7 +38,9 @@ const ProfileInfo = ({ controls }) => {
             <br />
             <EmailInput value={user?.email} id={user?.id} />
          </ProfileInfoStyles>
-         <Button>Change password</Button>
+         <Tooltip content="Cannot change yet" placement="top">
+            <Button>Change password</Button>
+         </Tooltip>
       </motion.div>
    )
 }
