@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client'
 import { useFormik } from 'formik'
 import gql from 'graphql-tag'
+import { useContext } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { IoClose } from 'react-icons/io5'
 import { MdModeEdit } from 'react-icons/md'
@@ -9,11 +10,11 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import wait from 'waait'
 import * as Yup from 'yup'
-import { useLoader } from '../../lib/useLoader'
 import Fade from '../Animations/Fade'
 import LoadingOverlay from '../LoadingOverlay'
 import ErrorStyles from '../Login/ErrorStyles'
 import Tooltip from '../Tooltip'
+import { ProfileContext } from './ProfileContext'
 
 const InputStyles = styled.div`
    ${tw`relative`}
@@ -70,6 +71,7 @@ const UPDATE_NAME_MUTATION = gql`
 `
 
 const NameInput = ({ value, id }) => {
+   const { addNotification } = useContext(ProfileContext)
    const inputEl = useRef(null)
 
    const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -120,9 +122,13 @@ const NameInput = ({ value, id }) => {
                id,
                name,
             },
-         }).catch(() => {
-            setIsEditing(true)
          })
+            .then(res => {
+               addNotification('Changed name')
+            })
+            .catch(() => {
+               setIsEditing(true)
+            })
       },
    })
 
