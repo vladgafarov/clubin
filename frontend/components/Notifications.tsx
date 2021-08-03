@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdClose } from 'react-icons/md'
 import { useEffect } from 'react'
-import { INotifications } from '../lib/useNotifications'
+import { useNotifications } from '../lib/useNotifications'
 
 const UlStyles = styled(motion.ul)`
    ${tw`
@@ -33,10 +33,9 @@ const CloseButton = styled.div`
    `}
 `
 
-const Notifications = ({
-   notifications,
-   removeNotification,
-}: INotifications) => {
+const Notifications = () => {
+   const { notifications, removeNotification } = useNotifications()
+
    useEffect(() => {
       let timer
 

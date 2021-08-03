@@ -7,6 +7,8 @@ import withData from '../lib/withData'
 import { MobileStateProvider } from '../lib/mobileState'
 import { MenuStateProvider } from '../lib/menuState'
 import { UseUserProvider } from '../lib/useUser'
+import { NotificationsStateProvider } from '../lib/useNotifications'
+import Notifications from '../components/Notifications'
 
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
@@ -16,13 +18,16 @@ const MyApp = ({ Component, pageProps, apollo }) => {
    return (
       <ApolloProvider client={apollo}>
          <MobileStateProvider>
-            <UseUserProvider>
-               <MenuStateProvider>
-                  <Page>
-                     <Component {...pageProps} />
-                  </Page>
-               </MenuStateProvider>
-            </UseUserProvider>
+            <NotificationsStateProvider>
+               <UseUserProvider>
+                  <MenuStateProvider>
+                     <Page>
+                        <Component {...pageProps} />
+                        <Notifications />
+                     </Page>
+                  </MenuStateProvider>
+               </UseUserProvider>
+            </NotificationsStateProvider>
          </MobileStateProvider>
       </ApolloProvider>
    )
