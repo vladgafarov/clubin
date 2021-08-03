@@ -12,6 +12,8 @@ import Tooltip from '../Tooltip'
 import Redirect from '../Redirect'
 import { useUser } from '../User'
 import Notifications from '../Notifications'
+import useNotifications from '../../lib/useNotifications'
+import { ProfileContext } from './ProfileContext'
 
 const HeaderStyles = styled.header`
    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
@@ -52,6 +54,8 @@ interface IProfile {}
 
 const Profile = (props: IProfile) => {
    const { user, loading } = useUserGlobal()
+   const { notifications, addNotification, removeNotification } =
+      useNotifications()
    const router = useRouter()
 
    // useEffect(() => {
@@ -64,8 +68,14 @@ const Profile = (props: IProfile) => {
    //    return <Redirect />
    // }
 
+   const contextValue = {
+      notifications,
+      addNotification,
+      removeNotification,
+   }
+
    return (
-      <>
+      <ProfileContext.Provider value={contextValue}>
          <HeaderStyles>
             <Link href="/">
                <a className="logo">
@@ -83,8 +93,11 @@ const Profile = (props: IProfile) => {
          <div className={padding}>
             <TabsMain />
          </div>
-         <Notifications />
-      </>
+         <Notifications
+            notifications={notifications}
+            removeNotification={removeNotification}
+         />
+      </ProfileContext.Provider>
    )
 }
 
