@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
 import { MdClose } from 'react-icons/md'
-import { add, remove } from '../lib/utils/arrayAddRemove'
 import { useEffect } from 'react'
+import { INotifications } from '../lib/useNotifications'
 
 const UlStyles = styled(motion.ul)`
    ${tw`
@@ -34,25 +33,32 @@ const CloseButton = styled.div`
    `}
 `
 
-const Notifications = () => {
-   const [notifications, setNotifications] = useState([])
-
+const Notifications = ({
+   notifications,
+   removeNotification,
+}: INotifications) => {
    useEffect(() => {
-      const timer = setTimeout(() => {
-         setNotifications(remove(notifications, notifications[0]))
-      }, 4000)
+      let timer
+
+      if (notifications.length) {
+         timer = setTimeout(() => {
+            removeNotification(notifications[0])
+         }, 4000)
+      }
 
       return () => {
-         clearTimeout(timer)
+         if (notifications.length) {
+            clearTimeout(timer)
+         }
       }
    }, [notifications])
 
    return (
       <UlStyles>
          <AnimatePresence>
-            {notifications.map(id => (
+            {notifications.map(item => (
                <motion.li
-                  key={id}
+                  key={item.id}
                   layout
                   initial={{ opacity: 0, y: 50, scale: 0.3 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -63,16 +69,13 @@ const Notifications = () => {
                   }}
                >
                   <h1>Success!</h1>
-                  <p>Lorem, ipsum dolor.</p>
-                  <CloseButton
-                     onClick={() => setNotifications(remove(notifications, id))}
-                  >
+                  <p>{item.text}</p>
+                  <CloseButton onClick={() => removeNotification(item)}>
                      <MdClose />
                   </CloseButton>
                </motion.li>
             ))}
          </AnimatePresence>
-         <button onClick={() => setNotifications(add(notifications))}>+</button>
       </UlStyles>
    )
 }
