@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import wait from 'waait'
 import * as Yup from 'yup'
+import { useNotifications } from '../../lib/useNotifications'
 import Fade from '../Animations/Fade'
 import LoadingOverlay from '../LoadingOverlay'
 import ErrorStyles from '../Login/ErrorStyles'
@@ -71,7 +72,7 @@ const UPDATE_NAME_MUTATION = gql`
 `
 
 const NameInput = ({ value, id }) => {
-   const { addNotification } = useContext(ProfileContext)
+   const { addNotification } = useNotifications()
    const inputEl = useRef(null)
 
    const [isEditing, setIsEditing] = useState<boolean>(false)
