@@ -102,7 +102,7 @@ const Nav = () => {
                <UserStyles>
                   <Tooltip content={<SignOut />}>
                      <div>
-                        <Link href="profile">
+                        <Link href="/profile">
                            <a className="animation-link flex items-center">
                               <FaUserAlt className="mr-1" />
                               Profile
