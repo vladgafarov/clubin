@@ -8,6 +8,8 @@ import ContactForm from './ContactForm'
 import sendEmail from '../../lib/contact/sendEmail'
 import DisplayError from '../ErrorMessage'
 import { useState } from 'react'
+import useFetch from '../../lib/useFetch'
+import { useNotifications } from '../../lib/useNotifications'
 
 const ContactStyles = styled.section`
    color: #283c5c;
@@ -81,6 +83,7 @@ export interface FormValues {
 
 const Contact = () => {
    const [error, setError] = useState()
+   const { addNotification } = useNotifications()
 
    return (
       <ContactStyles className={padding} id="contact">
@@ -109,11 +112,13 @@ const Contact = () => {
                })}
                onSubmit={async (values, actions) => {
                   const res = await sendEmail(values)
+                  // const {status, data, error} = useFetch('/api/contact')
 
                   if (res?.data !== null) setError(res.data)
                   else {
                      actions.resetForm()
                      actions.setStatus('success')
+                     addNotification('Mail is sent')
                   }
                }}
                component={ContactForm}
