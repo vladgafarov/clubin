@@ -12,6 +12,7 @@ import ModalButton from './ModalButton'
 import DisplayError from '../ErrorMessage'
 import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
+import LoadingOverlay from '../LoadingOverlay'
 
 const EventInfoStyles = styled.div`
    ${tw`mb-3`}
@@ -68,8 +69,8 @@ const EventSlider = ({ events, handleClick }) => {
    }
 
    const {
-      bookMutationResult: { error },
-      unBookMutationResult: { error: cancelError },
+      bookMutationResult: { error, loading },
+      unBookMutationResult: { error: cancelError, loading: cancelLoading },
       currentEvent,
       openModal,
    } = useContext(BookEventContext)
@@ -108,6 +109,7 @@ const EventSlider = ({ events, handleClick }) => {
             })}
          </Slider>
          <Modal isOpen={isBookModalOpen} closeModal={closeBookModal}>
+            <LoadingOverlay loading={loading || cancelLoading} />
             <h2 className="text-2xl mb-3 font-pb">Event Information</h2>
             <EventInfoStyles>
                <div>
