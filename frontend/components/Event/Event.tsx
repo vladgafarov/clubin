@@ -1,7 +1,13 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import gql from 'graphql-tag'
-import { useMutation, useQuery } from '@apollo/client'
+import {
+   FetchResult,
+   MutationFunctionOptions,
+   OperationVariables,
+   useMutation,
+   useQuery,
+} from '@apollo/client'
 import EventSlider from './EventSlider'
 import DisplayError from '../ErrorMessage'
 import EventInfo from './EventInfo'
@@ -10,6 +16,7 @@ import { useModal } from '../../lib/useModal'
 import EventInfoModal from './EventInfoModal'
 import { BookEventContext } from './BookEventContext'
 import { useUserGlobal } from '../../lib/useUser'
+import { useNotifications } from '../../lib/useNotifications'
 
 const EventStyles = styled.div`
    ${tw`
@@ -149,6 +156,9 @@ export const UNBOOK_EVENT_MUTATION = gql`
 
 const Event = () => {
    const { user } = useUserGlobal()
+
+   const { addNotification } = useNotifications()
+
    const [bookEvent, bookMutationResult] = useMutation(BOOK_EVENT_MUTATION)
    const [unBookEvent, unBookMutationResult] = useMutation(
       UNBOOK_EVENT_MUTATION
@@ -163,8 +173,13 @@ const Event = () => {
       setCurrent(newEvent)
    }
 
-   const handleBookClick = async itemId => {
-      await bookEvent({
+   const handleMutationClick = async (
+      itemId: number,
+      func: (
+         options?: MutationFunctionOptions<any, OperationVariables>
+      ) => Promise<FetchResult<any, Record<string, any>, Record<string, any>>>
+   ) => {
+      await func({
          variables: {
             id: itemId,
             userId: user.id,
@@ -178,19 +193,16 @@ const Event = () => {
       })
    }
 
+   const handleBookClick = async itemId => {
+      await handleMutationClick(itemId, bookEvent).then(() =>
+         addNotification('Booked event')
+      )
+   }
+
    const handleUnBookClick = async itemId => {
-      await unBookEvent({
-         variables: {
-            id: itemId,
-            userId: user.id,
-         },
-         refetchQueries: [
-            {
-               query: CURRENT_EVENT_QUERY,
-               variables: { id: itemId },
-            },
-         ],
-      })
+      await handleMutationClick(itemId, unBookEvent).then(() =>
+         addNotification('Canceled event')
+      )
    }
 
    const contextValue = {
