@@ -15,6 +15,7 @@ import Tooltip from '../Tooltip'
 import { USER_EVENT_QUERY } from './Events'
 import wait from 'waait'
 import { motion } from 'framer-motion'
+import { useNotifications } from '../../lib/useNotifications'
 
 const ItemStyles = styled.div`
    ${tw`
@@ -53,6 +54,8 @@ const EventItem = ({ item, custom, controls }) => {
       user: { id: userId },
    } = useUserGlobal()
 
+   const { addNotification } = useNotifications()
+
    const { isOpen, openModal, closeModal } = useModal()
 
    const [unBookEvent, { loading, error, called }] = useMutation(
@@ -73,8 +76,8 @@ const EventItem = ({ item, custom, controls }) => {
                variables: { id: userId },
             },
          ],
-      })
-      await wait(2300)
+      }).then(() => addNotification('Canceled event'))
+      await wait(1000)
       closeModal()
    }
 
