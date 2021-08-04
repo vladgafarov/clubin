@@ -67,7 +67,7 @@ const Notifications = () => {
                      transition: { duration: 0.2 },
                   }}
                >
-                  <h1>Success!</h1>
+                  <h1 className="text-green-600">Success!</h1>
                   <p>{item.text}</p>
                   <CloseButton onClick={() => removeNotification(item)}>
                      <MdClose />
