@@ -6,7 +6,7 @@ const Overlay = ({ children }) => (
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="absolute inset-0 z-10 bg-white-100 bg-opacity-80 rounded flex items-center justify-center"
+      className="absolute inset-0 z-40 bg-black-100 bg-opacity-80 rounded flex items-center justify-center"
    >
       {children}
    </motion.div>
@@ -19,7 +19,7 @@ const Loading = () => (
       exit={{ opacity: 0 }}
       key="loader"
    >
-      <CgSpinner size={52} className="animate-spin z-20" />
+      <CgSpinner size={52} className="animate-spin z-50" />
    </motion.div>
 )
 
