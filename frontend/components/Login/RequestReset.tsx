@@ -10,6 +10,7 @@ import { useRegisterModal } from '../../lib/useRegisterModal'
 import EmailInput from './EmailInput'
 import { RegisterModalVariants } from '../RegisterModal'
 import { useNotifications } from '../../lib/useNotifications'
+import ErrorStyles from './ErrorStyles'
 
 const REQUEST_RESET_MUTATION = gql`
    mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -60,8 +61,8 @@ const RequestReset = () => {
 
                      <EmailInput />
 
-                     {error && <DisplayError error={error} />}
-                     {called && !loading && (
+                     {error && <p className={ErrorStyles}>{error?.message}</p>}
+                     {called && !loading && !error && (
                         <p className="font-pm text-green-400">
                            if the account exists, then you will receive an email
                         </p>
