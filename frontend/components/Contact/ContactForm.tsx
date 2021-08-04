@@ -1,9 +1,9 @@
 import { Field, Form, ErrorMessage, FormikProps } from 'formik'
 import styled from 'styled-components'
 import tw from 'twin.macro'
+import LoadingOverlay from '../LoadingOverlay'
 import Button from '../styles/Button'
 import { FormValues } from './Contact'
-import Overlay from './Overlay'
 
 const ErrorStyles = 'text-red-300 font-pm'
 
@@ -11,19 +11,11 @@ const FieldsetStyles = styled.fieldset`
    ${tw`relative`}
 `
 
-const ContactForm = ({
-   status,
-   isSubmitting,
-   setStatus,
-}: FormikProps<FormValues>) => {
+const ContactForm = ({ isSubmitting }: FormikProps<FormValues>) => {
    return (
       <Form>
          <FieldsetStyles disabled={isSubmitting}>
-            <Overlay
-               isSubmitting={isSubmitting}
-               status={status}
-               setStatus={setStatus}
-            />
+            <LoadingOverlay loading={isSubmitting} />
             <label htmlFor="name">Name:</label>
             <Field name="name" type="text" placeholder="Your name" />
             <ErrorMessage name="name">
