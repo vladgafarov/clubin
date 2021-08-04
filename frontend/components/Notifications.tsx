@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdClose } from 'react-icons/md'
-import { useEffect } from 'react'
 import { useNotifications } from '../lib/useNotifications'
+import { useInterval } from '../lib/useInterval'
 
 const UlStyles = styled(motion.ul)`
    ${tw`
@@ -36,21 +36,14 @@ const CloseButton = styled.div`
 const Notifications = () => {
    const { notifications, removeNotification } = useNotifications()
 
-   useEffect(() => {
-      let timer
-
-      if (notifications.length) {
-         timer = setTimeout(() => {
-            removeNotification(notifications[0])
-         }, 4000)
-      }
-
-      return () => {
+   useInterval(
+      () => {
          if (notifications.length) {
-            clearTimeout(timer)
+            removeNotification(notifications[0])
          }
-      }
-   }, [notifications])
+      },
+      notifications.length ? 4000 : null
+   )
 
    return (
       <UlStyles>
