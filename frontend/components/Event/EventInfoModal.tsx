@@ -7,12 +7,16 @@ import { format } from 'date-fns'
 import ModalButton from './ModalButton'
 import { useContext } from 'react'
 import { BookEventContext } from './BookEventContext'
+import DisplayError from '../ErrorMessage'
+import LoadingOverlay from '../LoadingOverlay'
 
 const EventInfoModal = () => {
    const {
       currentEvent: event,
       isOpen,
       closeModal,
+      bookMutationResult: { error, loading },
+      unBookMutationResult: { error: cancelError, cancelLoading },
    } = useContext(BookEventContext)
 
    if (!event) {
@@ -21,6 +25,7 @@ const EventInfoModal = () => {
 
    return (
       <Modal isOpen={isOpen} closeModal={closeModal}>
+         <LoadingOverlay loading={loading || cancelLoading} />
          <h1 className="text-3xl mb-2 font-pb">{event.name}</h1>
          <div className="flex items-center space-x-2">
             <AiOutlineCalendar color="#A919D8" size="25" />
@@ -43,7 +48,9 @@ const EventInfoModal = () => {
                </p>
             ))}
          </div>
-
+         {(error || cancelError) && (
+            <DisplayError error={error || cancelError} />
+         )}
          <ModalButton />
       </Modal>
    )
