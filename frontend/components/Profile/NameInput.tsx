@@ -15,10 +15,9 @@ import Fade from '../Animations/Fade'
 import LoadingOverlay from '../LoadingOverlay'
 import ErrorStyles from '../Login/ErrorStyles'
 import Tooltip from '../Tooltip'
-import { ProfileContext } from './ProfileContext'
 
 const InputStyles = styled.div`
-   ${tw`relative`}
+   ${tw`relative overflow-hidden`}
    input {
       ${tw`
          text-black
@@ -139,7 +138,7 @@ const NameInput = ({ value, id }) => {
             e.preventDefault()
             formik.submitForm()
          }}
-         className="w-full md:w-1/3 relative mt-1"
+         className="w-full md:w-1/3 relative mt-1 text-black"
       >
          <LoadingOverlay loading={loading} />
          {error && <p className={ErrorStyles}>{error?.message}</p>}
@@ -162,7 +161,7 @@ const NameInput = ({ value, id }) => {
             </Fade>
             <Fade
                condition={isEditing}
-               className="absolute right-4 inset-y-0 flex items-center space-x-2"
+               className="absolute right-4 inset-y-0 flex items-center text-white space-x-2"
             >
                <TiTick
                   className={'submit ' + ButtonStyles}
