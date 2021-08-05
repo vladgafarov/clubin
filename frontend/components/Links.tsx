@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import SmoothTransition from './Animations/SmoothTransition'
 
-const LinksContent = [
+export const LinksContent = [
    {
       to: 'events',
       text: 'Events',
@@ -57,18 +57,6 @@ const Links = ({ spy }: ILinks) => {
                {active == link.to && <SmoothTransition name="underline" />}
             </Link>
          ))}
-         {/* <Link to="events" {...linkProps}>
-            Events
-         </Link>
-         <Link to="artist" duration={1200} {...linkProps}>
-            Artists
-         </Link>
-         <Link to="about" duration={1500} {...linkProps}>
-            About us
-         </Link>
-         <Link to="contact" duration={1500} {...linkProps}>
-            Contact
-         </Link> */}
       </AnimateSharedLayout>
    )
 }
