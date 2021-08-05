@@ -1,6 +1,12 @@
 import { createContext, useState, useContext } from 'react'
 
-const LocalStateContext = createContext()
+interface IMenu {
+   isOpen: boolean
+   openMenu: () => void
+   closeMenu: () => void
+}
+
+const LocalStateContext = createContext<IMenu | null>(null)
 const LocalStateProvider = LocalStateContext.Provider
 
 export const MenuStateProvider = ({ children }) => {

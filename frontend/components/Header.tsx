@@ -5,6 +5,7 @@ import { padding } from './Page'
 import Nav from './Nav'
 import { CgMenuRight } from 'react-icons/cg'
 import { useMenu } from '../lib/menuState'
+import MobileMenu from './MobileMenu'
 
 const HeaderStyles = styled.header`
    ${tw`
@@ -21,9 +22,6 @@ const HeaderStyles = styled.header`
          z-20
       `}
    }
-   img {
-      /* max-width: 8%; */
-   }
 `
 
 const Header = () => {
@@ -34,6 +32,7 @@ const Header = () => {
          <Image src="/images/logo.png" width="250" height="" />
          <CgMenuRight className="open" onClick={openMenu} />
          <Nav />
+         <MobileMenu />
       </HeaderStyles>
    )
 }
