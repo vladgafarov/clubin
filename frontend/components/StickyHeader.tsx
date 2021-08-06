@@ -12,6 +12,7 @@ const StickyHeaderStyles = styled.div`
       py-5
       transition
       transform -translate-y-full
+      shadow-xl
    `}
    ${props => props.isScrolled && tw`translate-y-0`}
 `
