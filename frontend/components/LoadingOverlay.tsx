@@ -6,7 +6,7 @@ const Overlay = ({ children }) => (
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="absolute inset-0 z-40 bg-white bg-opacity-80 flex items-center justify-center"
+      className="absolute inset-0 z-40 bg-white bg-opacity-80 flex items-center justify-center text-black"
    >
       {children}
    </motion.div>
