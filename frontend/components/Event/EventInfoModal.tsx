@@ -41,7 +41,7 @@ const EventInfoModal = () => {
          <div className="flex flex-wrap">
             {event.musician.map(item => (
                <p
-                  className="bg-gray-400 rounded-full py-1 px-4 text-white mb-2 mr-3"
+                  className="bg-purple-800 rounded-full py-1 px-4 text-white mb-2 mr-3"
                   key={item.id}
                >
                   {item.name}
