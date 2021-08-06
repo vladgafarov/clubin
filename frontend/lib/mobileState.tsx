@@ -1,7 +1,7 @@
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useContext } from 'react'
 import { isMobile, isDesktop } from 'react-device-detect'
 
-const LocalStateContext = createContext()
+const LocalStateContext = createContext(undefined)
 const LocalStateProvider = LocalStateContext.Provider
 
 export const MobileStateProvider = ({ children }) => {
