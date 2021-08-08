@@ -4,7 +4,7 @@ import Button from './styles/Button'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import { Link } from 'react-scroll'
-import Tooltip from './Tooltip'
+// import main from '../public/images/main.png'
 
 const HeroStyles = styled.div`
    ${tw`
@@ -44,7 +44,13 @@ const Hero = () => {
             </Link>
          </div>
          <div className="hero-image">
-            <Image src="/images/main.png" width="" height="" quality="100" />
+            <Image
+               src="/images/main.png"
+               height=""
+               width=""
+               alt="super cool alt"
+               // placeholder="blur"
+            />
          </div>
       </HeroStyles>
    )

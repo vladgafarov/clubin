@@ -14,6 +14,7 @@ import StickyHeader from '../components/StickyHeader'
 import RegisterModal from '../components/RegisterModal'
 import { RegisterModalStateProvider } from '../lib/useRegisterModal'
 import { useUserGlobal } from '../lib/useUser'
+// import { getPlaiceholder } from 'plaiceholder'
 
 const MainStyles = styled.section`
    background-image: url('/images/main2.png');
@@ -21,6 +22,21 @@ const MainStyles = styled.section`
    background-size: 65%;
    background-position: -60% 100%;
 `
+
+// export const getStaticProps = async () => {
+//    const { base64, img } = await getPlaiceholder('/images/main.png', {
+//       size: 10,
+//    })
+
+//    return {
+//       props: {
+//          imageProps: {
+//             ...img,
+//             blurDataURL: base64,
+//          },
+//       },
+//    }
+// }
 
 const HomePage = () => {
    const [isScrolled, setIsScrolled] = useState(false)
