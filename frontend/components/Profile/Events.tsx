@@ -6,6 +6,7 @@ import { useUserGlobal } from '../../lib/useUser'
 import DisplayError from '../ErrorMessage'
 import EventItem from './EventItem'
 import { AnimatePresence, motion } from 'framer-motion'
+import EventsLoader from './EventsLoader'
 
 export const USER_EVENT_QUERY = gql`
    query USER_EVENT_QUERY($id: ID!) {
@@ -42,7 +43,7 @@ const Events = ({ controls }) => {
    })
 
    if (loading) {
-      return <p>Loading...</p>
+      return <EventsLoader />
    }
 
    return (
