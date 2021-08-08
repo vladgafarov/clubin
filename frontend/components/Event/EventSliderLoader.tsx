@@ -1,6 +1,6 @@
 const EventSliderLoader = () => {
    return (
-      <div className="animate-pulse space-y-4">
+      <div className="animate-pulse space-y-4 mt-4">
          {Array.from({ length: 5 }).map((_, i) => (
             <div
                className="flex items-center space-x-9 h-16 shadow-2xl "
