@@ -34,7 +34,11 @@ const EventInfo = () => {
    const { currentEvent: event, openModal } = useContext(BookEventContext)
 
    if (!event) {
-      return <p>Nothing</p>
+      return (
+         <EventInfoStyles>
+            <p>Nothing</p>
+         </EventInfoStyles>
+      )
    }
 
    return (

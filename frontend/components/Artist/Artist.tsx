@@ -8,6 +8,7 @@ import ArtistItem from './ArtistItem'
 import gql from 'graphql-tag'
 import DisplayError from '../ErrorMessage'
 import { useQuery } from '@apollo/client'
+import ArtistLoader from './ArtistLoader'
 
 const ARTIST_QUERY = gql`
    query {
@@ -145,7 +146,7 @@ const Artist = () => {
       <ArtistStyles className={padding} id="artist">
          <h1>Artists</h1>
          {loading ? (
-            'Loading...'
+            <ArtistLoader />
          ) : (
             <Slider {...settings} className="slider">
                {data.allMusicians.map(item => (

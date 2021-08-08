@@ -17,6 +17,8 @@ import EventInfoModal from './EventInfoModal'
 import { BookEventContext } from './BookEventContext'
 import { useUserGlobal } from '../../lib/useUser'
 import { useNotifications } from '../../lib/useNotifications'
+import EventInfoLoader from './EventInfoLoader'
+import EventSliderLoader from './EventSliderLoader'
 
 const EventStyles = styled.div`
    ${tw`
@@ -224,13 +226,13 @@ const Event = () => {
             className="px-7 md:px-12 lg:px-18 xl:px-12 2xl:px-32"
             id="events"
          >
-            {loading ? 'Loading...' : <EventInfo />}
+            {loading ? <EventInfoLoader /> : <EventInfo />}
             <Events className="events">
                <h1>Events</h1>
                <p className="text-left mt-4">Click to view details</p>
                {error && <DisplayError error={error} />}
                {loading ? (
-                  'Loading...'
+                  <EventSliderLoader />
                ) : (
                   <EventSlider
                      events={data?.allEvents}
