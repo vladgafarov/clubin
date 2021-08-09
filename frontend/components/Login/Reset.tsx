@@ -103,11 +103,7 @@ const Reset = ({ query: { token } }) => {
                   <FormStyles>
                      <Form>
                         <fieldset disabled={loading}>
-                           <LoadingOverlay
-                              loading={loading}
-                              error={!!errorMutation?.message || !!error}
-                              called={called}
-                           />
+                           <LoadingOverlay loading={loading} />
 
                            <EmailInput />
                            <PasswordInput />
