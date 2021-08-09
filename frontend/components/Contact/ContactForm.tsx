@@ -15,7 +15,7 @@ const ContactForm = ({ isSubmitting }: FormikProps<FormValues>) => {
    return (
       <Form>
          <FieldsetStyles disabled={isSubmitting}>
-            <LoadingOverlay loading={isSubmitting} />
+            <LoadingOverlay loading={isSubmitting} overlay={false} />
             <label htmlFor="name">Name:</label>
             <Field name="name" type="text" placeholder="Your name" />
             <ErrorMessage name="name">
