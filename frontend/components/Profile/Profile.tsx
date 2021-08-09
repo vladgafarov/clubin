@@ -7,6 +7,7 @@ import SignOut from '../SignOut'
 import TabsMain from './Tabs'
 import { useUserGlobal } from '../../lib/useUser'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import { useEffect } from 'react'
 import Tooltip from '../Tooltip'
 import Redirect from '../Redirect'
@@ -65,6 +66,9 @@ const Profile = (props: IProfile) => {
 
    return (
       <>
+         <Head>
+            <title>ClubIn - Profile</title>
+         </Head>
          <HeaderStyles>
             <Link href="/">
                <a className="logo">

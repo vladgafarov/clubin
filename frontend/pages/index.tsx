@@ -14,6 +14,7 @@ import StickyHeader from '../components/StickyHeader'
 import RegisterModal from '../components/RegisterModal'
 import { RegisterModalStateProvider } from '../lib/useRegisterModal'
 import { useUserGlobal } from '../lib/useUser'
+import Head from 'next/head'
 // import { getPlaiceholder } from 'plaiceholder'
 
 const MainStyles = styled.section`
@@ -57,23 +58,28 @@ const HomePage = () => {
    }, [])
 
    return (
-      <RegisterModalStateProvider>
-         <MainStyles className="min-h-screen flex flex-col relative overflow-hidden">
-            <Header />
-            <Hero />
-         </MainStyles>
-         <Event />
-         <Artist />
-         <Subscribe />
-         <About />
-         {!user && <RegisterNow />}
-         <Contact />
-         <Footer />
-         <RegisterModal />
-         {/* Dynamic elements */}
-         <StickyHeader isScrolled={isScrolled} />
-         <ArrowUp isScrolled={isScrolled} />
-      </RegisterModalStateProvider>
+      <>
+         <Head>
+            <title> ClubIn - Book events</title>
+         </Head>
+         <RegisterModalStateProvider>
+            <MainStyles className="min-h-screen flex flex-col relative overflow-hidden">
+               <Header />
+               <Hero />
+            </MainStyles>
+            <Event />
+            <Artist />
+            <Subscribe />
+            <About />
+            {!user && <RegisterNow />}
+            <Contact />
+            <Footer />
+            <RegisterModal />
+            {/* Dynamic elements */}
+            <StickyHeader isScrolled={isScrolled} />
+            <ArrowUp isScrolled={isScrolled} />
+         </RegisterModalStateProvider>
+      </>
    )
 }
 
