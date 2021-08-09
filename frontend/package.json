@@ -1,7 +1,7 @@
 {
-   "name": "starterfullstack",
+   "name": "clubin",
    "version": "1.0.0",
-   "description": "Starter FullStack",
+   "description": "clubin FullStack app to book tickets on events",
    "main": "index.js",
    "scripts": {
       "dev": "next -p 7777",
