@@ -2,8 +2,9 @@ import { BsArrowRightShort } from 'react-icons/bs'
 import { Link } from 'react-scroll'
 import { useMobile } from '../../lib/mobileState'
 
-const NextArrow = ({ onClick, className, isEvent }) => {
+const NextArrow = props => {
    const { isMobile } = useMobile()
+   const { onClick, className, isEvent } = props
 
    return (
       <div onClick={onClick} className={className}>
