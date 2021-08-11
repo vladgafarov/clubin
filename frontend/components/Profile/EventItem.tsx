@@ -49,7 +49,13 @@ const variants = {
    hidden: { opacity: 0, y: 10 },
 }
 
-const EventItem = ({ item, custom, controls }) => {
+const EventItem = ({
+   item,
+   custom,
+   controls,
+   setSelectedIdEvent,
+   selectedIdEvent,
+}) => {
    const {
       user: { id: userId },
    } = useUserGlobal()
@@ -88,9 +94,13 @@ const EventItem = ({ item, custom, controls }) => {
          initial="hidden"
          animate={controls}
          exit="hidden"
+         layoutId={item.id}
       >
          <ItemStyles>
-            <div className="flex-none relative w-1/3">
+            <motion.div
+               layoutId={`image-${item.id}`}
+               className="flex-none relative w-1/3"
+            >
                {item.photo?.image?.publicUrl ? (
                   <Image
                      className="absolute inset-0 object-cover"
@@ -106,7 +116,7 @@ const EventItem = ({ item, custom, controls }) => {
                      alt="Best event ever"
                   />
                )}
-            </div>
+            </motion.div>
             <div className="flex-auto">
                <div className="flex items-start justify-between">
                   <h1>{item.name}</h1>
@@ -139,6 +149,7 @@ const EventItem = ({ item, custom, controls }) => {
                   <RiMapPinLine color="#A919D8" size="25" />
                   <span className="text-blue-500">{item.place}</span>
                </div>
+               <button onClick={() => setSelectedIdEvent(item.id)}>More</button>
             </div>
          </ItemStyles>
          <Modal isOpen={isOpen} closeModal={closeModal}>
