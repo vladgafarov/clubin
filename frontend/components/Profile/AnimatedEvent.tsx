@@ -68,9 +68,18 @@ const AnimatedEvent = ({
             </motion.div>
             <motion.div
                className="p-4"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0 }}
+               initial={{ opacity: 0, y: 20 }}
+               animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                     delay: 0.3,
+                     type: 'spring',
+                     stiffness: 400,
+                     damping: 40,
+                  },
+               }}
+               exit={{ opacity: 0, y: 20 }}
             >
                <h1 className="text-2xl font-pb">{currentEvent.name}</h1>
                <p>{currentEvent.description}</p>
