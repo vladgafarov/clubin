@@ -3,7 +3,11 @@ import { relationship, text, timestamp } from '@keystone-next/fields'
 
 export const Event = list({
    fields: {
-      name: text({ isRequired: true, ui: { description: 'Name of Event' } }),
+      name: text({
+         isRequired: true,
+         label: 'Name of Event',
+         // ui: { description: 'Name of Event' }
+      }),
       time: timestamp({ defaultValue: new Date().toISOString() }),
       place: text({ isRequired: true }),
       description: text({
