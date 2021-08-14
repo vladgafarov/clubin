@@ -17,7 +17,7 @@ import ErrorStyles from '../Login/ErrorStyles'
 import Tooltip from '../Tooltip'
 
 const InputStyles = styled.div`
-   ${tw`relative overflow-hidden`}
+   ${tw`relative`}
    input {
       ${tw`
          text-black

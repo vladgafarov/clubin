@@ -1,0 +1,962 @@
+type User {
+  id: ID!
+  name: String
+  email: String
+  password: PasswordState
+  event(
+    where: EventWhereInput! = {}
+    search: String
+    sortBy: [SortEventsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [EventOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Event!]
+  _eventMeta(
+    where: EventWhereInput! = {}
+    search: String
+    sortBy: [SortEventsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [EventOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use eventCount instead."
+    )
+  eventCount(where: EventWhereInput! = {}): Int
+  passwordResetToken: PasswordState
+  passwordResetIssuedAt: String
+  passwordResetRedeemedAt: String
+}
+
+type PasswordState {
+  isSet: Boolean!
+}
+
+type _QueryMeta {
+  count: Int
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  email: String
+  email_not: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  email_i: String
+  email_not_i: String
+  email_contains_i: String
+  email_not_contains_i: String
+  email_starts_with_i: String
+  email_not_starts_with_i: String
+  email_ends_with_i: String
+  email_not_ends_with_i: String
+  email_in: [String]
+  email_not_in: [String]
+  password_is_set: Boolean
+  event_every: EventWhereInput
+  event_some: EventWhereInput
+  event_none: EventWhereInput
+  passwordResetToken_is_set: Boolean
+  passwordResetIssuedAt: String
+  passwordResetIssuedAt_not: String
+  passwordResetIssuedAt_lt: String
+  passwordResetIssuedAt_lte: String
+  passwordResetIssuedAt_gt: String
+  passwordResetIssuedAt_gte: String
+  passwordResetIssuedAt_in: [String]
+  passwordResetIssuedAt_not_in: [String]
+  passwordResetRedeemedAt: String
+  passwordResetRedeemedAt_not: String
+  passwordResetRedeemedAt_lt: String
+  passwordResetRedeemedAt_lte: String
+  passwordResetRedeemedAt_gt: String
+  passwordResetRedeemedAt_gte: String
+  passwordResetRedeemedAt_in: [String]
+  passwordResetRedeemedAt_not_in: [String]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+enum SortUsersBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  passwordResetIssuedAt_ASC
+  passwordResetIssuedAt_DESC
+  passwordResetRedeemedAt_ASC
+  passwordResetRedeemedAt_DESC
+}
+
+input UserOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  email: OrderDirection
+  passwordResetIssuedAt: OrderDirection
+  passwordResetRedeemedAt: OrderDirection
+}
+
+enum OrderDirection {
+  asc
+  desc
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  password: String
+  event: EventRelateToManyInput
+  passwordResetToken: String
+  passwordResetIssuedAt: String
+  passwordResetRedeemedAt: String
+}
+
+input EventRelateToManyInput {
+  create: [EventCreateInput]
+  connect: [EventWhereUniqueInput]
+  disconnect: [EventWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
+input UsersUpdateInput {
+  id: ID!
+  data: UserUpdateInput
+}
+
+input UserCreateInput {
+  name: String
+  email: String
+  password: String
+  event: EventRelateToManyInput
+  passwordResetToken: String
+  passwordResetIssuedAt: String
+  passwordResetRedeemedAt: String
+}
+
+input UsersCreateInput {
+  data: UserCreateInput
+}
+
+type Event {
+  id: ID!
+  name: String
+  time: String
+  place: String
+  description: String
+  musician(
+    where: MusicianWhereInput! = {}
+    search: String
+    sortBy: [SortMusiciansBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [MusicianOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Musician!]
+  _musicianMeta(
+    where: MusicianWhereInput! = {}
+    search: String
+    sortBy: [SortMusiciansBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [MusicianOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use musicianCount instead."
+    )
+  musicianCount(where: MusicianWhereInput! = {}): Int
+  photo: Image
+  user(
+    where: UserWhereInput! = {}
+    search: String
+    sortBy: [SortUsersBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [UserOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [User!]
+  _userMeta(
+    where: UserWhereInput! = {}
+    search: String
+    sortBy: [SortUsersBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [UserOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use userCount instead."
+    )
+  userCount(where: UserWhereInput! = {}): Int
+}
+
+input EventWhereInput {
+  AND: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  time: String
+  time_not: String
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_in: [String]
+  time_not_in: [String]
+  place: String
+  place_not: String
+  place_contains: String
+  place_not_contains: String
+  place_starts_with: String
+  place_not_starts_with: String
+  place_ends_with: String
+  place_not_ends_with: String
+  place_i: String
+  place_not_i: String
+  place_contains_i: String
+  place_not_contains_i: String
+  place_starts_with_i: String
+  place_not_starts_with_i: String
+  place_ends_with_i: String
+  place_not_ends_with_i: String
+  place_in: [String]
+  place_not_in: [String]
+  description: String
+  description_not: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_i: String
+  description_not_i: String
+  description_contains_i: String
+  description_not_contains_i: String
+  description_starts_with_i: String
+  description_not_starts_with_i: String
+  description_ends_with_i: String
+  description_not_ends_with_i: String
+  description_in: [String]
+  description_not_in: [String]
+  musician_every: MusicianWhereInput
+  musician_some: MusicianWhereInput
+  musician_none: MusicianWhereInput
+  photo: ImageWhereInput
+  photo_is_null: Boolean
+  user_every: UserWhereInput
+  user_some: UserWhereInput
+  user_none: UserWhereInput
+}
+
+input EventWhereUniqueInput {
+  id: ID
+}
+
+enum SortEventsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  time_ASC
+  time_DESC
+  place_ASC
+  place_DESC
+  description_ASC
+  description_DESC
+}
+
+input EventOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  time: OrderDirection
+  place: OrderDirection
+  description: OrderDirection
+}
+
+input EventUpdateInput {
+  name: String
+  time: String
+  place: String
+  description: String
+  musician: MusicianRelateToManyInput
+  photo: ImageRelateToOneInput
+  user: UserRelateToManyInput
+}
+
+input MusicianRelateToManyInput {
+  create: [MusicianCreateInput]
+  connect: [MusicianWhereUniqueInput]
+  disconnect: [MusicianWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
+input ImageRelateToOneInput {
+  create: ImageCreateInput
+  connect: ImageWhereUniqueInput
+  disconnect: ImageWhereUniqueInput
+  disconnectAll: Boolean
+}
+
+input UserRelateToManyInput {
+  create: [UserCreateInput]
+  connect: [UserWhereUniqueInput]
+  disconnect: [UserWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
+input EventsUpdateInput {
+  id: ID!
+  data: EventUpdateInput
+}
+
+input EventCreateInput {
+  name: String
+  time: String
+  place: String
+  description: String
+  musician: MusicianRelateToManyInput
+  photo: ImageRelateToOneInput
+  user: UserRelateToManyInput
+}
+
+input EventsCreateInput {
+  data: EventCreateInput
+}
+
+type Musician {
+  id: ID!
+  name: String
+  description: String
+  event(
+    where: EventWhereInput! = {}
+    search: String
+    sortBy: [SortEventsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [EventOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Event!]
+  _eventMeta(
+    where: EventWhereInput! = {}
+    search: String
+    sortBy: [SortEventsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [EventOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use eventCount instead."
+    )
+  eventCount(where: EventWhereInput! = {}): Int
+  photo: Image
+}
+
+input MusicianWhereInput {
+  AND: [MusicianWhereInput!]
+  OR: [MusicianWhereInput!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  description: String
+  description_not: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_i: String
+  description_not_i: String
+  description_contains_i: String
+  description_not_contains_i: String
+  description_starts_with_i: String
+  description_not_starts_with_i: String
+  description_ends_with_i: String
+  description_not_ends_with_i: String
+  description_in: [String]
+  description_not_in: [String]
+  event_every: EventWhereInput
+  event_some: EventWhereInput
+  event_none: EventWhereInput
+  photo: ImageWhereInput
+  photo_is_null: Boolean
+}
+
+input MusicianWhereUniqueInput {
+  id: ID
+}
+
+enum SortMusiciansBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+}
+
+input MusicianOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  description: OrderDirection
+}
+
+input MusicianUpdateInput {
+  name: String
+  description: String
+  event: EventRelateToManyInput
+  photo: ImageRelateToOneInput
+}
+
+input MusiciansUpdateInput {
+  id: ID!
+  data: MusicianUpdateInput
+}
+
+input MusicianCreateInput {
+  name: String
+  description: String
+  event: EventRelateToManyInput
+  photo: ImageRelateToOneInput
+}
+
+input MusiciansCreateInput {
+  data: MusicianCreateInput
+}
+
+type Image {
+  id: ID!
+  image: CloudinaryImage_File
+  altText: String
+  event: Event
+  musician: Musician
+}
+
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
+}
+
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
+}
+
+input ImageWhereInput {
+  AND: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  image: String
+  image_not: String
+  image_in: [String]
+  image_not_in: [String]
+  altText: String
+  altText_not: String
+  altText_contains: String
+  altText_not_contains: String
+  altText_starts_with: String
+  altText_not_starts_with: String
+  altText_ends_with: String
+  altText_not_ends_with: String
+  altText_i: String
+  altText_not_i: String
+  altText_contains_i: String
+  altText_not_contains_i: String
+  altText_starts_with_i: String
+  altText_not_starts_with_i: String
+  altText_ends_with_i: String
+  altText_not_ends_with_i: String
+  altText_in: [String]
+  altText_not_in: [String]
+  event: EventWhereInput
+  event_is_null: Boolean
+  musician: MusicianWhereInput
+  musician_is_null: Boolean
+}
+
+input ImageWhereUniqueInput {
+  id: ID
+}
+
+enum SortImagesBy {
+  id_ASC
+  id_DESC
+  altText_ASC
+  altText_DESC
+}
+
+input ImageOrderByInput {
+  id: OrderDirection
+  altText: OrderDirection
+}
+
+input ImageUpdateInput {
+  image: Upload
+  altText: String
+  event: EventRelateToOneInput
+  musician: MusicianRelateToOneInput
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input EventRelateToOneInput {
+  create: EventCreateInput
+  connect: EventWhereUniqueInput
+  disconnect: EventWhereUniqueInput
+  disconnectAll: Boolean
+}
+
+input MusicianRelateToOneInput {
+  create: MusicianCreateInput
+  connect: MusicianWhereUniqueInput
+  disconnect: MusicianWhereUniqueInput
+  disconnectAll: Boolean
+}
+
+input ImagesUpdateInput {
+  id: ID!
+  data: ImageUpdateInput
+}
+
+input ImageCreateInput {
+  image: Upload
+  altText: String
+  event: EventRelateToOneInput
+  musician: MusicianRelateToOneInput
+}
+
+input ImagesCreateInput {
+  data: ImageCreateInput
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+  @specifiedBy(
+    url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
+  )
+
+type Mutation {
+  createUser(data: UserCreateInput): User
+  createUsers(data: [UsersCreateInput]): [User]
+  updateUser(id: ID!, data: UserUpdateInput): User
+  updateUsers(data: [UsersUpdateInput]): [User]
+  deleteUser(id: ID!): User
+  deleteUsers(ids: [ID!]): [User]
+  createEvent(data: EventCreateInput): Event
+  createEvents(data: [EventsCreateInput]): [Event]
+  updateEvent(id: ID!, data: EventUpdateInput): Event
+  updateEvents(data: [EventsUpdateInput]): [Event]
+  deleteEvent(id: ID!): Event
+  deleteEvents(ids: [ID!]): [Event]
+  createMusician(data: MusicianCreateInput): Musician
+  createMusicians(data: [MusiciansCreateInput]): [Musician]
+  updateMusician(id: ID!, data: MusicianUpdateInput): Musician
+  updateMusicians(data: [MusiciansUpdateInput]): [Musician]
+  deleteMusician(id: ID!): Musician
+  deleteMusicians(ids: [ID!]): [Musician]
+  createImage(data: ImageCreateInput): Image
+  createImages(data: [ImagesCreateInput]): [Image]
+  updateImage(id: ID!, data: ImageUpdateInput): Image
+  updateImages(data: [ImagesUpdateInput]): [Image]
+  deleteImage(id: ID!): Image
+  deleteImages(ids: [ID!]): [Image]
+  authenticateUserWithPassword(
+    email: String!
+    password: String!
+  ): UserAuthenticationWithPasswordResult!
+  createInitialUser(
+    data: CreateInitialUserInput!
+  ): UserAuthenticationWithPasswordSuccess!
+  sendUserPasswordResetLink(email: String!): SendUserPasswordResetLinkResult
+  redeemUserPasswordResetToken(
+    email: String!
+    token: String!
+    password: String!
+  ): RedeemUserPasswordResetTokenResult
+  endSession: Boolean!
+}
+
+union AuthenticatedItem = User
+
+union UserAuthenticationWithPasswordResult =
+    UserAuthenticationWithPasswordSuccess
+  | UserAuthenticationWithPasswordFailure
+
+type UserAuthenticationWithPasswordSuccess {
+  sessionToken: String!
+  item: User!
+}
+
+type UserAuthenticationWithPasswordFailure {
+  code: PasswordAuthErrorCode!
+  message: String!
+}
+
+enum PasswordAuthErrorCode {
+  FAILURE
+  IDENTITY_NOT_FOUND
+  SECRET_NOT_SET
+  MULTIPLE_IDENTITY_MATCHES
+  SECRET_MISMATCH
+}
+
+input CreateInitialUserInput {
+  name: String
+  email: String
+  password: String
+}
+
+type SendUserPasswordResetLinkResult {
+  code: PasswordResetRequestErrorCode!
+  message: String!
+}
+
+enum PasswordResetRequestErrorCode {
+  IDENTITY_NOT_FOUND
+  MULTIPLE_IDENTITY_MATCHES
+}
+
+type ValidateUserPasswordResetTokenResult {
+  code: PasswordResetRedemptionErrorCode!
+  message: String!
+}
+
+type RedeemUserPasswordResetTokenResult {
+  code: PasswordResetRedemptionErrorCode!
+  message: String!
+}
+
+enum PasswordResetRedemptionErrorCode {
+  FAILURE
+  IDENTITY_NOT_FOUND
+  MULTIPLE_IDENTITY_MATCHES
+  TOKEN_NOT_SET
+  TOKEN_MISMATCH
+  TOKEN_EXPIRED
+  TOKEN_REDEEMED
+}
+
+type Query {
+  allUsers(
+    where: UserWhereInput! = {}
+    search: String
+    sortBy: [SortUsersBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [UserOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [User!]
+  User(where: UserWhereUniqueInput!): User
+  _allUsersMeta(
+    where: UserWhereInput! = {}
+    search: String
+    sortBy: [SortUsersBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [UserOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use usersCount instead."
+    )
+  usersCount(where: UserWhereInput! = {}): Int
+  allEvents(
+    where: EventWhereInput! = {}
+    search: String
+    sortBy: [SortEventsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [EventOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Event!]
+  Event(where: EventWhereUniqueInput!): Event
+  _allEventsMeta(
+    where: EventWhereInput! = {}
+    search: String
+    sortBy: [SortEventsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [EventOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use eventsCount instead."
+    )
+  eventsCount(where: EventWhereInput! = {}): Int
+  allMusicians(
+    where: MusicianWhereInput! = {}
+    search: String
+    sortBy: [SortMusiciansBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [MusicianOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Musician!]
+  Musician(where: MusicianWhereUniqueInput!): Musician
+  _allMusiciansMeta(
+    where: MusicianWhereInput! = {}
+    search: String
+    sortBy: [SortMusiciansBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [MusicianOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use musiciansCount instead."
+    )
+  musiciansCount(where: MusicianWhereInput! = {}): Int
+  allImages(
+    where: ImageWhereInput! = {}
+    search: String
+    sortBy: [SortImagesBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [ImageOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Image!]
+  Image(where: ImageWhereUniqueInput!): Image
+  _allImagesMeta(
+    where: ImageWhereInput! = {}
+    search: String
+    sortBy: [SortImagesBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [ImageOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use imagesCount instead."
+    )
+  imagesCount(where: ImageWhereInput! = {}): Int
+  authenticatedItem: AuthenticatedItem
+  validateUserPasswordResetToken(
+    email: String!
+    token: String!
+  ): ValidateUserPasswordResetTokenResult
+  keystone: KeystoneMeta!
+}
+
+type KeystoneMeta {
+  adminMeta: KeystoneAdminMeta!
+}
+
+type KeystoneAdminMeta {
+  enableSignout: Boolean!
+  enableSessionItem: Boolean!
+  lists: [KeystoneAdminUIListMeta!]!
+  list(key: String!): KeystoneAdminUIListMeta
+}
+
+type KeystoneAdminUIListMeta {
+  key: String!
+  itemQueryName: String!
+  listQueryName: String!
+  hideCreate: Boolean!
+  hideDelete: Boolean!
+  path: String!
+  label: String!
+  singular: String!
+  plural: String!
+  description: String
+  initialColumns: [String!]!
+  pageSize: Int!
+  labelField: String!
+  fields: [KeystoneAdminUIFieldMeta!]!
+  initialSort: KeystoneAdminUISort
+  isHidden: Boolean!
+}
+
+type KeystoneAdminUIFieldMeta {
+  path: String!
+  label: String!
+  isOrderable: Boolean!
+  fieldMeta: JSON
+  viewsIndex: Int!
+  customViewsIndex: Int
+  createView: KeystoneAdminUIFieldMetaCreateView!
+  listView: KeystoneAdminUIFieldMetaListView!
+  itemView(id: ID!): KeystoneAdminUIFieldMetaItemView
+  search: QueryMode
+}
+
+type KeystoneAdminUIFieldMetaCreateView {
+  fieldMode: KeystoneAdminUIFieldMetaCreateViewFieldMode!
+}
+
+enum KeystoneAdminUIFieldMetaCreateViewFieldMode {
+  edit
+  hidden
+}
+
+type KeystoneAdminUIFieldMetaListView {
+  fieldMode: KeystoneAdminUIFieldMetaListViewFieldMode!
+}
+
+enum KeystoneAdminUIFieldMetaListViewFieldMode {
+  read
+  hidden
+}
+
+type KeystoneAdminUIFieldMetaItemView {
+  fieldMode: KeystoneAdminUIFieldMetaItemViewFieldMode!
+}
+
+enum KeystoneAdminUIFieldMetaItemViewFieldMode {
+  edit
+  read
+  hidden
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+type KeystoneAdminUISort {
+  field: String!
+  direction: KeystoneAdminUISortDirection!
+}
+
+enum KeystoneAdminUISortDirection {
+  ASC
+  DESC
+}

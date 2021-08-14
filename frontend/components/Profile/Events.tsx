@@ -5,8 +5,10 @@ import gql from 'graphql-tag'
 import { useUserGlobal } from '../../lib/useUser'
 import DisplayError from '../ErrorMessage'
 import EventItem from './EventItem'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
 import EventsLoader from './EventsLoader'
+import { useState } from 'react'
+import AnimatedEvent from './AnimatedEvent'
 
 export const USER_EVENT_QUERY = gql`
    query USER_EVENT_QUERY($id: ID!) {
@@ -42,6 +44,9 @@ const Events = ({ controls }) => {
       },
    })
 
+   const [selectedIdEvent, setSelectedIdEvent] = useState(undefined)
+   const currentEvent = data?.allEvents.find(i => i.id == selectedIdEvent)
+
    if (loading) {
       return <EventsLoader />
    }
@@ -50,16 +55,29 @@ const Events = ({ controls }) => {
       <EventStyles>
          {error && <DisplayError error={error} />}
          {data?.allEvents.length == 0 && <p>Nothing to show!</p>}
-         <AnimatePresence>
-            {data?.allEvents.map((item, i) => (
-               <EventItem
-                  custom={i}
-                  controls={controls}
-                  key={item.id}
-                  item={item}
-               />
-            ))}
-         </AnimatePresence>
+         <AnimateSharedLayout type="crossfade">
+            <AnimatePresence>
+               {data?.allEvents.map((item, i) => (
+                  <EventItem
+                     custom={i}
+                     controls={controls}
+                     key={item.id}
+                     item={item}
+                     setSelectedIdEvent={setSelectedIdEvent}
+                     selectedIdEvent={selectedIdEvent}
+                  />
+               ))}
+            </AnimatePresence>
+            <AnimatePresence>
+               {selectedIdEvent && (
+                  <AnimatedEvent
+                     setSelectedIdEvent={setSelectedIdEvent}
+                     selectedIdEvent={selectedIdEvent}
+                     currentEvent={currentEvent}
+                  />
+               )}
+            </AnimatePresence>
+         </AnimateSharedLayout>
       </EventStyles>
    )
 }

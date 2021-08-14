@@ -1,10 +1,7 @@
 import 'dotenv/config'
 import { config, createSchema } from '@keystone-next/keystone/schema'
 import { createAuth } from '@keystone-next/auth'
-import {
-   withItemData,
-   statelessSessions,
-} from '@keystone-next/keystone/session'
+import { statelessSessions } from '@keystone-next/keystone/session'
 import { User } from './schemas/User'
 import { Event } from './schemas/Event'
 import { Image } from './schemas/Image'
@@ -25,8 +22,11 @@ const { withAuth } = createAuth({
    listKey: 'User',
    identityField: 'email',
    secretField: 'password',
+   sessionData: 'id name email',
    initFirstItem: {
       fields: ['name', 'email', 'password'],
+      // itemData: { isAdmin: true },
+      skipKeystoneWelcome: false,
    },
    passwordResetLink: {
       async sendToken(args) {
@@ -46,6 +46,8 @@ export default withAuth(
       db: {
          adapter: 'prisma_postgresql',
          url: databaseURL,
+         idField: { kind: 'uuid' },
+         // useMigrations: true,
          async onConnect(keystone) {
             if (process.argv.includes('--seed-data')) {
                await insertSeedData(keystone)
@@ -63,8 +65,6 @@ export default withAuth(
             return !!session?.data
          },
       },
-      session: withItemData(statelessSessions(sessionConfig), {
-         User: `id name email`,
-      }),
+      session: statelessSessions(sessionConfig),
    })
 )

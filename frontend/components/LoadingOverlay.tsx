@@ -1,12 +1,14 @@
 import { CgSpinner } from 'react-icons/cg'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const Overlay = ({ children }) => (
+const Overlay = ({ children, overlay }) => (
    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="absolute inset-0 z-40 bg-white bg-opacity-80 flex items-center justify-center text-black"
+      className={`${
+         overlay && 'bg-white'
+      } absolute inset-0 z-40 bg-opacity-80 flex items-center justify-center text-black`}
    >
       {children}
    </motion.div>
@@ -22,11 +24,16 @@ const Loading = () => (
    </motion.div>
 )
 
-const LoadingOverlay = ({ loading }: { loading: boolean }) => {
+interface ILoadingOverlay {
+   loading: boolean
+   overlay?: boolean
+}
+
+const LoadingOverlay = ({ loading, overlay = true }: ILoadingOverlay) => {
    return (
       <AnimatePresence>
          {loading && (
-            <Overlay>
+            <Overlay overlay={overlay}>
                <Loading />
             </Overlay>
          )}
