@@ -47,7 +47,7 @@ export default withAuth(
          adapter: 'prisma_postgresql',
          url: databaseURL,
          idField: { kind: 'uuid' },
-         // useMigrations: true,
+         useMigrations: true,
          async onConnect(keystone) {
             if (process.argv.includes('--seed-data')) {
                await insertSeedData(keystone)
