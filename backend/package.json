@@ -8,6 +8,7 @@
       "dev": "keystone-next",
       "reset": "keystone-next dev --reset-db",
       "deploy": "keystone-next build && keystone-next prisma migrate deploy",
+      "migrate": "keystone-next prisma db push",
       "postinstall": "keystone-next postinstall",
       "start": "keystone-next start",
       "build": "keystone-next build"

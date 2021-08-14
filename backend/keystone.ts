@@ -46,8 +46,8 @@ export default withAuth(
       db: {
          adapter: 'prisma_postgresql',
          url: databaseURL,
-         idField: { kind: 'autoincrement' },
-         useMigrations: true,
+         idField: { kind: 'uuid' },
+         // useMigrations: true,
          async onConnect(keystone) {
             if (process.argv.includes('--seed-data')) {
                await insertSeedData(keystone)
@@ -66,8 +66,5 @@ export default withAuth(
          },
       },
       session: statelessSessions(sessionConfig),
-      // session: withItemData(statelessSessions(sessionConfig), {
-      //    User: `id name email`,
-      // }),
    })
 )
