@@ -6,6 +6,7 @@
    "license": "MIT",
    "scripts": {
       "dev": "keystone-next",
+      "reset": "keystone-next dev --reset-db",
       "deploy": "keystone-next build && keystone-next prisma migrate deploy",
       "postinstall": "keystone-next postinstall",
       "start": "keystone-next start",
