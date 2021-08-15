@@ -54,15 +54,15 @@ const Profile = (props: IProfile) => {
    const { user, loading } = useUserGlobal()
    const router = useRouter()
 
-   useEffect(() => {
-      if (!user && !loading) {
-         router.push('/')
-      }
-   }, [user])
+   // useEffect(() => {
+   //    if (!user && !loading) {
+   //       router.push('/')
+   //    }
+   // }, [user])
 
-   if (!user && !loading) {
-      return <Redirect />
-   }
+   // if (!user && !loading) {
+   //    return <Redirect />
+   // }
 
    return (
       <>
