@@ -1,0 +1,49 @@
+datasource postgresql {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "node_modules/.prisma/client"
+}
+
+model User {
+  id                      String    @id @default(uuid()) @postgresql.Uuid
+  name                    String?
+  email                   String?   @unique
+  password                String?
+  event                   Event[]   @relation("Event_user_User_event")
+  passwordResetToken      String?
+  passwordResetIssuedAt   DateTime?
+  passwordResetRedeemedAt DateTime?
+}
+
+model Event {
+  id          String     @id @default(uuid()) @postgresql.Uuid
+  name        String?
+  time        DateTime?
+  place       String?
+  description String?
+  musician    Musician[] @relation("Event_musician_Musician_event")
+  photo       Image?     @relation("Event_photo", fields: [photoId], references: [id])
+  photoId     String?    @unique @map("photo") @postgresql.Uuid
+  user        User[]     @relation("Event_user_User_event")
+}
+
+model Musician {
+  id          String  @id @default(uuid()) @postgresql.Uuid
+  name        String?
+  description String?
+  event       Event[] @relation("Event_musician_Musician_event")
+  photo       Image?  @relation("Image_musician")
+}
+
+model Image {
+  id         String    @id @default(uuid()) @postgresql.Uuid
+  image      Json?
+  altText    String?
+  event      Event?    @relation("Event_photo")
+  musician   Musician? @relation("Image_musician", fields: [musicianId], references: [id])
+  musicianId String?   @unique @map("musician") @postgresql.Uuid
+}

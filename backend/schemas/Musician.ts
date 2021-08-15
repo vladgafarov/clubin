@@ -3,7 +3,11 @@ import { relationship, text } from '@keystone-next/fields'
 
 export const Musician = list({
    fields: {
-      name: text({ isRequired: true, ui: { description: 'Name of artist' } }),
+      name: text({
+         isRequired: true,
+         label: 'Name of artist',
+         // ui: { description: 'Name of artist' }
+      }),
       description: text({
          ui: {
             displayMode: 'textarea',
