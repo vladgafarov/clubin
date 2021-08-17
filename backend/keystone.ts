@@ -6,7 +6,6 @@ import { User } from './schemas/User'
 import { Event } from './schemas/Event'
 import { Image } from './schemas/Image'
 import { Musician } from './schemas/Musician'
-import { insertSeedData } from './seed-data'
 import { sendPasswordResetEmail } from './lib/mail'
 
 const databaseURL =
@@ -44,15 +43,11 @@ export default withAuth(
          },
       },
       db: {
-         adapter: 'prisma_postgresql',
+         // adapter: 'prisma_postgresql',
+         provider: 'postgresql',
          url: databaseURL,
          idField: { kind: 'uuid' },
          useMigrations: true,
-         async onConnect(keystone) {
-            if (process.argv.includes('--seed-data')) {
-               await insertSeedData(keystone)
-            }
-         },
       },
       lists: createSchema({
          User,
