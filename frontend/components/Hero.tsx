@@ -35,7 +35,7 @@ const Hero = () => {
             <p className="font-pm text-lg">IT’S NOT JUST LOVE FOR MUSIC</p>
 
             <h1 className="text-6xl md:text-7xl text-blue-400 font-pb py-6">
-               Feel The Rhythm
+               Feel The Rhythm testing
             </h1>
             <Link to="events" smooth={true} offset={-100}>
                <Button className="mt-4" isGradient>
