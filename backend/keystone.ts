@@ -61,5 +61,10 @@ export default withAuth(
          },
       },
       session: statelessSessions(sessionConfig),
+      graphql: {
+         apolloConfig: {
+            playground: true,
+         },
+      },
    })
 )
