@@ -16,6 +16,8 @@
       "@apollo/link-error": "^2.0.0-beta.3",
       "@apollo/react-ssr": "^4.0.0",
       "@chakra-ui/react": "^1.6.5",
+      "@emotion/react": "^11.4.1",
+      "@emotion/styled": "^11.3.0",
       "@plaiceholder/next": "^2.1.0",
       "@tailwindcss/line-clamp": "^0.2.1",
       "@tippyjs/react": "^4.2.5",
